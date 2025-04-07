@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import TimelineItem from './TimelineItem';
 
 interface Education {
@@ -14,6 +14,7 @@ interface Education {
 
 const EducationCard: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
   
   // Define full education list with achievements
   const educations: Education[] = [
@@ -27,7 +28,6 @@ const EducationCard: React.FC = () => {
         "McGill Formula Electric",
         "VP of Moroccan Student Association",
         "Excellence Bursary for Computer Science, Computer Engineering and Computer Construction, and Electrical, Electronic and Communications Engineering",
-        
       ],
       isFirst: true,
       isActive: true
@@ -46,48 +46,42 @@ const EducationCard: React.FC = () => {
   
   return (
     <div 
-      className="education-card flex flex-col"
+      ref={cardRef}
+      className="glass-card hover-scale h-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="mb-4">
-        <h2 className="text-sm font-medium text-gray-700">My Education</h2>
-        {!isHovered && (
-          <p className="text-[10px] text-blue-400 mt-1">    </p>
-        )}
-      </div>
-      
-      <div className="flex-grow relative overflow-hidden rounded-2xl bg-white">
-        <div className={`timeline-container transition-all duration-800 ease-in-out`}
-             style={{ 
-               maxHeight: isHovered ? '800px' : '180px',
-               transform: isHovered ? 'translateX(0)' : 'translateX(10px)', 
-               opacity: isHovered ? 1 : 0.95,
-               transition: 'all 500ms cubic-bezier(0.4, 0, 0.2, 1)'
-             }}>
-          {educations.map((edu, index) => (
-            <TimelineItem
-              key={index}
-              title={edu.title}
-              period={edu.period}
-              achievements={edu.achievements}
-              isActive={edu.isActive}
-              isFirst={edu.isFirst}
-              isLast={edu.isLast}
-              isEducation={true}
-            />
-          ))}
+      <div className="p-6 h-full flex flex-col">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-sm font-semibold text-black dark:text-white">Education</h2>
+          <span className="text-xs text-gray-500 dark:text-gray-400">2017—2025</span>
         </div>
         
-        {/* Indicator to show there are more items */}
-        {!isHovered && (
-          <>
-            <div className="education-fade" />
-            <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-1 z-10">
-              <span className="text-[10px] text-blue-400 transition-opacity duration-500"></span>
-            </div>
-          </>
-        )}
+        <div className="flex-grow overflow-hidden no-scrollbar">
+          <div 
+            className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]`}
+            style={{ 
+              maxHeight: isHovered ? '100%' : '100%',
+              transform: isHovered ? 'translateX(0)' : 'translateX(5px)', 
+              opacity: isHovered ? 1 : 0.95,
+              transition: 'all 500ms cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+          >
+            {educations.map((edu, index) => (
+              <TimelineItem
+                key={index}
+                title={edu.title}
+                period={edu.period}
+                achievements={edu.achievements}
+                isActive={edu.isActive}
+                isFirst={edu.isFirst}
+                isLast={edu.isLast}
+                isEducation={true}
+                expandedByDefault={true}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

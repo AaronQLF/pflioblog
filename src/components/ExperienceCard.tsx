@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import TimelineItem from './TimelineItem';
 
 const ExperienceCard: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
   
   // Define full experience list
   const experiences = [
@@ -39,37 +40,40 @@ const ExperienceCard: React.FC = () => {
   
   return (
     <div 
-      className="experience-card flex flex-col"
+      ref={cardRef}
+      className="glass-card hover-scale h-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="mb-4">
-        <h2 className="text-sm font-medium text-gray-700">My Professional Journey</h2>
-      </div>
-      
-      <div className="flex-grow relative overflow-hidden rounded-2xl bg-white">
-        <div className={`timeline-container transition-all duration-1000 ease-in-out ${isHovered ? 'max-h-[800px]' : 'max-h-[150px]'}`}>
-          {experiences.map((exp, index) => (
-            <TimelineItem
-              key={index}
-              title={exp.title}
-              period={exp.period}
-              isActive={exp.isActive}
-              isFirst={exp.isFirst}
-              isLast={exp.isLast}
-            />
-          ))}
+      <div className="p-6 h-full flex flex-col">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-sm font-semibold text-black dark:text-white">Experience</h2>
+          <span className="text-xs text-gray-500 dark:text-gray-400">2022—Present</span>
         </div>
         
-        {/* Indicator to show there are more items */}
-        {!isHovered && (
-          <>
-            <div className="experience-fade" />
-            <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-1 z-10">
-              <span className="text-[10px] text-gray-400 transition-opacity duration-500"></span>
-            </div>
-          </>
-        )}
+        <div className="flex-grow overflow-hidden no-scrollbar">
+          <div 
+            className="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            style={{
+              maxHeight: '100%', 
+              transform: isHovered ? 'translateX(0)' : 'translateX(5px)',
+              opacity: isHovered ? 1 : 0.95,
+              transition: 'all 500ms cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+          >
+            {experiences.map((exp, index) => (
+              <TimelineItem
+                key={index}
+                title={exp.title}
+                period={exp.period}
+                isActive={exp.isActive}
+                isFirst={exp.isFirst}
+                isLast={exp.isLast}
+                expandedByDefault={true}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

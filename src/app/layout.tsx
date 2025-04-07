@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "../context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Haroun Guessous | Portfolio",
@@ -12,15 +13,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body>
-        <div className="min-h-screen bg-white">
-          <main>{children}</main>
-        </div>
+        <ThemeProvider>
+          <main className="transition-colors duration-300">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );
