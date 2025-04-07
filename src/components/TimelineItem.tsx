@@ -28,7 +28,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   
   return (
     <div 
-      className="relative pl-6 pb-3"
+      className={`relative pl-6 pb-3 ${isFirst ? 'pt-1' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
