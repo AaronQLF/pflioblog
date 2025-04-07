@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import ContactButton from './ContactButton';
+import Link from 'next/link';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -21,7 +22,7 @@ const Header = () => {
     }`}>
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <a href="/" className="text-xl font-semibold text-gray-900 dark:text-white">HG</a>
+          <Link href="/" className="text-xl font-semibold text-gray-900 dark:text-white">HG</Link>
         </div>
         
         <nav className="hidden md:flex space-x-8">
