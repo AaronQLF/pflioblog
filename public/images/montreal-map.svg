@@ -1,0 +1,26 @@
+<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="300" fill="#f8f8f8" />
+  
+  <!-- Simple map grid lines -->
+  <line x1="50" y1="50" x2="450" y2="50" stroke="#ddd" stroke-width="1" />
+  <line x1="50" y1="100" x2="450" y2="100" stroke="#ddd" stroke-width="1" />
+  <line x1="50" y1="150" x2="450" y2="150" stroke="#ddd" stroke-width="1" />
+  <line x1="50" y1="200" x2="450" y2="200" stroke="#ddd" stroke-width="1" />
+  <line x1="50" y1="250" x2="450" y2="250" stroke="#ddd" stroke-width="1" />
+  
+  <line x1="50" y1="50" x2="50" y2="250" stroke="#ddd" stroke-width="1" />
+  <line x1="150" y1="50" x2="150" y2="250" stroke="#ddd" stroke-width="1" />
+  <line x1="250" y1="50" x2="250" y2="250" stroke="#ddd" stroke-width="1" />
+  <line x1="350" y1="50" x2="350" y2="250" stroke="#ddd" stroke-width="1" />
+  <line x1="450" y1="50" x2="450" y2="250" stroke="#ddd" stroke-width="1" />
+  
+  <!-- Simple path representing Montreal -->
+  <path d="M150,100 C200,80 250,90 300,110 S350,140 400,130 M400,130 C350,160 300,180 250,170 S180,130 150,100" 
+        fill="none" stroke="#333" stroke-width="2" />
+        
+  <!-- Location marker -->
+  <circle cx="250" cy="150" r="8" fill="#FF6B00" />
+  
+  <!-- Title -->
+  <text x="250" y="280" font-family="Arial" font-size="16" font-weight="bold" fill="#333" text-anchor="middle">MONTREAL</text>
+</svg> 
