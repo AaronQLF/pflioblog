@@ -26,13 +26,13 @@ const ProjectsCard: React.FC = () => {
         title: "TravelMate",
         description: "Travel Website that use a custom transformer based machine learning model to find crafted travel itiniraries for users based on their mood, when/where and a description of ideal trip.",
         technologies: ["Node.js", "Express", "MongoDB", "React","Tailwind CSS","Python","Flask","Hugging Face"],
-        image: "/images/projects/travelmate.png",
+        image: "./images/projects/travelmate.png",
       },
     {
       title: "C++ Online fps",
       description: "First person shooter playground game with AI enemy behavior and multiplayer support. Built with OpenGL for rendering and a custom physics engine for collision detection.",
       technologies: ["C++", "OpenGL", "Lua", "GLSL"],
-      image: "/images/projects/cpp.png",
+      image: "./images/projects/cpp.png",
       link: "https://github.com/AaronQLF/CppFirstShooter"
     }
   ];

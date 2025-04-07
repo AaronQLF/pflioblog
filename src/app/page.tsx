@@ -18,7 +18,7 @@ export default function Home() {
             <h1 className="text-6xl font-bold dark:text-white">Hi, I&apos;m</h1>
             <div className="relative">
         <Image
-                src="/images/profile.jpg" 
+                src="./images/profile.jpg" 
                 alt="Haroun Guessous" 
                 width={90} 
                 height={90} 

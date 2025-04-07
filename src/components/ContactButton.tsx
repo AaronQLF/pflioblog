@@ -69,7 +69,7 @@ const ContactButton = () => {
       <div className="flex gap-2">
         {/* Resume Download Button */}
         <a 
-          href="/resume.pdf" 
+          href="./resume.pdf" 
           download
           className="bg-black hover:bg-opacity-80 dark:bg-white dark:text-black text-white text-sm py-2 px-4 rounded-full transition-all duration-300 font-medium flex items-center gap-2"
         >
