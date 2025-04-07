@@ -1,80 +1,79 @@
 "use client";
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 
 const MontrealMapCard: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
   
   return (
     <div 
-      className="experience-card"
+      className="experience-card flex flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative pb-[80%] w-full mb-4 rounded-2xl overflow-hidden">
-        {/* Map Label */}
-        <div className="absolute z-10 top-4 left-4 bg-white rounded-full px-3 py-1 shadow-sm">
-          <span className="text-sm font-medium">Map</span>
-        </div>
+      <div className="mb-4">
+        <h2 className="text-sm font-medium text-gray-700">Map</h2>
+      </div>
+      
+      <div className="flex-grow relative bg-[#242424] rounded-lg overflow-hidden">
+        {/* Grid overlay */}
+        <div className="absolute inset-0 bg-grid-overlay"></div>
         
-        {/* Montreal Map - Dark Style */}
-        <div className="absolute inset-0 bg-[#242424]">
-          {/* Dark Background with Grid */}
-          <div className="absolute inset-0 bg-grid-overlay"></div>
+        {/* Map SVG */}
+        <svg width="100%" height="100%" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Water */}
+          <path 
+            d="M0 0 H400 V300 H0 Z" 
+            fill="#1c1c1c"
+            className={`transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-90'}`}
+          />
           
-          {/* Simple map representation */}
-          <div className={`absolute inset-0 transition-all duration-500 ${isHovered ? 'opacity-100' : 'opacity-90'}`}>
-            <svg viewBox="0 0 800 600" className="w-full h-full">
-              {/* Water */}
-              <path 
-                d="M100,300 Q250,150 400,300 T700,300 V600 H100 Z" 
-                fill="#384045" 
-                className="transition-all duration-700"
-              />
-              
-              {/* Land */}
-              <path 
-                d="M100,300 Q250,450 400,300 T700,300 V100 H100 Z" 
-                fill="#2A2A2A" 
-                className="transition-all duration-700"
-              />
-              
-              {/* Roads */}
-              <path 
-                d="M200,100 L600,500 M300,100 L700,500 M100,300 L700,300 M400,100 L400,500" 
-                stroke="#444444" 
-                strokeWidth="2"
-                className="transition-all duration-700"
-              />
-              
-              {/* Montreal Island Shape - simplified */}
-              <path 
-                d="M300,250 Q350,200 400,250 T500,250 Q520,280 500,320 T400,350 Q350,330 300,350 T200,300 Q250,250 300,250 Z" 
-                fill="#292929" 
-                stroke="#444444" 
-                strokeWidth="1"
-                className={`transition-all duration-700 ${isHovered ? 'fill-[#303030]' : ''}`}
-              />
-            </svg>
-          </div>
+          {/* Montreal Island */}
+          <path 
+            d="M100 150 C120 120 180 100 220 130 C260 160 280 170 300 150 C320 130 300 200 280 220 C260 240 200 250 160 230 C120 210 80 180 100 150 Z" 
+            fill="#242424" 
+            stroke="#333" 
+            strokeWidth="1"
+            className={`transition-transform duration-300 ${isHovered ? 'scale-105' : 'scale-100'}`}
+          />
           
-          {/* Pin for Montreal */}
-          <div className="absolute top-[45%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-10 transition-all duration-300">
-            <div className="w-3 h-3 bg-white rounded-full shadow-lg"></div>
-            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-white"></div>
+          {/* Roads */}
+          <path d="M140 140 L260 160" stroke="#333" strokeWidth="0.5" />
+          <path d="M180 120 L200 220" stroke="#333" strokeWidth="0.5" />
+          <path d="M120 160 L240 220" stroke="#333" strokeWidth="0.5" />
+          <path d="M220 130 L240 180" stroke="#333" strokeWidth="0.5" />
+          <path d="M160 200 L260 180" stroke="#333" strokeWidth="0.5" />
+        </svg>
+        
+        {/* Montreal Pin & Label */}
+        <div 
+          className={`absolute left-[50%] top-[45%] -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${isHovered ? 'scale-110' : ''}`}
+        >
+          {/* Pin */}
+          <div className="relative">
+            {/* Pin base */}
+            <div 
+              className="w-6 h-6 bg-white rounded-full shadow-lg transform-gpu transition-transform duration-300 hover:scale-110 hover:shadow-xl z-10 flex items-center justify-center relative"
+            >
+              {/* Pulsing circle on hover */}
+              {isHovered && (
+                <div className="absolute w-10 h-10 bg-white/30 rounded-full animate-ping"></div>
+              )}
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            </div>
             
-            {/* Pulsing circle */}
-            {isHovered && (
-              <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-10 montreal-pin-pulse"></div>
-            )}
+            {/* Montreal label */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 text-center">
+              <p className="text-white text-xs font-medium whitespace-nowrap">Montreal</p>
+              <p className="text-gray-400 text-[8px]">Canada</p>
+              <p className="text-gray-500 text-[7px] mt-1">45.5017° N, 73.5673° W</p>
+            </div>
           </div>
         </div>
       </div>
-      <div className="text-center py-2">
-        <h3 className="font-medium text-lg tracking-[0.2em]">M O N T R E A L</h3>
-        <p className="text-xs text-gray-400 mt-1 tracking-[0.1em]">C A N A D A</p>
-        <p className="text-[10px] text-gray-400 mt-2">45.5017° N, 73.5673° W</p>
+      
+      <div className="mt-4">
+        <p className="text-xs text-gray-500">I&apos;ve lived in Montreal since 2018. It&apos;s a city that balances European charm with North American practicality.</p>
       </div>
     </div>
   );
