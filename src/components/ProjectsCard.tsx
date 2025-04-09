@@ -26,14 +26,14 @@ const ProjectsCard: React.FC = () => {
         title: "TravelMate",
         description: "Travel Website that use a custom transformer based machine learning model to find crafted travel itiniraries for users based on their mood, when/where and a description of ideal trip.",
         technologies: ["Node.js", "Express", "MongoDB", "React","Tailwind CSS","Python","Flask","Hugging Face"],
-        image: "./images/projects/travelmate.png",
+        image: "/images/projects/travelmate.png",
       },
     {
       title: "C++ Online fps",
       description: "First person shooter playground game with AI enemy behavior and multiplayer support. Built with OpenGL for rendering and a custom physics engine for collision detection.",
       technologies: ["C++", "OpenGL", "Lua", "GLSL"],
-      image: "./images/projects/cpp.png",
-      link: "https://github.com/AaronQLF/CppFirstShooter"
+      image: "/images/projects/cpp.png",
+      link: "https://github.com/harounguessous/CppFirstShooter"
     }
   ];
 
@@ -110,7 +110,7 @@ const ProjectsCard: React.FC = () => {
           </button>
           
           <a 
-            href="https://github.com/AaronQLF" 
+            href="https://github.com/harounguessous" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-xs text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors flex items-center"
