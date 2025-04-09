@@ -98,7 +98,7 @@ const BooksCard: React.FC = () => {
         
         <div className="mt-3 pt-2 border-t border-gray-100/30 dark:border-zinc-700/30">
           <a 
-            href="https://www.goodreads.com/" 
+            href="https://www.goodreads.com/user/show/150192618-haroun-guessous" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[10px] text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors flex items-center justify-center"
