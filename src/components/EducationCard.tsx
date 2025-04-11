@@ -28,6 +28,9 @@ const EducationCard: React.FC = () => {
         "McGill Formula Electric",
         "VP of Moroccan Student Association",
         "Excellence Bursary for Computer Science, Computer Engineering and Computer Construction, and Electrical, Electronic and Communications Engineering",
+        "Rubin Gruber Scholarship",
+        "McGill merit-based Entrance Scolarship",
+        "James McGill Award recipiant for high academic standing"
       ],
       isFirst: true,
       isActive: true
