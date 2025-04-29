@@ -110,7 +110,7 @@ const ProjectsCard: React.FC = () => {
           </button>
           
           <a 
-            href="https://github.com/harounguessous" 
+            href="https://github.com/AaronQLF" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-xs text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors flex items-center"
