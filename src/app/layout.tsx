@@ -4,7 +4,7 @@ import { ThemeProvider } from "../context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Haroun Guessous | Portfolio",
-  description: "Software Engineer at CDPQ",
+  description: "Quantitative Researcher at CDPQ",
 };
 
 export default function RootLayout({

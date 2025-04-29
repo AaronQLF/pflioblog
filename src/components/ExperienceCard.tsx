@@ -10,13 +10,13 @@ const ExperienceCard: React.FC = () => {
   // Define full experience list
   const experiences = [
     {
-      title: "Software Engineer at CDPQ",
+      title: "Quantitative Researcher at CDPQ",
       period: "January 2025 - Hybrid - Full time",
       isFirst: true,
       isActive: true
     },
     {
-      title: "Software Engineer intern at CDPQ",
+      title: "Quantitative Researcher intern at CDPQ",
       period: "Winter 2024 - Hybrid - Full time",
     },
     {
