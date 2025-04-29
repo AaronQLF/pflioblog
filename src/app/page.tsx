@@ -43,29 +43,29 @@ export default function Home() {
 
       {/* Cards Grid */}
       <section className="container py-12">
-        <div className="grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* First Row: Experience and Projects */}
-          <div className="col-span-12 grid grid-cols-12 gap-6 h-[320px]">
-            <div id="experience" className="col-span-4 h-full">
+          <div className="col-span-1 md:col-span-12 grid grid-cols-1 md:grid-cols-12 gap-6 md:h-[320px]">
+            <div id="experience" className="col-span-1 md:col-span-4 h-full">
               <ExperienceCard />
             </div>
             
-            <div id="projects" className="col-span-8 h-full">
+            <div id="projects" className="col-span-1 md:col-span-8 h-full mt-6 md:mt-0">
               <ProjectsCard />
             </div>
           </div>
           
           {/* Second Row: Education, Map and Books Cards */}
-          <div className="col-span-12 grid grid-cols-12 gap-6 mt-6 h-[320px]">
-            <div id="education" className="col-span-4 h-full">
+          <div className="col-span-1 md:col-span-12 grid grid-cols-1 md:grid-cols-12 gap-6 mt-6 md:h-[320px]">
+            <div id="education" className="col-span-1 md:col-span-4 h-full">
               <EducationCard />
             </div>
             
-            <div id="about" className="col-span-4 h-full">
+            <div id="about" className="col-span-1 md:col-span-4 h-full mt-6 md:mt-0">
               <MontrealMapCard />
             </div>
             
-            <div className="col-span-4 h-full">
+            <div className="col-span-1 md:col-span-4 h-full mt-6 md:mt-0">
               <BooksCard />
             </div>
           </div>
