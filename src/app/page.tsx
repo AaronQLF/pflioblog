@@ -29,7 +29,7 @@ export default function Home() {
           </div>
           <div className="mb-4">
             <p className="text-5xl mb-2">
-              <span className="text-slate-400 dark:text-slate-300">I&apos;m a</span> <span className="font-medium dark:text-white">Quantitative Researcher</span> <span className="text-slate-400 dark:text-slate-300">at</span>
+              <span className="text-slate-400 dark:text-slate-300">I&apos;m a</span> <span className="font-medium dark:text-white">Software Engineer</span> <span className="text-slate-400 dark:text-slate-300">at</span>
             </p>
             <p className="text-6xl font-bold text-primary">CDPQ.</p>
           </div>
