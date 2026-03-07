@@ -25,9 +25,9 @@ const Header = () => {
         </div>
 
         <nav className="hidden md:flex space-x-8">
-          <a href="#experience" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Experience</a>
-          <a href="#projects" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Projects</a>
-          <a href="#education" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Education</a>
+          <a href="/#experience" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Experience</a>
+          <a href="/#projects" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Projects</a>
+          <a href="/#education" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Education</a>
           <Link href="/blog" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Blog</Link>
         </nav>
 
