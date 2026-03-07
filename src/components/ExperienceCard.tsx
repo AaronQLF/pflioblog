@@ -6,56 +6,101 @@ import TimelineItem from './TimelineItem';
 const ExperienceCard: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  
-  // Define full experience list
+
   const experiences = [
     {
-      title: "Software Engineer at CDPQ",
-      period: "January 2025 - Hybrid - Full time",
+      title: "R&D Engineering Lead",
+      company: "Stingray Digital",
+      period: "Feb 2026 – Present · Full-time",
       isFirst: true,
-      isActive: true
+      isActive: true,
+      achievements: [
+        "Led development of an internal LLM-powered engineering assistant using RAG pipelines and custom agent tools",
+        "Designed and implemented custom AI agent toolchains (LangChain-based) integrating internal APIs and knowledge bases",
+        "Built a real-time AI voice synthesis pipeline for radio content generation and broadcast personalization",
+        "Developed conversational AI chatbot interfaces with TypeScript/React and Python backends",
+        "Architected AI service infrastructure connecting LLM services, vector databases, and internal datasets",
+      ]
     },
     {
-      title: "Software Engineering intern at CDPQ",
-      period: "Winter 2024 - Hybrid - Full time",
+      title: "Quantitative Researcher",
+      company: "CDPQ",
+      period: "Jan 2025 – Jan 2026 · Full-time",
+      achievements: [
+        "Refactored C# scheduling algorithms and Angular analytics dashboard, reducing runtime by 34% and throughput by 25%",
+        "Built Python-based risk assessment platform with Monte Carlo simulations, React dashboards, and Snowflake integration",
+        "Built Flask API connecting 5+ internal systems, eliminating 15hrs/week of manual work",
+        "Developed TypeScript data library that standardized dataset processing, cut cloud costs by $13K/year",
+        "Built LangChain/RAG AI assistant for code architecture questions, accelerating team onboarding",
+      ]
     },
     {
-      title: "Research Assistant at McGill University",
-      period: "Summer 2024 - Hybrid - Full time",
+      title: "Quantitative Research Intern",
+      company: "CDPQ",
+      period: "Oct 2024 – Jan 2025 · Full-time",
+      achievements: [
+        "Built LangChain/RAG AI assistant for code architecture questions, accelerating team onboarding",
+        "Developed TypeScript data library that standardized dataset processing, cut cloud costs by $13K/year",
+      ]
     },
     {
-      title: "Software Engineer intern at Otera Capital",
-      period: "Winter 2023 - Hybrid - Part time",
+      title: "Software Engineering Lead",
+      company: "McGill Formula Electric",
+      period: "Sep 2021 – Dec 2024 · Part-time",
+      achievements: [
+        "Developed Anti-lock Braking System using C/C++ and Arduino integration, 32% improvement in response time",
+        "Built computer vision software with C++ and OpenCV to measure driver characteristics with 99.3% accuracy",
+        "Created ML algorithm in TensorFlow to predict tire wear patterns, improving maintenance accuracy by 30%",
+        "Developed real-time telemetry system in Python for remote diagnostics, increasing data speed by 25%",
+      ]
     },
     {
-      title: "Software Engineer intern at Otera Capital",
-      period: "Summer 2023 - Hybrid - Full time",
+      title: "Software Engineering Intern",
+      company: "CDPQ's Otera Capital",
+      period: "Sep 2023 – Jan 2024 · Part-time",
+      achievements: [
+        "Implemented Docker and AWS for app deployment, integrated Amazon's Airflow and PostgreSQL to automate cashflow reports and currency rate updates",
+        "Achieved a 40% reduction in report generation time through pipeline automation",
+      ]
     },
     {
-      title: "Full Stack Engineer intern at OneDesk",
-      period: "Summer 2022 - Remote - Full time",
-      isLast: true
-    }
+      title: "Software Engineering Intern",
+      company: "CDPQ's Otera Capital",
+      period: "May 2023 – Sep 2023 · Full-time",
+      achievements: [
+        "Built portfolio simulation tool using Flask, React.js, and Monte Carlo modeling; reduced analysis time from 15hrs to 3hrs (5× improvement)",
+      ]
+    },
+    {
+      title: "Full Stack Software Developer Intern",
+      company: "OneDesk",
+      period: "May 2022 – Sep 2022 · Full-time",
+      isLast: true,
+      achievements: [
+        "Leveraged Java, HTML, and Angular to redesign web portals meeting 508 Compliance standards",
+        "Collaborated with Spring and Hibernate to introduce new features, resulting in 11% reduction in page loading time",
+        "Developed workflow automation systems using C++ and Java, achieving 87% reduction in repetitive task time",
+      ]
+    },
   ];
-  
+
   return (
-    <div 
+    <div
       ref={cardRef}
-      className="glass-card hover-scale h-full"
+      className="glass-card hover-scale"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="p-6 h-full flex flex-col">
+      <div className="p-6 flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-sm font-semibold text-black dark:text-white">Experience</h2>
           <span className="text-xs text-gray-500 dark:text-gray-400">2022—Present</span>
         </div>
-        
-        <div className="flex-grow overflow-hidden no-scrollbar">
-          <div 
+
+        <div className="flex-grow">
+          <div
             className="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
             style={{
-              maxHeight: '100%', 
               transform: isHovered ? 'translateX(0)' : 'translateX(5px)',
               opacity: isHovered ? 1 : 0.95,
               transition: 'all 500ms cubic-bezier(0.4, 0, 0.2, 1)'
@@ -65,11 +110,13 @@ const ExperienceCard: React.FC = () => {
               <TimelineItem
                 key={index}
                 title={exp.title}
+                company={exp.company}
                 period={exp.period}
+                achievements={exp.achievements}
                 isActive={exp.isActive}
                 isFirst={exp.isFirst}
                 isLast={exp.isLast}
-                expandedByDefault={true}
+                expandedByDefault={false}
               />
             ))}
           </div>

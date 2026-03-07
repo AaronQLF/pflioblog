@@ -15,11 +15,11 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          "-apple-system", 
-          "BlinkMacSystemFont", 
-          "SF Pro Display", 
-          "SF Pro Text", 
-          "Helvetica Neue", 
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "SF Pro Display",
+          "SF Pro Text",
+          "Helvetica Neue",
           "sans-serif"
         ],
       },
@@ -27,5 +27,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
   ],
 }; 
