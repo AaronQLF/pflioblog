@@ -9,7 +9,7 @@ const ExperienceCard: React.FC = () => {
 
   const experiences = [
     {
-      title: "R&D Engineering Lead",
+      title: "Artificial Intelligence R&D Lead",
       company: "Stingray Digital",
       period: "Feb 2026 – Present · Full-time",
       isFirst: true,
