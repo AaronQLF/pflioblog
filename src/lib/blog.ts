@@ -14,7 +14,7 @@ export interface BlogPost {
     content: string;
 }
 
-export interface BlogPostMeta extends Omit<BlogPost, 'content'> { }
+export type BlogPostMeta = Omit<BlogPost, 'content'>;
 
 function getReadingTime(content: string): number {
     const words = content.trim().split(/\s+/).length;
