@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Header from '../components/Header';
 import ExperienceCard from '../components/ExperienceCard';
 import EducationCard from '../components/EducationCard';
@@ -6,6 +5,8 @@ import ProjectsCard from '../components/ProjectsCard';
 import BooksCard from '../components/BooksCard';
 import BlogCard from '../components/BlogCard';
 import { getAllPosts } from '../lib/blog';
+
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 export default function Home() {
   const recentPosts = getAllPosts();
@@ -20,12 +21,13 @@ export default function Home() {
           <div className="flex items-center gap-4 mb-8">
             <h1 className="text-6xl font-bold dark:text-white">Hi, I&apos;m</h1>
             <div className="relative">
-              <Image
-                src="/images/profile.jpg"
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${BASE}/images/profile.jpg`}
                 alt="Haroun Guessous"
                 width={90}
                 height={90}
-                className="rounded-full inline-block bg-[#333]"
+                className="rounded-full inline-block bg-[#333] w-[90px] h-[90px] object-cover"
               />
             </div>
             <h1 className="text-6xl font-bold dark:text-white">Haroun Guessous!</h1>

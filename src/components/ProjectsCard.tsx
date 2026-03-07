@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 
 interface Project {
   title: string;
@@ -84,13 +86,12 @@ const ProjectsCard: React.FC = () => {
                 )}
               </div>
               <div className="w-1/2 relative rounded-lg overflow-hidden h-full bg-white/20 dark:bg-zinc-700/20 backdrop-blur-sm">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Image
-                    src={project.image}
+                <div className="absolute inset-0 flex items-center justify-center p-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`${BASE}${project.image}`}
                     alt={project.title}
-                    fill
-                    className="object-contain p-4"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain w-full h-full"
                   />
                 </div>
               </div>
