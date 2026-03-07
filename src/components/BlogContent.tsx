@@ -2,6 +2,8 @@
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 export default function BlogContent({ content }: { content: string }) {
     return (
@@ -18,7 +20,10 @@ export default function BlogContent({ content }: { content: string }) {
       prose-li:text-slate-700 dark:prose-li:text-zinc-300
       prose-hr:border-slate-200 dark:prose-hr:border-zinc-700
     ">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown
+                remarkPlugins={[remarkGfm, remarkMath]}
+                rehypePlugins={[rehypeKatex]}
+            >
                 {content}
             </ReactMarkdown>
         </div>
