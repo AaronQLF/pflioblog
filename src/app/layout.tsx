@@ -4,7 +4,7 @@ import { ThemeProvider } from "../context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Haroun Guessous | Portfolio",
-  description: "R&D Engineering Lead at Stingray Digital · Masters in CS at UdeM/MILA",
+  description: "R&D Lead at Stingray Digital · Masters in CS at UdeM/MILA",
 };
 
 export default function RootLayout({

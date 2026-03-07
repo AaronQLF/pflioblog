@@ -41,7 +41,10 @@ export default function Home() {
         </div>
         <div className="flex items-center gap-6 mb-20">
           <p className="text-base dark:text-slate-300">
-            Software Engineer &amp; ML Researcher building AI systems, RAG pipelines, and scalable infrastructure. Feel free to explore my work and reach out!
+            Software Engineer &amp; ML Researcher building AI systems, RAG pipelines, and scalable infrastructure.
+            I also co-founded <span className="font-medium dark:text-white">Divitae Eventure</span> — a systematic trading fund
+            where 15% of annual profits go directly to leukemia research.
+            Feel free to explore my work and reach out!
           </p>
         </div>
       </section>

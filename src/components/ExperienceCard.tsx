@@ -27,11 +27,11 @@ const ExperienceCard: React.FC = () => {
       company: "CDPQ",
       period: "Jan 2025 – Jan 2026 · Full-time",
       achievements: [
-        "Refactored C# scheduling algorithms and Angular analytics dashboard, reducing runtime by 34% and throughput by 25%",
-        "Built Python-based risk assessment platform with Monte Carlo simulations, React dashboards, and Snowflake integration",
-        "Built Flask API connecting 5+ internal systems, eliminating 15hrs/week of manual work",
-        "Developed TypeScript data library that standardized dataset processing, cut cloud costs by $13K/year",
-        "Built LangChain/RAG AI assistant for code architecture questions, accelerating team onboarding",
+        "Researched and backtested systematic alpha signals across equity and fixed-income universes using factor decomposition and cross-sectional momentum strategies",
+        "Built a multi-factor portfolio optimization engine in Python (cvxpy) with risk-parity and mean-CVaR constraints, integrated with Snowflake data pipelines",
+        "Developed a Monte Carlo-based scenario analysis platform for stress-testing fixed-income portfolios under interest rate and credit spread shocks",
+        "Constructed performance attribution models (Brinson-Hood-Beebower) to decompose active returns across allocation, selection, and currency effects",
+        "Automated daily risk reporting (VaR, Expected Shortfall, DV01) via a Flask API connecting 5+ internal systems, eliminating 15hrs/week of manual work",
       ]
     },
     {
