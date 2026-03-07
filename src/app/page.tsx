@@ -35,7 +35,7 @@ export default function Home() {
           <div className="mb-4">
             <p className="text-5xl mb-2">
               <span className="text-slate-400 dark:text-slate-300">I&apos;m an</span>{' '}
-              <span className="font-medium dark:text-white">R&amp;D Engineering Lead</span>{' '}
+              <span className="font-medium dark:text-white">R&amp;D Lead</span>{' '}
               <span className="text-slate-400 dark:text-slate-300">at</span>
             </p>
             <p className="text-6xl font-bold text-primary">Stingray Digital.</p>
