@@ -25,9 +25,9 @@ const Header = () => {
         </div>
 
         <nav className="hidden md:flex space-x-8">
-          <a href="/#experience" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Experience</a>
-          <a href="/#projects" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Projects</a>
-          <a href="/#education" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Education</a>
+          <Link href={{ pathname: '/', hash: 'experience' }} className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Experience</Link>
+          <Link href={{ pathname: '/', hash: 'projects' }} className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Projects</Link>
+          <Link href={{ pathname: '/', hash: 'education' }} className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Education</Link>
           <Link href="/blog" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Blog</Link>
         </nav>
 
