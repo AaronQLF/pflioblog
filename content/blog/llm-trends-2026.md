@@ -136,7 +136,3 @@ Training compute is still scaling, but it's no longer *the* story. The real acti
 Efficiency and capability are converging. Three years ago, quantization was a compromise you made for edge deployment. Now INT8 models with speculative decoding running on optimized kernels are genuinely hard to distinguish from FP16 baselines on most real tasks. The "you have to pick one" mentality is fading.
 
 And interpretability — still undervalued, still underfunded relative to capabilities research — is becoming infrastructure. You can't safely steer a model you can't read. The progress on SAEs and causal feature identification isn't academic nicety; it's the prerequisite for any rigorous approach to behavioral guarantees. The field is three to five years from being able to use those tools at deployment-relevant scale. Whether that's fast enough is a separate question.
-
----
-
-*I'm a Masters student at UdeM/MILA researching feature stability under quantization and post-training alignment methods. If you're working on any of the problems above, I'd love to connect.*
