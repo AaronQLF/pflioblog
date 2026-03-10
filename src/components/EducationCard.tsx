@@ -45,7 +45,7 @@ const EducationCard: React.FC = () => {
     {
       title: "Mathematics · Baccalaureate",
       company: "Lycée Mohammed V",
-      period: "2017 – 2020 · Grade: 19.25/20",
+      period: "2017 – 2020 · Grade: 19.88/20",
       achievements: [
         "Valedictorian",
         "2017 Regional Mathematics Olympiad winner (1st)",
