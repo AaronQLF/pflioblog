@@ -1,5 +1,5 @@
 ---
-title: "World Models, or: Why Yann LeCun Raised $1B to Fix AI"
+title: "Why Local Optima Are Expensive: The $1B Bet on World Models"
 date: "2026-03-11"
 excerpt: "Yann LeCun left Meta to build a new startup called AMI. They raised a billion dollars in a seed round. Their pitch is that autoregressive LLMs are a dead end for true intelligence and we need world models built on joint embeddings instead. I think the math backs him up."
 tags: ["AI", "Startups", "Machine Learning", "World Models", "JEPA"]
@@ -9,7 +9,7 @@ tags: ["AI", "Startups", "Machine Learning", "World Models", "JEPA"]
 
 You have to respect the raw contrarianism required to watch the entire industry pour hundreds of billions into autoregressive transformers and calmly state: *you are all mathematically bound to hit a wall*. 
 
-At the end of 2025, Yann LeCun left Meta to co-found Advanced Machine Intelligence (AMI) with Alexandre LeBrun, instantly raising a $1B seed round at a $3.5B valuation. Investors like Nvidia, Temasek, and Jeff Bezos aren't throwing sovereign-wealth-scale capital at a wrapper. They are underwriting a fundamental architecture shift.
+At the end of 2025, Yann LeCun left Meta to co-found Advanced Machine Intelligence (AMI) with Alexandre LeBrun, instantly raising a \$1B seed round at a $3.5B valuation. Investors like Nvidia, Temasek, and Jeff Bezos aren't throwing sovereign-wealth-scale capital at a wrapper. They are underwriting a fundamental architecture shift.
 
 Let's look at the actual technical limitations of the LLM paradigm, and why AMI's bet on Joint Embedding Predictive Architectures (JEPA) might be the only viable path to AGI.
 
