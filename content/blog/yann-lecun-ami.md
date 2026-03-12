@@ -1,55 +1,62 @@
 ---
 title: "World Models, or: Why Yann LeCun Raised $1B to Fix AI"
 date: "2026-03-11"
-excerpt: "Yann LeCun left Meta to build a new startup called AMI. They raised a billion dollars in a seed round. Their pitch is that LLMs are a dead end for true intelligence and we need world models instead. I think he might be right."
-tags: ["AI", "Startups", "Machine Learning", "World Models"]
+excerpt: "Yann LeCun left Meta to build a new startup called AMI. They raised a billion dollars in a seed round. Their pitch is that autoregressive LLMs are a dead end for true intelligence and we need world models built on joint embeddings instead. I think the math backs him up."
+tags: ["AI", "Startups", "Machine Learning", "World Models", "JEPA"]
 ---
 
-# World Models, or: Why Yann LeCun Raised $1B to Fix AI
+# Why Local Optima Are Expensive: The $1B Bet on World Models
 
-There is a specific kind of arrogance required to look at the entire industry obsessing over Large Language Models and decide that everyone is fundamentally on the wrong track. Yann LeCun has exactly this kind of arrogance. At the end of 2025, he left his role as Chief AI Scientist at Meta to co-found Advanced Machine Intelligence (AMI) with Alexandre LeBrun. They proceeded to raise a $1 billion seed round at a $3.5 billion valuation. 
+You have to respect the raw contrarianism required to watch the entire industry pour hundreds of billions into autoregressive transformers and calmly state: *you are all mathematically bound to hit a wall*. 
 
-If you are paying attention to the AI space, the number should make you pause. A billion dollars for a seed round is not standard venture capital. It is sovereign wealth fund territory. It means the investors—which include Nvidia, Temasek, and Jeff Bezos—believe this is not a wrapper around an existing API, but a fundamental platform shift. 
+At the end of 2025, Yann LeCun left Meta to co-found Advanced Machine Intelligence (AMI) with Alexandre LeBrun, instantly raising a $1B seed round at a $3.5B valuation. Investors like Nvidia, Temasek, and Jeff Bezos aren't throwing sovereign-wealth-scale capital at a wrapper. They are underwriting a fundamental architecture shift.
 
-I want to break down exactly what AMI is trying to build, and why LeCun believes the current trajectory of LLMs is a local maximum.
+Let's look at the actual technical limitations of the LLM paradigm, and why AMI's bet on Joint Embedding Predictive Architectures (JEPA) might be the only viable path to AGI.
 
-## The problem with autoregression
+## The Autoregressive Trap
 
-Most people treat LLMs as if they possess understanding. They do not. They possess high-dimensional statistical correlations between tokens. The autoregressive objective—predict the next word—is incredibly powerful, but its primary function is interpolation within the training distribution. It is a sophisticated system for retrieving and mixing existing concepts.
+The core objective of an LLM is simple next-token prediction. Formally, given a sequence of tokens $x_1, x_2, \dots, x_{t-1}$, we optimize parameters $\theta$ to maximize the likelihood of the next token $x_t$:
 
-LeCun has been pointing out for years that LLMs fail at basic reasoning. They hallucinate because they lack an underlying model of reality to ground their text generation. If you ask an LLM a physical reasoning question that is slightly out of its training set, it collapses. It does not know that if you push a glass off a table, it falls and shatters. It just predicts tokens that statistically follow "glass pushed off table."
+$$ \max_{\theta} \sum_{t} \log P(x_t \mid x_1, \dots, x_{t-1}; \theta) $$
 
-This is the distinction between learning language and learning reality. Humans and animals learn reality long before they learn language. We develop an intuitive physics engine in our heads by exploring the world. We understand cause and effect, object permanence, and 3D space. LLMs skip all of this and try to learn reality exclusively through its low-bandwidth projection into text. 
+This is powerful for interpolation within a high-dimensional training distribution, but it's structurally ill-equipped for robust reasoning. By predicting in the precise observation space (i.e., raw tokens or pixels), the model is forced to allocate capacity to irrelevant stochastic noise. 
 
-## What a world model actually is
+If you ask an LLM to simulate a physical interaction—say, pushing a glass off a table—it doesn't *calculate* physics. It samples from a distribution of linguistic approximations of physics. Errors compound exponentially during inference because every generated token $\hat{x}_t$ conditions the generation of $\hat{x}_{t+1}$. If the error probability per token is $\epsilon$, the chance of a coherent $N$-token trajectory drops as $(1-\epsilon)^N$. 
 
-The alternative LeCun is proposing is the "world model." This is a generative architecture that learns the dynamics of the physical environment, rather than just the dynamics of language. 
+## Enter the World Model
 
-AMI is starting with video. They are building a model called AMI Video, but do not confuse this with Sora or other video generation tools. The goal of AMI Video is not to generate coherent pixels for entertainment. The goal is to use video as a high-bandwidth sensory input to train an internal representation of physics, geometry, and temporal coherence. 
+A world model doesn't just learn a mapping from observations to observations; it learns the underlying causal dynamics of the environment in a latent space. 
 
-A true world model has a few required properties:
-1. It maintains a persistent state of the environment.
-2. It can predict the consequences of actions within that environment.
-3. It can plan a sequence of actions to achieve a specific goal state.
+Formally, a world model consists of:
+1. An **encoder** $E(x) \to z$ mapping observations into abstract states.
+2. A **predictor** $P(z_t, a_t) \to \hat{z}_{t+1}$ modeling state transitions given an action $a_t$.
+3. A **cost function** $C(z_t)$ to evaluate states.
 
-If you have a world model, reasoning becomes a planning problem. You simulate different actions internally, observe their predicted consequences, and select the path that minimizes your cost function. This is how humans solve novel problems. We do not pattern-match against a text database; we run a mental simulation.
+Reasoning in this framework is no longer rote pattern matching; it becomes an active planning process. Given a goal, the system uses the predictor to simulate future states $\hat{z}_{t+k}$ for various action sequences, minimizing the cumulative cost. 
 
-## The bet
+## JEPA: Abandoning the Generative Fallacy
 
-The $1 billion seed round is a bet on the Joint Embedding Predictive Architecture (JEPA), a framework LeCun has been championing during his time at Meta. JEPAs do not try to reconstruct every pixel of a future frame. Instead, they predict the abstract representation of the future frame. They throw away the noise—the exact texture of the carpet, the precise way the water splashed—and predict the high-level semantic reality.
+The challenge with training world models has historically been *informational collapse*. If you train a model to predict $z_{t+1}$ from $z_t$, the encoder can easily find a trivial solution: just output a constant vector $z = 0$ everywhere, achieving perfect zero-loss prediction while learning nothing.
 
-This is much more computationally efficient and makes the representations stable enough for actual reasoning. 
+Contrast this with traditional generative models (like VAEs or autoregressive transformers), which prevent collapse by forcing the model to reconstruct the original input $x$ ($z \to \hat{x}$). But this is LeCun's whole point: *reconstruction is a trap*. If you try to predict the exact pixels of a video frame showing water splashing, your model will waste all its capacity trying to model the chaotic, high-frequency noise of the water droplets, missing the low-frequency semantic reality (e.g., "water is falling").
 
-AMI is not starting with consumer chatbots. They are targeting robotics, manufacturing, and wearables. These are domains where the cost of being wrong is high, and where a model actually needs an intuitive understanding of physical space to be useful. If you want a robot to fold your laundry, an LLM will not help you.
+This is where the Joint Embedding Predictive Architecture (JEPA) comes in. Instead of predicting $x_{t+1}$ from $x_t$, a JEPA predicts the embedding of the future $s_{y}$ from the embedding of the past $s_{x}$ and a latent variable $z$. 
 
-## Why I think this matters
+$$ \hat{s}_y = \text{Predictor}(s_x, z) $$
+$$ L = D(\hat{s}_y, s_y) $$
 
-I have spent enough time digging through the output of current LLMs to know their limitations. They are incredibly useful for generating boilerplate, summarizing text, and transforming data formats. But when you ask them to synthesize a genuinely novel architecture, or reason through a complex physical problem, you hit a wall. 
+Crucially, the targets $s_y$ are generated by a target encoder whose weights are an exponential moving average (EMA) of the online encoder. This asymmetric architectural design prevents collapse *without* requiring pixel-level reconstruction. You discard the unpredictable noise and only predict the structurally predictable semantics.
 
-The industry is currently trying to scale its way out of this wall by throwing more compute at the autoregressive objective. The bet is that quantitative changes in scale will result in qualitative leaps in reasoning. 
+## The Energy-Based Perspective
 
-LeCun's bet is that the architecture is fundamentally wrong for that goal. We have overfitted to language. 
+AMI's entire premise rests on viewing intelligence through the lens of Energy-Based Models (EBMs). Instead of dealing with normalized probabilities (which are intractable for high-dimensional continuous spaces like reality), an EBM simply assigns a scalar energy $E(x, y)$ capturing the compatibility between $x$ and $y$. Inference is just finding $y$ that minimizes the energy: $\arg \min_y E(x, y)$.
 
-It is exceedingly rare for an established luminary to abandon their safe, highly compensated corporate research position to start a company explicitly designed to cannibalize the dominant paradigm. LeCun did not need the money or the stress. He did it because he genuinely believes the current architectures are a dead end for artificial general intelligence. 
+LLMs are essentially just a special, tractable case of EBMs restricted to discrete tokens with local normalization. By abandoning the requirement for tractable probabilistic generation, AMI is freeing their models to learn complex, non-deterministic dynamics in continuous latent spaces.
 
-Whether AMI succeeds or not is an open question. Building a company around a theoretical architecture is risky. But the fact that they managed to raise a billion dollars indicates that I am not the only one who thinks the autoregressive emperor is starting to look a bit naked.
+## Final Thoughts
+
+I've spent enough time wrangling transformers engineering to feel the exhaustion of trying to squeeze reasoning out of a glorified Markov chain. The industry's current solution to LLM limits is simply: scale the compute. It's the brute-force approach. 
+
+LeCun's departure to start AMI is a massive signal that brute force has diminishing returns. We have overfitted to human language, mistaking the low-bandwidth projection of thought for thought itself. 
+
+The $1 billion check isn't just funding; it's a declaration of war on the autoregressive paradigm. Whether they can actually stabilize these latent predictors in the wild remains to be seen. But structurally, the math makes an uncomfortable amount of sense. 
