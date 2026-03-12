@@ -25,8 +25,8 @@ export default function BlogContent({ content }: { content: string }) {
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeKatex]}
                 components={{
-                    img: ({node, ...props}) => (
-                        // eslint-disable-next-line @next/next/no-img-element
+                    img: ({...props}) => (
+                        // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
                         <img 
                             className="rounded-xl mx-auto my-8 border border-slate-200 dark:border-zinc-800" 
                             loading="lazy" 
