@@ -19,10 +19,21 @@ export default function BlogContent({ content }: { content: string }) {
       prose-blockquote:border-l-blue-400 prose-blockquote:text-slate-500 dark:prose-blockquote:text-zinc-400
       prose-li:text-slate-700 dark:prose-li:text-zinc-300
       prose-hr:border-slate-200 dark:prose-hr:border-zinc-700
+      prose-img:rounded-xl prose-img:mx-auto
     ">
             <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeKatex]}
+                components={{
+                    img: ({node, ...props}) => (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img 
+                            className="rounded-xl mx-auto my-8 border border-slate-200 dark:border-zinc-800" 
+                            loading="lazy" 
+                            {...props} 
+                        />
+                    ),
+                }}
             >
                 {content}
             </ReactMarkdown>
