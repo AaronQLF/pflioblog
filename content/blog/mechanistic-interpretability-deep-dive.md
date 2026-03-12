@@ -9,11 +9,9 @@ tags: ["AI", "Interpretability", "Research", "Transformers", "Machine Learning"]
 
 I need to be upfront: this post is going to be long. Unreasonably long. Because mechanistic interpretability is the kind of field where every subproblem opens three more subproblems, and every result makes you rethink your assumptions about what computation even *means* inside a neural network. I have spent an embarrassing number of hours staring at activation patterns at 2 AM and I regret nothing.
 
-Let's go.
-
 ## The Problem Statement (It's Worse Than You Think)
 
-Here's the situation. We have trained neural networks that can:
+We have trained neural networks that can:
 - Write poetry in the style of any author who ever lived
 - Solve graduate-level mathematics
 - Generate working code in dozens of programming languages
@@ -22,6 +20,8 @@ Here's the situation. We have trained neural networks that can:
 And we have **essentially zero mechanistic understanding** of how they do any of it.
 
 This is not a normal state of affairs in engineering. Imagine Boeing shipping a 787 Dreamliner where nobody understood why the wings stayed on. That's where we are with AI. The models work. We can measure *that* they work. We cannot explain *how*.
+
+![A visualization of neural network internals showing tangled feature representations across layers](https://media.springernature.com/lw1200/springer-static/image/art%3A10.1038%2Fsrep27755/MediaObjects/41598_2016_Article_BFsrep27755_Fig1_HTML.jpg)
 
 Mechanistic interpretability (mech interp, for those of us who've said the full phrase too many times) is the project of changing this. The goal: **reverse-engineer the algorithms that neural networks learn**, expressed in terms of human-understandable computational primitives.
 
@@ -39,9 +39,7 @@ Chris Olah — who is basically the patron saint of this field — frames it bea
 
 ## The Computational Graph: What We're Actually Looking At
 
-A transformer is, at its core, a computational graph. Let's be precise about the structure because precision matters here (and because I genuinely enjoy drawing these boxes in my head):
-
-![The transformer architecture — every component reads from and writes to a shared residual stream](/images/blog/transformer-arch.png)
+A transformer is, at its core, a computational graph. Being precise about the structure matters here (and I genuinely enjoy drawing these boxes in my head):
 
 For a transformer with $L$ layers, $H$ attention heads per layer, and residual stream dimension $d_{model}$:
 
@@ -63,15 +61,15 @@ $$x^{(l+1)} = x^{(l)} + \sum_h \text{head}^{(l,h)}(x^{(l)}) + \text{MLP}^{(l)}(x
 
 This additive structure is *incredibly* important. It means every attention head and MLP layer writes its output into a shared communication channel. You can literally decompose the final logits as a sum of contributions from each individual component. This is called the **logit lens** decomposition, and it's one of the key tools in the mech interp toolkit.
 
-![The residual stream acts like a communication bus — add & norm layers preserve the additive structure that makes decomposition possible](/images/blog/residual-stream.png)
+![Diagram showing the residual stream architecture of a transformer with attention heads and MLPs writing additively](https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/transformer-new.png)
 
 ## Features: The Atoms of Neural Computation
 
-Here's a claim that took me months to fully internalize:
+A claim that took me months to fully internalize:
 
 > **The fundamental unit of neural network computation is not the neuron. It's the feature — a direction in activation space.**
 
-This is the *linear representation hypothesis*, and it changes everything about how you think about what a model "knows."
+This is the *linear representation hypothesis*, and it changes everything about what it means for a model to "know" something.
 
 A neuron is just a basis vector in activation space. It's an arbitrary coordinate axis chosen by the initialization and training process. There is no reason to expect individual neurons to correspond to meaningful concepts, any more than you'd expect the x-axis of a room to point at something interesting.
 
@@ -79,7 +77,7 @@ Features, on the other hand, are *directions* — linear combinations of neurons
 
 ### The Geometry Gets Wild
 
-Here's where my brain starts making the good chemicals. Consider a model with $d_{model} = 4096$. In principle, it can represent 4096 orthogonal features perfectly. But the model needs to track *far* more concepts than that — potentially millions.
+This is where my brain starts making the good chemicals. Consider a model with $d_{model} = 4096$. In principle, it can represent 4096 orthogonal features perfectly. But the model needs to track *far* more concepts than that — potentially millions.
 
 The **superposition hypothesis** (Elhage et al., 2022) explains how: the model packs features as *almost-orthogonal* directions. In high-dimensional space, you can fit exponentially many near-orthogonal vectors. Specifically, for vectors in $\mathbb{R}^d$, you can pack $\exp(O(d))$ unit vectors such that all pairwise dot products are bounded by $\epsilon$.
 
@@ -101,7 +99,9 @@ The canonical framework (Olah et al., 2020) proposes three claims:
 2. **Circuits** are subgraphs connecting features — they implement specific computations
 3. **Universality** — similar circuits appear across different models trained independently
 
-That third claim is the spicy one. It suggests that there's something like a *periodic table of neural network circuits* — recurring computational motifs that any sufficiently trained model will converge on.
+That third claim is the interesting one. It suggests that there's something like a *periodic table of neural network circuits* — recurring computational motifs that any sufficiently trained model will converge on.
+
+![Illustration of circuit-level analysis showing connected features across transformer layers](https://transformer-circuits.pub/2025/attribution-graphs/png/methods.png)
 
 ### The Induction Head: A Case Study in Alien Elegance
 
@@ -122,8 +122,6 @@ A head in a later layer uses the QK circuit to search for previous positions whe
 The OV circuit then copies the *current token at that position* (which is $B$) into the prediction.
 
 This is a **two-step algorithm** distributed across two layers, communicating through the residual stream. Neither head alone can do the computation. The emergent behavior — in-context pattern completion — only arises from their composition.
-
-![Multi-headed self-attention — each head independently computes query-key-value projections before being concatenated back together](/images/blog/attention-heads.png)
 
 The key mathematical object is the **QK composition**:
 
@@ -153,7 +151,7 @@ $$\Delta_{l,h} = F(x_{corrupt} \mid a^{(l,h)} \leftarrow a_{clean}^{(l,h)}) - F(
 
 You can sweep this across all $(l, h)$ pairs and generate a heatmap of causal importance. The result is a circuit-level X-ray of the model.
 
-![The self-attention mechanism computes query, key, and value vectors from the input — then uses their dot products to decide what information flows where](/images/blog/feature-vis.png)
+![Heatmap of activation patching results showing which attention heads are causally important](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmoRwBRrVEH-hsd87SzEr5iXTfBpwZwsy4-Q&s)
 
 ### The IOI Circuit: Peak Mech Interp
 
@@ -176,7 +174,7 @@ That last row kills me. The model has **backup circuits**. When you ablate the p
 
 ## The Scaling Problem (or: Does Any of This Work on Real Models?)
 
-Here's the uncomfortable question that haunts the field: most of the clean results I just described were found in **tiny models**. GPT-2 Small (124M parameters). Two-layer attention-only transformers. Toy models trained on synthetic distributions.
+The uncomfortable question that haunts the field: most of the clean results I just described were found in **tiny models**. GPT-2 Small (124M parameters). Two-layer attention-only transformers. Toy models trained on synthetic distributions.
 
 Do these findings scale to frontier models? The honest answer is: *partially, and we're working on it*.
 
@@ -223,7 +221,7 @@ I spent a very happy (some might say concerning) weekend computing these for eve
 
 ## What Features Have We Actually Found?
 
-Let me get specific, because the breadth of discovered features is frankly staggering:
+To get specific — the breadth of discovered features is frankly staggering:
 
 **In language models:**
 - Features for specific languages (French, Arabic, Python, etc.)
@@ -240,7 +238,7 @@ Let me get specific, because the breadth of discovered features is frankly stagg
 - Full object and scene detectors (late layers)
 - "Multimodal neurons" that respond to both images and text of the same concept
 
-![Self-attention computes a weighted mix of value vectors — this is where the model decides what information each token should carry forward](/images/blog/self-attention.png)
+![Feature visualization showing curve detectors, high-low frequency detectors, and complex texture features in vision models](https://distill.pub/2020/circuits/frequency-edges/images/high-low-hero.png)
 
 The vision model features follow a clear hierarchy from low-level to high-level, which is satisfying in a way that language model features are not (language features are messier, more distributed, and less neatly hierarchical).
 
@@ -248,7 +246,7 @@ The vision model features follow a clear hierarchy from low-level to high-level,
 
 *(Shameless plug for my own research direction)*
 
-Here's something that's been eating at me: the entire mech interp toolkit assumes you're analyzing the model in **full precision** (FP32 or BF16). But deployed models are increasingly quantized — INT8, INT4, sometimes even lower. When you quantize a model, you're perturbing every weight by a small amount:
+Something that's been eating at me: the entire mech interp toolkit assumes you're analyzing the model in **full precision** (FP32 or BF16). But deployed models are increasingly quantized — INT8, INT4, sometimes even lower. When you quantize a model, you're perturbing every weight by a small amount:
 
 $$W_{quant} = W + \Delta W, \quad ||\Delta W|| \sim O(\epsilon_{quant})$$
 
@@ -267,18 +265,10 @@ I'm currently running SAEs on both full-precision and INT4 versions of Llama 3 8
 
 ## The Existential Stakes
 
-I'll end on why this matters beyond academic curiosity.
-
 We are building increasingly powerful AI systems. The capabilities curve is steep and shows no sign of flattening. Within the next few years, we will likely have AI systems that can autonomously write code, conduct research, and take actions in the real world.
 
 If we cannot understand *what these systems are doing internally*, we are flying blind. RLHF and constitutional AI are behavioral constraints — they shape what the model *says*, not what it *thinks*. A sufficiently capable model that has learned to pass behavioral tests while pursuing misaligned internal goals would be undetectable by behavioral methods alone.
 
-Mechanistic interpretability is the project of building X-ray vision for neural networks. Not "what did the model output?" but "what is the model computing, and why?"
+The gap between our ability to build powerful AI and our ability to understand it is growing. Mech interp is one of the only fields directly trying to close it. The tools are open source — TransformerLens, SAELens, Baukit — and Neel Nanda's ARENA curriculum teaches the whole stack from scratch.
 
-This is, without exaggeration, one of the most important unsolved problems in computer science. The gap between our ability to build powerful AI and our ability to understand it is growing, and mech interp is one of the only fields directly trying to close it.
-
-If you've read this far (3000+ words on transformer internals on a Thursday), you are exactly the kind of person this field needs. The tools are open source. TransformerLens, SAELens, and Baukit make it possible to start doing real research on your laptop. Neel Nanda's ARENA curriculum will teach you everything from scratch.
-
-The alien mind is waiting to be understood. Let's go read its source code.
-
-*I have a lot of interest in feature stability under quantization. If this post made your neurons fire (pun fully intended), reach out — I'm always looking for people who think about this stuff at 2 AM.*
+*I'm researching feature stability under quantization at UdeM/MILA. If you work on this stuff, reach out.*
