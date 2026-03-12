@@ -5,8 +5,6 @@ excerpt: "Yann LeCun left Meta to build a new startup called AMI. They raised a 
 tags: ["AI", "Startups", "Machine Learning", "World Models", "JEPA"]
 ---
 
-# Why Local Optima Are Expensive: The $1B Bet on World Models
-
 You have to respect the raw contrarianism required to watch the entire industry pour hundreds of billions into autoregressive transformers and calmly state: *you are all mathematically bound to hit a wall*. 
 
 At the end of 2025, Yann LeCun left Meta to co-found Advanced Machine Intelligence (AMI) with Alexandre LeBrun, instantly raising a \$1B seed round at a $3.5B valuation. Investors like Nvidia, Temasek, and Jeff Bezos aren't throwing sovereign-wealth-scale capital at a wrapper. They are underwriting a fundamental architecture shift.
