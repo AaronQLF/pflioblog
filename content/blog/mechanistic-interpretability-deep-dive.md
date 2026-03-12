@@ -264,6 +264,7 @@ This has uncomfortable implications. If your safety-relevant features (the ones 
 I'm currently running SAEs on both full-precision and INT4 versions of Llama 3 8B and comparing the feature dictionaries. More to come.
 
 ## The Existential Stakes
+I'll end on why this matters beyond academic curiosity.
 
 We are building increasingly powerful AI systems. The capabilities curve is steep and shows no sign of flattening. Within the next few years, we will likely have AI systems that can autonomously write code, conduct research, and take actions in the real world.
 
