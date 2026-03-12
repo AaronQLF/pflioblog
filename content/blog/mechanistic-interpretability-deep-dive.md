@@ -11,8 +11,6 @@ I need to be upfront: this post is going to be long. Unreasonably long. Because 
 
 Let's go.
 
----
-
 ## The Problem Statement (It's Worse Than You Think)
 
 Here's the situation. We have trained neural networks that can:
@@ -25,13 +23,9 @@ And we have **essentially zero mechanistic understanding** of how they do any of
 
 This is not a normal state of affairs in engineering. Imagine Boeing shipping a 787 Dreamliner where nobody understood why the wings stayed on. That's where we are with AI. The models work. We can measure *that* they work. We cannot explain *how*.
 
-![A visualization of neural network internals showing tangled feature representations across layers](https://distill.pub/2020/circuits/zoom-in/images/fig-overview.png)
-
 Mechanistic interpretability (mech interp, for those of us who've said the full phrase too many times) is the project of changing this. The goal: **reverse-engineer the algorithms that neural networks learn**, expressed in terms of human-understandable computational primitives.
 
 Not "the model is confident because attention score is high" — that's behavioral observation. Mech interp wants the actual algorithm. The pseudocode. The circuit diagram.
-
----
 
 ## Why "Interpretability" Is the Wrong Word
 
@@ -43,11 +37,11 @@ The difference matters because reverse engineering has a *ground truth*. Either 
 
 Chris Olah — who is basically the patron saint of this field — frames it beautifully: neural networks are programs written in a language we don't understand, compiled to weights we can't read. Mech interp is building the decompiler.
 
----
-
 ## The Computational Graph: What We're Actually Looking At
 
 A transformer is, at its core, a computational graph. Let's be precise about the structure because precision matters here (and because I genuinely enjoy drawing these boxes in my head):
+
+![The transformer architecture — every component reads from and writes to a shared residual stream](/images/blog/transformer-arch.png)
 
 For a transformer with $L$ layers, $H$ attention heads per layer, and residual stream dimension $d_{model}$:
 
@@ -69,9 +63,7 @@ $$x^{(l+1)} = x^{(l)} + \sum_h \text{head}^{(l,h)}(x^{(l)}) + \text{MLP}^{(l)}(x
 
 This additive structure is *incredibly* important. It means every attention head and MLP layer writes its output into a shared communication channel. You can literally decompose the final logits as a sum of contributions from each individual component. This is called the **logit lens** decomposition, and it's one of the key tools in the mech interp toolkit.
 
-![Diagram showing the residual stream architecture of a transformer with attention heads and MLPs writing additively](https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/transformer-new.png)
-
----
+![The residual stream acts like a communication bus — add & norm layers preserve the additive structure that makes decomposition possible](/images/blog/residual-stream.png)
 
 ## Features: The Atoms of Neural Computation
 
@@ -99,8 +91,6 @@ The model exploits this. It represents millions of features as near-orthogonal d
 
 I find this genuinely beautiful. The model independently discovered a coding scheme that mathematicians spent decades formalizing.
 
----
-
 ## Circuits: Features Connected by Weights
 
 Features alone are static — they tell you what the model represents, not how it computes. **Circuits** are the computational story: subgraphs of the network that connect features through weights to implement specific algorithms.
@@ -112,8 +102,6 @@ The canonical framework (Olah et al., 2020) proposes three claims:
 3. **Universality** — similar circuits appear across different models trained independently
 
 That third claim is the spicy one. It suggests that there's something like a *periodic table of neural network circuits* — recurring computational motifs that any sufficiently trained model will converge on.
-
-![Illustration of circuit-level analysis showing connected features across transformer layers](https://distill.pub/2020/circuits/zoom-in/images/fig-circuit.png)
 
 ### The Induction Head: A Case Study in Alien Elegance
 
@@ -135,6 +123,8 @@ The OV circuit then copies the *current token at that position* (which is $B$) i
 
 This is a **two-step algorithm** distributed across two layers, communicating through the residual stream. Neither head alone can do the computation. The emergent behavior — in-context pattern completion — only arises from their composition.
 
+![Multi-headed self-attention — each head independently computes query-key-value projections before being concatenated back together](/images/blog/attention-heads.png)
+
 The key mathematical object is the **QK composition**:
 
 $$A_{induction} \propto \text{softmax}\left( x^{(l_2)} W_Q^{(l_2)} \left(W_K^{(l_2)}\right)^\top \left(W_{OV}^{(l_1)}\right)^\top \left(x^{(l_1)}\right)^\top \right)$$
@@ -144,8 +134,6 @@ The $W_{OV}^{(l_1)}$ factor inside the attention computation of the later head i
 Olsson et al. (2022) showed that induction heads are responsible for the **phase transition** in transformer training — the sharp drop in loss that occurs when two-layer attention models suddenly develop in-context learning. Before induction heads form, the model is essentially a bigram model. After, it can do in-context learning. The phase transition corresponds to the moment the QK composition term becomes large enough to dominate the attention pattern.
 
 I've stared at those loss curves more times than I'm willing to admit.
-
----
 
 ## Activation Patching: The Causal Scalpel
 
@@ -165,7 +153,7 @@ $$\Delta_{l,h} = F(x_{corrupt} \mid a^{(l,h)} \leftarrow a_{clean}^{(l,h)}) - F(
 
 You can sweep this across all $(l, h)$ pairs and generate a heatmap of causal importance. The result is a circuit-level X-ray of the model.
 
-![Heatmap of activation patching results showing which attention heads are causally important](https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/activation_patching_0.png)
+![The self-attention mechanism computes query, key, and value vectors from the input — then uses their dot products to decide what information flows where](/images/blog/feature-vis.png)
 
 ### The IOI Circuit: Peak Mech Interp
 
@@ -185,8 +173,6 @@ They found a circuit involving **26 attention heads** across multiple layers, or
 | **Backup name mover heads** | Redundancy | Same function as name movers, activated when primary ones are ablated |
 
 That last row kills me. The model has **backup circuits**. When you ablate the primary name mover heads, backup heads (which were doing almost nothing before) activate to compensate. The model learned *fault tolerance* from gradient descent alone. No one told it to do this. It just emerged as the optimal solution to the loss landscape.
-
----
 
 ## The Scaling Problem (or: Does Any of This Work on Real Models?)
 
@@ -216,8 +202,6 @@ This is a first-order Taylor expansion. It's not exact, but it correctly identif
 
 **Transcoders** — a recent variant of sparse autoencoders that decompose the *MLP computation itself* (not just the activations), expressing each MLP as a sparse set of interpretable input-output feature mappings.
 
----
-
 ## The Residual Stream as a Communication Bus
 
 One mental model that completely changed how I think about transformers (credit to Elhage et al., *A Mathematical Framework for Transformer Circuits*, 2021):
@@ -236,8 +220,6 @@ $$W_{QK-composed} = W_Q^{(l_2, h_2)} \cdot W_O^{(l_1, h_1)} \cdot W_V^{(l_1, h_1
 This matrix tells you: "how much does the output of $h_1$ influence *where* $h_2$ attends?" You can literally read off the inter-head communication structure from these matrices.
 
 I spent a very happy (some might say concerning) weekend computing these for every head pair in GPT-2 Small and visualizing the communication graph. The structure is not random. Specific heads consistently talk to specific other heads, forming functional clusters that map onto the circuits people have discovered through activation patching.
-
----
 
 ## What Features Have We Actually Found?
 
@@ -258,11 +240,9 @@ Let me get specific, because the breadth of discovered features is frankly stagg
 - Full object and scene detectors (late layers)
 - "Multimodal neurons" that respond to both images and text of the same concept
 
-![Feature visualization showing curve detectors, high-low frequency detectors, and complex texture features in vision models](https://distill.pub/2020/circuits/zoom-in/images/fig-neuron-groups.png)
+![Self-attention computes a weighted mix of value vectors — this is where the model decides what information each token should carry forward](/images/blog/self-attention.png)
 
 The vision model features follow a clear hierarchy from low-level to high-level, which is satisfying in a way that language model features are not (language features are messier, more distributed, and less neatly hierarchical).
-
----
 
 ## My Current Obsession: Feature Geometry Under Quantization
 
@@ -285,8 +265,6 @@ This has uncomfortable implications. If your safety-relevant features (the ones 
 
 I'm currently running SAEs on both full-precision and INT4 versions of Llama 3 8B and comparing the feature dictionaries. More to come.
 
----
-
 ## The Existential Stakes
 
 I'll end on why this matters beyond academic curiosity.
@@ -299,10 +277,8 @@ Mechanistic interpretability is the project of building X-ray vision for neural 
 
 This is, without exaggeration, one of the most important unsolved problems in computer science. The gap between our ability to build powerful AI and our ability to understand it is growing, and mech interp is one of the only fields directly trying to close it.
 
-If you've read this far (3000+ words on transformer internals on a Thursday), you are exactly the kind of person this field needs. The tools are open source. TransformerLens, SAELens, and Baukit make it possible to start doing real research on your laptop. Neel Nanda's ARENA curriculum will teach you everything from scratch. 
+If you've read this far (3000+ words on transformer internals on a Thursday), you are exactly the kind of person this field needs. The tools are open source. TransformerLens, SAELens, and Baukit make it possible to start doing real research on your laptop. Neel Nanda's ARENA curriculum will teach you everything from scratch.
 
 The alien mind is waiting to be understood. Let's go read its source code.
 
----
-
-*I'm have a lot of interest in feature stability under quantization . If this post made your neurons fire (pun fully intended), reach out — I'm always looking for people who think about this stuff at 2 AM.*
+*I have a lot of interest in feature stability under quantization. If this post made your neurons fire (pun fully intended), reach out — I'm always looking for people who think about this stuff at 2 AM.*
