@@ -18,28 +18,26 @@ v1.2 started from a simple question: what if, instead of computing statistics ab
 
 ## MiroFish as the Simulation Core
 
-MiroFish is a swarm intelligence engine — large populations of autonomous AI agents deployed into simulated environments, emergent behavior observed. The pipeline has four stages that map onto the trading signal generation problem.
+MiroFish is a swarm intelligence engine — large populations of autonomous AI agents deployed into simulated environments, emergent behavior observed.
 
-**Stage 1: Knowledge graph construction.** MiroFish ingests seed data — in our case, a combination of financial news feeds, earnings transcripts, Fed minutes, options flow data, and social media sentiment from fintwit — and constructs a structured knowledge graph via GraphRAG. The ontology generator automatically identifies entity types (companies, sectors, macro indicators, key people, policy instruments) and relationship types (supply chain dependencies, competitive dynamics, regulatory exposure). Not a bag-of-words approach. The graph preserves causal and relational structure.
+We feed it a combination of financial news feeds, earnings transcripts, Fed minutes, options flow data, and social media sentiment from fintwit. MiroFish constructs a structured knowledge graph via GraphRAG — the ontology generator identifies entity types (companies, sectors, macro indicators, key people, policy instruments) and relationship types (supply chain dependencies, competitive dynamics, regulatory exposure). Not bag-of-words. The graph preserves causal and relational structure.
 
-**Stage 2: Agent population synthesis.** The knowledge graph nodes get converted into agent personas. Each agent has personality traits (risk appetite, time horizon, information sources they trust, behavioral biases), a backstory consistent with the graph topology, and independent decision-making logic. We run populations between 10,000 and 50,000 agents depending on the scenario. Each agent maintains its own memory and evolves its beliefs over the simulation.
+From that graph, it synthesizes agent personas. Each agent has personality traits (risk appetite, time horizon, information sources they trust, behavioral biases), a backstory consistent with the graph topology, and independent decision-making logic. We run populations between 10,000 and 50,000 depending on the scenario. Each agent maintains its own memory and evolves its beliefs over the simulation.
 
-**Stage 3: Round-based simulation.** MiroFish runs on the OASIS engine, which operates in discrete rounds (we map 1 round = 1 trading day). Agents interact on simulated social platforms — posting theses, reacting to news injections, building consensus or disagreement. The action space includes CREATE_POST, LIKE, REPOST, COMMENT, FOLLOW, and SEARCH. We added custom actions for our use case: PLACE_ORDER, ADJUST_POSITION, PUBLISH_RESEARCH.
+The simulation itself runs on the OASIS engine in discrete rounds (we map 1 round = 1 trading day). Agents interact on simulated social platforms — posting theses, reacting to news injections, building consensus or disagreement. The action space includes CREATE_POST, LIKE, REPOST, COMMENT, FOLLOW, and SEARCH. We added custom actions: PLACE_ORDER, ADJUST_POSITION, PUBLISH_RESEARCH.
 
-**Stage 4: Emergent signal extraction.** Instead of asking "what does the price data say?", we ask "what does the agent population believe, and how is that belief distribution shifting?" We extract:
+Then we extract signals. Instead of asking "what does the price data say?", we ask "what does the agent population believe, and how is that belief distribution shifting?"
 
 - **Consensus measures**: what fraction of the agent population is bullish/bearish on a given name, weighted by influence
 - **Narrative velocity**: how fast a particular thesis is spreading through the population
 - **Contrarian signals**: when the belief distribution becomes extremely skewed (>85% consensus), we flag potential reversal setups
 - **Cascade detection**: identifying the early stages of information cascades before they reach mainstream agent adoption
 
-These signals are structurally different from technical indicators. A momentum signal says "price went up." A swarm consensus signal says "72% of simulated market participants believe price will go up, the belief is concentrated in short-horizon agents, and the thesis is spreading at 3.2x the baseline diffusion rate." Dramatically more information content.
+A momentum signal says "price went up." A swarm consensus signal says "72% of simulated market participants believe price will go up, the belief is concentrated in short-horizon agents, and the thesis is spreading at 3.2x the baseline diffusion rate." Completely different kind of information.
 
-## Variable Injection: Stress Testing Beliefs
+## Variable Injection
 
-MiroFish supports dynamic variable injection mid-simulation. We use this for scenario analysis.
-
-Before a Fed meeting, we fork the simulation:
+MiroFish supports dynamic variable injection mid-simulation. Before a Fed meeting, we fork the simulation:
 
 | Scenario | Injection | What we observe |
 |----------|-----------|-----------------|
@@ -80,45 +78,43 @@ Not trivial. M3-Agent was designed for a single agent observing a stream of vide
 
 We went with a **hierarchical shared memory** architecture.
 
-**Level 1: Agent-local ephemeral memory.** Each agent in the MiroFish swarm maintains a short-term memory buffer (last 50 actions and observations) in its context window. This is cheap and fast.
+At the bottom, each agent maintains a short-term buffer (last 50 actions and observations) in its context window. Cheap and fast.
 
-**Level 2: Cluster-level episodic store.** Agents are grouped into clusters by archetype (institutional, retail, macro-focused, sector specialist, momentum trader, etc.). Each cluster shares a Zep-backed episodic memory store that persists across simulation runs. At the end of each simulation, a summarization pass extracts key episodic memories from the agent population and writes them to the cluster store.
+Above that, agents are grouped into clusters by archetype (institutional, retail, macro-focused, sector specialist, momentum trader, etc.). Each cluster shares a Zep-backed episodic memory store that persists across simulation runs. At the end of each simulation, a summarization pass extracts key episodic memories from the agent population and writes them to the cluster store.
 
-**Level 3: Global semantic graph.** A single, shared semantic memory graph aggregates distilled knowledge from all clusters. This is where cross-simulation learning lives. The semantic graph encodes things like "the last three times oil crossed $90, energy sector consensus in the swarm peaked within 2 rounds and reversed within 5." Individual agents can query this graph during simulation.
+At the top, a single shared semantic memory graph aggregates distilled knowledge from all clusters. This is where cross-simulation learning lives — things like "the last three times oil crossed $90, energy sector consensus in the swarm peaked within 2 rounds and reversed within 5." Individual agents can query this graph during simulation.
 
-We didn't use M3-Agent's exact model weights (those are trained on video understanding tasks). The contribution is architectural: the episodic/semantic split, the entity-centric graph structure, and the RL-trained retrieval mechanism. We adapted the memory organization and the multi-turn iterative reasoning pattern for retrieving relevant memories during agent decision-making.
+We didn't use M3-Agent's model weights (trained on video understanding). What we took was the architecture: episodic/semantic split, entity-centric graph structure, RL-trained retrieval. Adapted for agent decision-making in a trading simulation context.
 
-## The Memorization-Control Split
+## Memorization vs. Control
 
-M3-Agent's architecture has two parallel processing streams — **memorization** and **control** — and this decomposition turned out to be the right abstraction for us.
+M3-Agent splits processing into two parallel streams. The memorization stream runs in the background — processes each simulation round's output, updates episodic memory, triggers semantic consolidation when enough episodes accumulate, maintains the entity graph. Never blocks the simulation.
 
-The memorization stream runs continuously. It processes the output of each simulation round, updates episodic memory, triggers semantic memory consolidation when enough episodes accumulate, and maintains the entity graph. This is a background process. It does not block the simulation.
+The control stream drives agent behavior. When an agent needs to make a decision (react to a news injection, post a thesis, update its position), control queries the memory graph, reasons over what it finds, and produces an action.
 
-The control stream is what actually drives agent behavior during simulation. When an agent needs to make a decision (react to a news injection, decide whether to post a thesis, update its position), the control stream queries the memory graph for relevant memories, reasons over them, and produces an action.
+The result is that v1.2 agent populations develop *priors*. A swarm that has run 30 simulations of tech earnings seasons has accumulated semantic memories about how those narratives typically evolve, which agent archetypes tend to be early/late, and what cascade patterns precede sustained moves vs. reversals. Factor models can't do this.
 
-The result: v1.2 agent populations develop *priors*. A swarm that has run 30 simulations of tech earnings seasons has accumulated semantic memories about how tech earnings narratives typically evolve, which agent archetypes tend to be early/late, and what cascade patterns precede sustained moves vs. reversals. Traditional factor models can't do this.
+## P&L Impact (With Caveats)
 
-## What Actually Changed in the P&L
+Short evaluation period, noisy markets, take it with skepticism. But directionally, from running v1.2 in parallel with v1.1 over 6 weeks:
 
-Evaluation period is short and markets are noisy, so take this with appropriate skepticism. Directional results from running v1.2 in parallel with v1.1 over the last 6 weeks:
+Swarm-generated signals have a 0.31 correlation with our existing factor signals — enough to confirm they're picking up real dynamics, low enough to actually diversify.
 
-**Signal decorrelation improved.** Swarm-generated signals have a correlation of 0.31 with our existing factor signals — high enough to confirm they're picking up real market dynamics, low enough to provide genuine diversification.
+The pre-event simulation forks gave us a better handle on conditional tail risk. Two Fed announcements in the evaluation period. In both cases the swarm correctly identified the asymmetry of potential outcomes, and position sizing limited drawdown relative to unconditional sizing.
 
-**Scenario-conditioned sizing reduced drawdowns.** The pre-event simulation forks give us a much better handle on conditional tail risk. We had two Fed announcements in the evaluation period. In both cases, the swarm simulation correctly identified the asymmetry of potential outcomes, and the resulting position sizing limited drawdown relative to what our unconditional sizing would have produced.
+The M3-Agent memory contribution: simulations with access to the persistent memory graph produced more stable consensus measures. Without memory, running the same simulation twice with the same seed data produces consensus that varies ±8-12% due to stochastic agent behavior. With the semantic graph providing priors, variance drops to ±3-5%. Priors act as a regularizer on swarm behavior.
 
-**Memory-driven priors improved signal stability.** This is the M3-Agent contribution. Simulations with access to the persistent memory graph produced more stable consensus measures across runs. Without memory, running the same simulation twice with the same seed data produces consensus measures that vary by ±8-12% due to stochastic agent behavior. With the semantic memory graph providing priors, variance drops to ±3-5%. The priors act as a regularizer on swarm behavior.
+## Open Concerns
 
-## What I'm Still Worried About
+The semantic memory graph encodes patterns from recent simulations. Regime change invalidates those patterns, and the memory priors become harmful instead of helpful. We have a decay mechanism (confidence scores erode over time), but the half-life tuning is arbitrary.
 
-**Overfitting to recent regimes.** The semantic memory graph encodes patterns from recent simulations. If markets undergo a regime change that invalidates those patterns, the memory priors become harmful. We have a decay mechanism (memories lose confidence score over time), but the half-life tuning is largely arbitrary right now.
+MiroFish agents are LLM-powered, which means their behavior is constrained by pretraining distribution. A genuinely novel macro regime that's poorly represented in the training data means the swarm produces confidently wrong consensus measures. Standard OOD problem wearing a swarm costume.
 
-**Simulation fidelity.** MiroFish agents are LLM-powered. Their behavior is constrained by the LLM's training distribution. If the real market develops dynamics that are poorly represented in the LLM's pretraining data (a genuinely novel macro regime, for instance), the swarm simulation may produce confidently wrong consensus measures. This is the standard out-of-distribution problem, dressed up in swarm clothes.
+Cost is real. $40-60 per full simulation run in API calls (Qwen-plus), $800-1200/week with scenario forks. Manageable now, would not survive 10x instrument coverage.
 
-**Computational cost.** 50,000 agents for 20 rounds with memory graph queries is not cheap. Each full simulation run costs roughly $40-60 in API calls (Qwen-plus through the MiroFish default integration). Scenario forks multiply this by the number of branches. We're spending $800-1200/week on simulation compute — manageable at current scale, would not survive 10x instrument coverage without significant optimization.
+The memory layer runs through Zep Cloud — single point of failure with latency implications. Evaluating a self-hosted Neo4j replacement via `neo4j-graphrag-python`, trading operational complexity for control.
 
-**Zep Cloud dependency.** The memory layer runs through Zep Cloud for both the knowledge graph and the episodic memory store. This is a single point of failure with latency implications. We are evaluating a self-hosted Neo4j replacement using the `neo4j-graphrag-python` package, which would give us better control over the memory layer at the cost of operational complexity.
-
-## Architecture Diagram (In Words, Because I Haven't Made A Real One Yet)
+## Architecture (text diagram because I haven't made a real one)
 
 ```
 Seed Data (news, earnings, options flow, social)
@@ -157,6 +153,6 @@ Execution Layer
 
 v1.3 focuses on two things. First, replacing the Zep Cloud dependency with a self-hosted graph database. Second, *memory-conditioned agent evolution* — using the semantic memory graph not just to inform agent decisions within a simulation, but to modify agent persona parameters between simulations. If the memory graph has learned that momentum-trader agents are consistently wrong about biotech, future simulations should spawn momentum-trader agents with lower influence weights in the biotech sector. Meta-learning at the swarm level.
 
-The broader thesis behind Divitae: markets are best modeled as populations of heterogeneous agents with evolving beliefs, not as statistical processes with stationary parameters. MiroFish gives us the simulation engine. M3-Agent gives us the memory architecture. The combination produces signals that feel qualitatively different from anything I've gotten out of traditional factor models.
+Markets are populations of heterogeneous agents with evolving beliefs, not statistical processes with stationary parameters. MiroFish gives us the simulation engine. M3-Agent gives us the memory. The combination produces signals that feel qualitatively different from anything I've gotten out of factor models.
 
-*This describes the architecture of a research-stage trading system. It is not investment advice. I am still learning how to tune half of this.*
+*Research-stage system. Not investment advice. Still learning how to tune half of this.*
