@@ -1,11 +1,10 @@
 ---
 title: "Divitae v1.2: Swarm Intelligence Meets Persistent Memory"
-date: "2026-03-12"
+date: "2026-03-16"
 excerpt: "Technical breakdown of how Divitae v1.2 integrates MiroFish's swarm simulation engine with ByteDance's M3-Agent memory architecture to build a trading system that remembers what 700,000 agents believed last Tuesday."
 tags: ["Trading", "AI", "Systems", "Swarm Intelligence", "Agents"]
 ---
 
-# Divitae v1.2: Swarm Intelligence Meets Persistent Memory
 
 I wrote previously about building systematic trading systems and made the point that the interesting problem is not finding a strategy but building a machine for generating and evaluating strategies. Divitae is that machine. Version 1.2 represents a fairly significant architectural shift in how we handle signal generation and state management, so I want to document what changed and why.
 
