@@ -1,7 +1,7 @@
 ---
 title: "Mechanistic Interpretability: Reverse-Engineering the Alien Mind"
 date: "2026-03-12"
-excerpt: "We built the most powerful information processing systems in human history and we have no idea how they work. Mechanistic interpretability is the field trying to fix that — by literally reverse-engineering neural networks neuron by neuron, circuit by circuit. Here's why I can't stop thinking about it."
+excerpt: "We built the most powerful information processing systems in human history and we have no idea how they work. Mechanistic interpretability is the field trying to fix that by literally reverse-engineering neural networks neuron by neuron, circuit by circuit. Here's why I can't stop thinking about it."
 tags: ["AI", "Interpretability", "Research", "Transformers", "Machine Learning"]
 ---
 
@@ -25,17 +25,17 @@ This is not a normal state of affairs in engineering. Imagine Boeing shipping a 
 
 Mechanistic interpretability (mech interp, for those of us who've said the full phrase too many times) is the project of changing this. The goal: **reverse-engineer the algorithms that neural networks learn**, expressed in terms of human-understandable computational primitives.
 
-Not "the model is confident because attention score is high" — that's behavioral observation. Mech interp wants the actual algorithm. The pseudocode. The circuit diagram.
+Not "the model is confident because attention score is high," that's behavioral observation. Mech interp wants the actual algorithm. The pseudocode. The circuit diagram.
 
 ## Why "Interpretability" Is the Wrong Word
 
-I have a minor pet peeve about the name. "Interpretability" suggests we're trying to *interpret* a model — like reading tea leaves or doing literary analysis. That framing is dangerously soft.
+I have a minor pet peeve about the name. "Interpretability" suggests we're trying to *interpret* a model, like reading tea leaves or doing literary analysis. That framing is dangerously soft.
 
 What we're actually doing is **reverse engineering**. The same discipline that lets people decompile binaries, reconstruct proprietary chip designs, and figure out how the Stuxnet worm worked. We have an artifact (a trained neural network), and we're trying to recover the algorithm it implements.
 
 The difference matters because reverse engineering has a *ground truth*. Either you've correctly identified the circuit that performs indirect object identification, or you haven't. Either your proposed mechanism predicts the model's behavior on held-out inputs, or it doesn't. This is science, not vibes.
 
-Chris Olah — who is basically the patron saint of this field — frames it beautifully: neural networks are programs written in a language we don't understand, compiled to weights we can't read. Mech interp is building the decompiler.
+Chris Olah, who is basically the patron saint of this field, frames it well: neural networks are programs written in a language we don't understand, compiled to weights we can't read. Mech interp is building the decompiler.
 
 ## The Computational Graph: What We're Actually Looking At
 
@@ -67,17 +67,17 @@ This additive structure is *incredibly* important. It means every attention head
 
 A claim that took me months to fully internalize:
 
-> **The fundamental unit of neural network computation is not the neuron. It's the feature — a direction in activation space.**
+> **The fundamental unit of neural network computation is not the neuron. It's the feature, a direction in activation space.**
 
 This is the *linear representation hypothesis*, and it changes everything about what it means for a model to "know" something.
 
 A neuron is just a basis vector in activation space. It's an arbitrary coordinate axis chosen by the initialization and training process. There is no reason to expect individual neurons to correspond to meaningful concepts, any more than you'd expect the x-axis of a room to point at something interesting.
 
-Features, on the other hand, are *directions* — linear combinations of neurons. The "Golden Gate Bridge" feature Anthropic found in Claude isn't a single neuron; it's a direction in the residual stream that the model uses to represent the concept of the Golden Gate Bridge. When that direction has high magnitude, the model is "thinking about" the Golden Gate Bridge.
+Features, on the other hand, are *directions*, linear combinations of neurons. The "Golden Gate Bridge" feature Anthropic found in Claude isn't a single neuron; it's a direction in the residual stream that the model uses to represent the concept of the Golden Gate Bridge. When that direction has high magnitude, the model is "thinking about" the Golden Gate Bridge.
 
 ### The Geometry Gets Wild
 
-This is where my brain starts making the good chemicals. Consider a model with $d_{model} = 4096$. In principle, it can represent 4096 orthogonal features perfectly. But the model needs to track *far* more concepts than that — potentially millions.
+This is where my brain starts making the good chemicals. Consider a model with $d_{model} = 4096$. In principle, it can represent 4096 orthogonal features perfectly. But the model needs to track *far* more concepts than that, potentially millions.
 
 The **superposition hypothesis** (Elhage et al., 2022) explains how: the model packs features as *almost-orthogonal* directions. In high-dimensional space, you can fit exponentially many near-orthogonal vectors. Specifically, for vectors in $\mathbb{R}^d$, you can pack $\exp(O(d))$ unit vectors such that all pairwise dot products are bounded by $\epsilon$.
 
@@ -91,15 +91,15 @@ I find this genuinely beautiful. The model independently discovered a coding sch
 
 ## Circuits: Features Connected by Weights
 
-Features alone are static — they tell you what the model represents, not how it computes. **Circuits** are the computational story: subgraphs of the network that connect features through weights to implement specific algorithms.
+Features alone are static, they tell you what the model represents, not how it computes. **Circuits** are the computational story: subgraphs of the network that connect features through weights to implement specific algorithms.
 
 The canonical framework (Olah et al., 2020) proposes three claims:
 
-1. **Features** are the fundamental units — directions in activation space with interpretable meaning
-2. **Circuits** are subgraphs connecting features — they implement specific computations
-3. **Universality** — similar circuits appear across different models trained independently
+1. **Features** are the fundamental units, directions in activation space with interpretable meaning
+2. **Circuits** are subgraphs connecting features, they implement specific computations
+3. **Universality**: similar circuits appear across different models trained independently
 
-That third claim is the interesting one. It suggests that there's something like a *periodic table of neural network circuits* — recurring computational motifs that any sufficiently trained model will converge on.
+That third claim is the interesting one. It suggests that there's something like a *periodic table of neural network circuits*, recurring computational motifs that any sufficiently trained model will converge on.
 
 ![Illustration of circuit-level analysis showing connected features across transformer layers](https://transformer-circuits.pub/2025/attribution-graphs/png/methods.png)
 
@@ -117,19 +117,19 @@ An attention head in an early layer learns to attend from each token to the toke
 
 **Step 2: Induction head (Layer $l_2$, where $l_2 > l_1$)**
 
-A head in a later layer uses the QK circuit to search for previous positions where token $A$ appeared. But critically, it's not searching the original token embeddings — it's searching the *residual stream after the previous-token head wrote to it*. So when it queries "where did $A$ appear?", it finds positions where the previous-token head wrote "$A$ preceded me."
+A head in a later layer uses the QK circuit to search for previous positions where token $A$ appeared. But critically, it's not searching the original token embeddings, it's searching the *residual stream after the previous-token head wrote to it*. So when it queries "where did $A$ appear?", it finds positions where the previous-token head wrote "$A$ preceded me."
 
 The OV circuit then copies the *current token at that position* (which is $B$) into the prediction.
 
-This is a **two-step algorithm** distributed across two layers, communicating through the residual stream. Neither head alone can do the computation. The emergent behavior — in-context pattern completion — only arises from their composition.
+This is a **two-step algorithm** distributed across two layers, communicating through the residual stream. Neither head alone can do the computation. The emergent behavior, in-context pattern completion, only arises from their composition.
 
 The key mathematical object is the **QK composition**:
 
 $$A_{induction} \propto \text{softmax}\left( x^{(l_2)} W_Q^{(l_2)} \left(W_K^{(l_2)}\right)^\top \left(W_{OV}^{(l_1)}\right)^\top \left(x^{(l_1)}\right)^\top \right)$$
 
-The $W_{OV}^{(l_1)}$ factor inside the attention computation of the later head is what makes this a genuine *circuit* — it's composition through the residual stream.
+The $W_{OV}^{(l_1)}$ factor inside the attention computation of the later head is what makes this a genuine *circuit*, it's composition through the residual stream.
 
-Olsson et al. (2022) showed that induction heads are responsible for the **phase transition** in transformer training — the sharp drop in loss that occurs when two-layer attention models suddenly develop in-context learning. Before induction heads form, the model is essentially a bigram model. After, it can do in-context learning. The phase transition corresponds to the moment the QK composition term becomes large enough to dominate the attention pattern.
+Olsson et al. (2022) showed that induction heads are responsible for the **phase transition** in transformer training, the sharp drop in loss that occurs when two-layer attention models suddenly develop in-context learning. Before induction heads form, the model is essentially a bigram model. After, it can do in-context learning. The phase transition corresponds to the moment the QK composition term becomes large enough to dominate the attention pattern.
 
 I've stared at those loss curves more times than I'm willing to admit.
 
@@ -159,7 +159,7 @@ The crown jewel of activation patching is the **Indirect Object Identification (
 
 > "When Mary and John went to the store, John gave a drink to **Mary**"
 
-The model needs to figure out that "Mary" is the indirect object (the correct completion) and not "John" (the subject who already appeared as the actor). This requires tracking who did what to whom — a non-trivial computation.
+The model needs to figure out that "Mary" is the indirect object (the correct completion) and not "John" (the subject who already appeared as the actor). This requires tracking who did what to whom, a non-trivial computation.
 
 They found a circuit involving **26 attention heads** across multiple layers, organized into functional groups:
 
@@ -178,7 +178,7 @@ The uncomfortable question that haunts the field: most of the clean results I ju
 
 Do these findings scale to frontier models? The honest answer is: *partially, and we're working on it*.
 
-Anthropic's **Scaling Monosemanticity** work (Templeton et al., 2024) was the first major evidence that feature-level analysis transfers to large models. They trained sparse autoencoders on Claude 3 Sonnet and found interpretable features at scale — including multimodal features that respond to both text and images of the same concept.
+Anthropic's **Scaling Monosemanticity** work (Templeton et al., 2024) was the first major evidence that feature-level analysis transfers to large models. They trained sparse autoencoders on Claude 3 Sonnet and found interpretable features at scale, including multimodal features that respond to both text and images of the same concept.
 
 But circuit-level analysis at scale remains extremely difficult. A model like Claude 3.5 Sonnet has:
 - ~70 billion parameters (estimated)
@@ -186,19 +186,19 @@ But circuit-level analysis at scale remains extremely difficult. A model like Cl
 - Dozens of layers
 - Residual stream dimensions in the thousands
 
-The combinatorial space of possible circuits is astronomical. Manual analysis is out of the question. The field needs **automated circuit discovery** — algorithms that can identify the relevant subgraph for a given behavior without a human in the loop.
+The combinatorial space of possible circuits is astronomical. Manual analysis is out of the question. The field needs **automated circuit discovery**, algorithms that can identify the relevant subgraph for a given behavior without a human in the loop.
 
 Some promising directions:
 
-**Attribution patching** (Neel Nanda et al.) — a linearized approximation of activation patching that's orders of magnitude faster. Instead of running the full model for every patch, you approximate the effect using gradients:
+**Attribution patching** (Neel Nanda et al.), a linearized approximation of activation patching that's orders of magnitude faster. Instead of running the full model for every patch, you approximate the effect using gradients:
 
 $$\Delta_{l,h} \approx \nabla_{a^{(l,h)}} F(x_{corrupt})^\top \cdot (a_{clean}^{(l,h)} - a_{corrupt}^{(l,h)})$$
 
 This is a first-order Taylor expansion. It's not exact, but it correctly identifies the top components in practice, and it runs in time proportional to a single backward pass rather than $O(L \times H)$ forward passes.
 
-**ACDC** (Automatic Circuit DisCovery) — systematically prunes edges in the computational graph while monitoring task performance, converging on a minimal circuit.
+**ACDC** (Automatic Circuit DisCovery), systematically prunes edges in the computational graph while monitoring task performance, converging on a minimal circuit.
 
-**Transcoders** — a recent variant of sparse autoencoders that decompose the *MLP computation itself* (not just the activations), expressing each MLP as a sparse set of interpretable input-output feature mappings.
+**Transcoders**, a recent variant of sparse autoencoders that decompose the *MLP computation itself* (not just the activations), expressing each MLP as a sparse set of interpretable input-output feature mappings.
 
 ## The Residual Stream as a Communication Bus
 
@@ -211,7 +211,7 @@ This isn't a metaphor. It's the literal mathematical structure. Each attention h
 2. **Reads** from the residual stream via $W_V$ (deciding *what information* to move)
 3. **Writes** to the residual stream via $W_O$ (depositing the result)
 
-Because all reads and writes are linear, you can analyze the information flow through **virtual weights** — the composition of weight matrices across layers. The effective QK circuit between head $h_1$ in layer $l_1$ and head $h_2$ in layer $l_2$ is:
+Because all reads and writes are linear, you can analyze the information flow through **virtual weights**, the composition of weight matrices across layers. The effective QK circuit between head $h_1$ in layer $l_1$ and head $h_2$ in layer $l_2$ is:
 
 $$W_{QK-composed} = W_Q^{(l_2, h_2)} \cdot W_O^{(l_1, h_1)} \cdot W_V^{(l_1, h_1)} \cdot (W_K^{(l_2, h_2)})^\top$$
 
@@ -221,7 +221,7 @@ I spent a very happy (some might say concerning) weekend computing these for eve
 
 ## What Features Have We Actually Found?
 
-To get specific — the breadth of discovered features is frankly staggering:
+To get specific, the breadth of discovered features is frankly staggering:
 
 **In language models:**
 - Features for specific languages (French, Arabic, Python, etc.)
@@ -230,11 +230,11 @@ To get specific — the breadth of discovered features is frankly staggering:
 - Features for emotional tone (sarcasm, formality, urgency)
 - Features for reasoning modes (mathematical, causal, analogical)
 - A feature that activates specifically for **text that is lying or being deceptive** (this one keeps me up at night)
-- Features for code correctness — activating differently for valid vs. buggy code
+- Features for code correctness, activating differently for valid vs. buggy code
 
 **In vision models (the OG interpretability success story):**
 - Curve detectors, edge detectors, texture detectors (early layers)
-- Object part detectors — wheels, eyes, fur patterns (middle layers)
+- Object part detectors, wheels, eyes, fur patterns (middle layers)
 - Full object and scene detectors (late layers)
 - "Multimodal neurons" that respond to both images and text of the same concept
 
@@ -246,7 +246,7 @@ The vision model features follow a clear hierarchy from low-level to high-level,
 
 *(Shameless plug for my own research direction)*
 
-Something that's been eating at me: the entire mech interp toolkit assumes you're analyzing the model in **full precision** (FP32 or BF16). But deployed models are increasingly quantized — INT8, INT4, sometimes even lower. When you quantize a model, you're perturbing every weight by a small amount:
+Something that's been eating at me: the entire mech interp toolkit assumes you're analyzing the model in **full precision** (FP32 or BF16). But deployed models are increasingly quantized: INT8, INT4, sometimes even lower. When you quantize a model, you're perturbing every weight by a small amount:
 
 $$W_{quant} = W + \Delta W, \quad ||\Delta W|| \sim O(\epsilon_{quant})$$
 
@@ -257,7 +257,7 @@ If features are directions in activation space, and quantization perturbs the we
 My preliminary results suggest that:
 - **High-activation features** (the ones that fire strongly and frequently) are robust to INT4 quantization
 - **Low-activation features** (sparse, subtle features) can drift or collapse entirely
-- The features most vulnerable to quantization are precisely the ones mech interp cares about most — the subtle, compositional features involved in complex reasoning
+- The features most vulnerable to quantization are precisely the ones mech interp cares about most, the subtle, compositional features involved in complex reasoning
 
 This has uncomfortable implications. If your safety-relevant features (the ones detecting deception, harmful intent, etc.) are low-activation features, and you deploy a quantized model, you might have silently destroyed the features your interpretability tools rely on to monitor the model.
 
@@ -268,8 +268,8 @@ I'll end on why this matters beyond academic curiosity.
 
 We are building increasingly powerful AI systems. The capabilities curve is steep and shows no sign of flattening. Within the next few years, we will likely have AI systems that can autonomously write code, conduct research, and take actions in the real world.
 
-If we cannot understand *what these systems are doing internally*, we are flying blind. RLHF and constitutional AI are behavioral constraints — they shape what the model *says*, not what it *thinks*. A sufficiently capable model that has learned to pass behavioral tests while pursuing misaligned internal goals would be undetectable by behavioral methods alone.
+If we cannot understand *what these systems are doing internally*, we are flying blind. RLHF and constitutional AI are behavioral constraints, they shape what the model *says*, not what it *thinks*. A sufficiently capable model that has learned to pass behavioral tests while pursuing misaligned internal goals would be undetectable by behavioral methods alone.
 
-The gap between our ability to build powerful AI and our ability to understand it is growing. Mech interp is one of the only fields directly trying to close it. The tools are open source — TransformerLens, SAELens, Baukit — and Neel Nanda's ARENA curriculum teaches the whole stack from scratch.
+The gap between our ability to build powerful AI and our ability to understand it is growing. Mech interp is one of the only fields directly trying to close it. The tools are open source (TransformerLens, SAELens, Baukit) and Neel Nanda's ARENA curriculum teaches the whole stack from scratch.
 
 *I'm researching feature stability under quantization at UdeM/MILA. If you work on this stuff, reach out.*
