@@ -42,7 +42,7 @@ While assembling such a complex orchestration pipeline in 10 days is a testament
 MiroFish attempts to act as a "crystal ball" for real-world scenarios. However, LLMs are fundamentally predictive text models, not physics engines or rigorous economic simulators. When agents interact over long horizons, their interactions are subject to compounding hallucinations. The GraphRAG initialization provides a solid foundation, but as the simulation diverges from the present, the agents will naturally drift toward plausible-sounding narratives rather than mathematically rigorous outcomes. It is less a prediction engine and more a high-fidelity interactive fiction generator.
 
 ### 3. State Explosion
-Running "thousands" of agents with active memory retrieval (via Zep) and GraphRAG lookups per simulation tick incurs massive latency and token costs. While the architecture supports parallelization, the I/O bottleneck of querying external LLM APIs and vector databases at this scale requires aggressive aggressive caching or batching strategies that are notoriously difficult to implement correctly in a 10-day sprint.
+Running "thousands" of agents with active memory retrieval (via Zep) and GraphRAG lookups per simulation tick incurs massive latency and token costs. While the architecture supports parallelization, the I/O bottleneck of querying external LLM APIs and vector databases at this scale requires aggressive caching or batching strategies that are notoriously difficult to implement correctly in a 10-day sprint.
 
 ## Conclusion
 
