@@ -5,8 +5,6 @@ excerpt: "What being on the autism spectrum changes in day-to-day engineering wo
 tags: ["own exp", "engineering", "asd"]
 ---
 
-I have spent enough time in software teams to notice a pattern: people are usually comfortable discussing technical edge cases, but much less comfortable discussing cognitive edge cases. We treat architecture as a first-class design problem and neurodiversity as a social footnote. That seems backwards.
-
 I am on the spectrum (what many people still call Asperger's), and in engineering contexts it is neither a tragedy nor a cheat code. It is a cognitive profile with real tradeoffs. Some of those tradeoffs are extremely useful in software. Some are expensive. Most are manageable if the team has decent norms.
 
 ## Why awareness matters to me
