@@ -48,7 +48,7 @@ const EducationCard: React.FC = () => {
       period: "2017 – 2020 · Grade: 19.88/20",
       achievements: [
         "Valedictorian",
-        "2017 Regional Mathematics Olympiad winner (1st)",
+        "2017 Regional Mathematics Olympiad winner ",
         "2019 National Mathematics Olympiad participant (2nd place)",
         "First city-wide Math baccalaureate grade",
       ],
