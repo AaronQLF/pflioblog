@@ -43,7 +43,7 @@ const ProjectsCard: React.FC = () => {
     <div className="glass-card hover-scale h-full">
       <div className="p-6 h-full flex flex-col">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-sm font-semibold text-black dark:text-white">Cool Projects</h2>
+          <h2 className="text-sm font-semibold text-black dark:text-white">Cool (mostly old) Projects</h2>
           <div className="flex space-x-2">
             {projects.map((_, index) => (
               <button
