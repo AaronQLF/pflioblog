@@ -37,12 +37,6 @@ I think this is backwards. Interpretability should be integrated into the develo
 
 You do not need perfect mechanistic understanding to get value. Partial understanding already improves control. The same way imperfect observability is still vastly better than no observability.
 
-## What this looks like in practice
-
-When I say teams should invest more here, I do not mean every company needs a giant interpretability lab tomorrow. I mean teams should start building a real workflow around mechanistic evidence. Pick a small set of high impact behaviors, map the internal components that appear to drive them, and track those components across model versions. If a behavior changes, you should know whether the same circuit changed or whether an entirely new mechanism appeared.
-
-I also think release process should include at least one interpretability gate for high risk capabilities. Not perfection, just a minimum standard of internal visibility. If a model clears external evals but fails basic mechanistic sanity checks, that should trigger caution, not celebration. The cost of this discipline is real, but the cost of blind deployment is usually higher and paid later under worse conditions.
-
 ## My personal reason for choosing this field
 
 I chose interpretability because it matches how my brain works. I am less interested in demo magic and more interested in causal structure. I want to know what computation is actually happening, where it lives, and what perturbation changes it.
