@@ -1,7 +1,6 @@
 import { getAllPosts } from '@/lib/blog';
 import Link from 'next/link';
 import Header from '@/components/Header';
-import ActivityGraph from '@/components/ActivityGraph';
 
 export const metadata = {
     title: 'Blog | Haroun Guessous',
@@ -21,8 +20,6 @@ export default function BlogPage() {
                         Thoughts on AI research, engineering, and whatever I&apos;m building.
                     </p>
                 </div>
-
-                <ActivityGraph />
 
                 {posts.length === 0 ? (
                     <p className="text-slate-400 dark:text-zinc-500 text-sm">No posts yet. Add a <code>.md</code> file to <code>content/blog/</code> to get started.</p>

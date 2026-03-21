@@ -1,5 +1,5 @@
 ---
-title: "Why I chose interpretability"
+title: "Why Interpretability Is My Lane"
 date: "2026-03-21"
 excerpt: "My core worry about advanced AI is simple: capability is scaling faster than understanding. This is why I think engineering teams need to treat interpretability as infrastructure, and why I decided to work in this field."
 tags: ["AI", "Interpretability", "Safety", "Research", "own exp"]
@@ -36,6 +36,12 @@ Most teams still allocate interpretability effort as a side quest. A small group
 I think this is backwards. Interpretability should be integrated into the development lifecycle itself. During training, teams should track internal representation drift, feature emergence, and circuit level changes across checkpoints. During eval, teams should include mechanistic probes, not only pass fail tasks. During deployment, teams should monitor internal safety relevant features with alert thresholds and rollback policies.
 
 You do not need perfect mechanistic understanding to get value. Partial understanding already improves control. The same way imperfect observability is still vastly better than no observability.
+
+## What this looks like in practice
+
+When I say teams should invest more here, I do not mean every company needs a giant interpretability lab tomorrow. I mean teams should start building a real workflow around mechanistic evidence. Pick a small set of high impact behaviors, map the internal components that appear to drive them, and track those components across model versions. If a behavior changes, you should know whether the same circuit changed or whether an entirely new mechanism appeared.
+
+I also think release process should include at least one interpretability gate for high risk capabilities. Not perfection, just a minimum standard of internal visibility. If a model clears external evals but fails basic mechanistic sanity checks, that should trigger caution, not celebration. The cost of this discipline is real, but the cost of blind deployment is usually higher and paid later under worse conditions.
 
 ## My personal reason for choosing this field
 
