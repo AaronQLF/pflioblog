@@ -5,7 +5,7 @@ excerpt: "A short, unreasonably enthusiastic post about a two-word Python statem
 tags: ["Python", "Engineering"]
 ---
 
-I need to talk about `yield from` because nobody around me seems appropriately impressed by it and that bothers me.
+I need to talk about `yield from` because nobody around me seems appropriately impressed by it and that bothers me
 
 ## What it replaces
 
@@ -106,5 +106,3 @@ I know that is an unusual thing to feel about a programming construct. I have ac
 Once you see `yield from` as a composition primitive for resumable computations rather than a shortcut for iteration, it changes how you think about control flow. You start seeing opportunities to express pipelines, state machines, protocol handlers, and recursive traversals as composed generators where each layer is simple and the delegation semantics are guaranteed correct.
 
 I find that satisfying in a way I cannot fully defend rationally. There is something about a language giving you the exact primitive you need, not more, not less, and trusting you to notice.
-
-Most people do not notice. I notice.
