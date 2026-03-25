@@ -27,13 +27,13 @@ That assumption is what I think is happening with AI right now. The technology i
 
 The numbers are hard to overstate.
 
-In 2025, the major cloud providers and AI infrastructure companies collectively spent somewhere north of $200 billion on AI-related capital expenditure. That includes GPUs, custom silicon, data centers, power infrastructure, cooling systems, and the associated real estate and construction. Microsoft alone guided for roughly $80 billion. Meta was in the $60 billion range. Google, Amazon, and Oracle each committed tens of billions. And that is before counting the startups funded by venture capital that are buying the same hardware.
+In 2025, the major cloud providers and AI infrastructure companies collectively spent somewhere north of 200 billion dollars on AI-related capital expenditure. That includes GPUs, custom silicon, data centers, power infrastructure, cooling systems, and the associated real estate and construction. Microsoft alone guided for roughly 80 billion. Meta was in the 60 billion range. Google, Amazon, and Oracle each committed tens of billions. And that is before counting the startups funded by venture capital that are buying the same hardware.
 
-For reference, the entire US venture capital market deployed about $170 billion total in 2024, across all sectors. The AI capex number from just a handful of hyperscalers is now larger than the entire VC ecosystem was a year ago.
+For reference, the entire US venture capital market deployed about 170 billion dollars total in 2024, across all sectors. The AI capex number from just a handful of hyperscalers is now larger than the entire VC ecosystem was a year ago.
 
 The question that matters is: what revenue justifies this level of investment?
 
-The most generous estimates for AI-related cloud revenue across all providers in 2025 were in the $50 to $80 billion range. A lot of that is existing cloud workloads that have been relabeled as "AI" for investor relations purposes. The genuinely new revenue attributable to generative AI products, meaning revenue that would not exist without large language models and diffusion models, is harder to isolate, but the credible estimates I have seen put it significantly lower than the capex being deployed to chase it.
+The most generous estimates for AI-related cloud revenue across all providers in 2025 were in the 50 to 80 billion dollar range. A lot of that is existing cloud workloads that have been relabeled as "AI" for investor relations purposes. The genuinely new revenue attributable to generative AI products, meaning revenue that would not exist without large language models and diffusion models, is harder to isolate, but the credible estimates I have seen put it significantly lower than the capex being deployed to chase it.
 
 This is the first structural problem. The industry is spending four to five dollars on infrastructure for every dollar of new AI revenue it can identify. That ratio needs to improve dramatically, and quickly, or the returns on this capital will be deeply negative.
 
