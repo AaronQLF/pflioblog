@@ -2,7 +2,7 @@
 title: "The AI Bubble Is Real and the Fallout Will Be Worse Than People Think"
 date: "2026-03-25"
 excerpt: "I work in AI. I believe we are inside a bubble. The capital misallocation is staggering, the revenue gap is structural, and the economic damage when it corrects will be harder to recover from than the dot-com crash. This post has been in the works for longer than I want to admit."
-tags: ["AI", "Economics", "own exp", "not technical"]
+tags: ["AI", "Finance", "own exp", "not technical"]
 ---
 
 This post has been in the works for longer than I want to admit. I have rewritten it probably six or seven times. Every time I thought I was done, some new funding round or infrastructure announcement would come out and I would have to update the numbers, adjust the framing, or just sit with the discomfort of saying something that sounds alarmist while working in the exact industry I am being alarmist about.
