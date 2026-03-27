@@ -1,13 +1,13 @@
 ---
 title: "The Quiet Catastrophe: Tech Debt from Vibe Coding"
 date: "2026-03-27"
-excerpt: "My reflection on the slow, compounding damage of AI-assisted development without understanding, from someone who's seen it as an engineer, a team lead, and an open source maintainer."
+excerpt: "My reflection on the slow, compounding damage of AI-assisted development without understanding, from someone who's seen it as an engineer and a team lead."
 tags: ["Engineering", "AI", "Tech Debt", "Software Quality", "Vibe Coding", "Opinion"]
 ---
 
 # The Quiet Catastrophe: Tech Debt from Vibe Coding
 
-I need to start with a disclaimer, because without it the rest of this essay will read wrong. I am not writing this from a place of superiority. I don't think I'm special. I've been called a "10x engineer" a few times, mostly by managers who wanted to justify not hiring more people, and every time it made me uncomfortable because the label implies a kind of solitary genius that doesn't exist in real software engineering. What I am is someone who's been doing this long enough, across enough contexts, to have developed a deep allergy to certain patterns. I lead a team. I maintain a couple of open source projects that, combined, get a few million downloads a month. I've written terrible code. I've shipped bugs that cost real money. I am not above any of this. But I've been watching something happen over the last eighteen months that I think we need to talk about honestly, even if it makes people defensive.
+I need to start with a disclaimer, because without it the rest of this essay will read wrong. I am not writing this from a place of superiority. I don't think I'm special. I've been called a "10x engineer" a few times, mostly by managers who wanted to justify not hiring more people, and every time it made me uncomfortable because the label implies a kind of solitary genius that doesn't exist in real software engineering. What I am is someone who's been doing this long enough, across enough contexts, to have developed a deep allergy to certain patterns. I lead a team. I've written terrible code. I've shipped bugs that cost real money. I am not above any of this. But I've been watching something happen over the last eighteen months that I think we need to talk about honestly, even if it makes people defensive.
 
 I want to talk about vibe coding, and the tech debt it leaves behind.
 
@@ -19,7 +19,7 @@ I want to be careful here. Using AI tools to write code is not inherently bad. I
 
 What I'm talking about is the mode of development where the human in the loop has abdicated the role of understanding the code they're shipping. Where the feedback loop is: prompt, generate, run, does it work?, ship. Where the developer's relationship to the codebase is that of a director giving notes to an actor, rather than an author writing prose they can defend word by word.
 
-This distinction matters enormously. And the tech debt it produces is unlike anything I've seen in twenty years of writing software.
+This distinction matters enormously. And the tech debt it produces is unlike anything I've seen in almost ten years of writing software (I'm getting old :( ).
 
 ## The Seduction
 
@@ -96,28 +96,6 @@ The most dangerous thing about vibe coding, from a team lead's perspective, is t
 But the velocity is an illusion, because it's borrowing from the future. Every vibe-coded feature that ships without deep understanding is a withdrawal from the codebase's future maintainability. The interest rate on this debt is high, and it compounds. Six months in, the team starts slowing down. Changes that should take hours take days, because the codebase is a maze of generated code that nobody understands. Bug reports start coming in faster than they're resolved, because each fix risks introducing new issues. The team starts avoiding certain areas of the code entirely, building workarounds rather than fixing the root cause, because the root cause is buried in code that nobody wrote and nobody understands.
 
 I've watched this happen to three teams now. The trajectory is remarkably consistent. Months one through three: incredible velocity. Months four through six: gradually slowing, growing unease, first serious production incidents. Months seven through nine: near-total paralysis, conversations about rewriting from scratch, finger-pointing about who let the codebase get this bad. It's a slow-motion car crash, and the frustrating part is that the metrics looked great right up until they didn't. The uncomfortable truth that nobody wants to hear during those first three months is that vibe coding doesn't make you a 10x engineer. It makes you a 1x engineer driving the technical debt to 10x.
-
-## The Open Source Maintainer's Perspective
-
-I want to add one more lens here, because I think it's illuminating. I maintain two open source libraries, nothing world-famous, but widely used enough that I get a steady stream of issues and pull requests. And the character of those contributions has changed dramatically since vibe coding became widespread.
-
-### The AI-Generated PR
-
-I can now identify AI-generated pull requests with about 90% accuracy within thirty seconds of opening them. They have a specific character: the code is syntactically correct, follows common patterns, includes reasonable variable names, and completely misses the point of the codebase's existing conventions.
-
-A recent example: someone submitted a PR to add a feature I'd actually been wanting. Great. But the implementation introduced a new dependency for something that could be done with the utilities already in the project. It used a class-based architecture in a codebase that's consistently functional. It added a configuration option with a default value that was subtly wrong for the library's primary use case. The tests passed, but they tested the wrong invariants.
-
-When I left review comments explaining these issues, the contributor's responses were clearly AI-generated too, polished, agreeable, and slightly off-target. "Great point! I've updated the implementation to address your concern." But the update would fix the literal comment while missing the underlying issue. It took four rounds of review to get the PR to a mergeable state, which is about three more than a contribution of that size should require.
-
-I'm not complaining about contributors. I'm grateful for anyone who takes the time to contribute to an open source project. But the pattern is unmistakable: contributions that were generated without understanding require an order of magnitude more maintainer time to review, iterate on, and merge than contributions from someone who actually read the existing code, understood the conventions, and made intentional decisions.
-
-### The Issue Flood
-
-The other side of the open source equation is issues. I've seen a significant increase in issues that are clearly the result of someone vibe-coding an application that uses my library, hitting an error they don't understand, and filing an issue without doing any investigation. The issue will include the full error message (often a JavaScript stack trace that clearly points to a misuse of the API), sometimes a screenshot of their AI conversation where they asked the AI what's wrong and the AI speculated incorrectly about a bug in the library.
-
-These issues take time to triage. Time to write a patient, respectful response explaining that the error is in their code, not the library. Time to point them to the documentation section that covers the exact scenario they're hitting. In the old days, developers would hit an error, read the docs, try a few things, and file an issue only after they'd genuinely determined that the problem was likely in the library. Now, filing an issue is the first step, because the developer's relationship to their own code doesn't include enough understanding to debug it locally.
-
-I want to be really clear: I'm not gatekeeping. I love that more people are building software. I love that AI tools are lowering the barrier to entry. But lowering the barrier to writing code is not the same as lowering the barrier to understanding code, and when the gap between those two gets too wide, the entire ecosystem feels the strain.
 
 ## The Compounding Problem
 
