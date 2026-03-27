@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#FF6B00", // Orange color matching Alex Carter's site
+        primary: "var(--color-primary)",
         secondary: "#333333",
         light: "#f8f8f8",
       },

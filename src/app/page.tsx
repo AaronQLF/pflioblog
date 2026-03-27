@@ -4,6 +4,7 @@ import EducationCard from '../components/EducationCard';
 import ProjectsCard from '../components/ProjectsCard';
 import BooksCard from '../components/BooksCard';
 import BlogCard from '../components/BlogCard';
+import ActivityGraph from '../components/ActivityGraph';
 import { getAllPosts } from '../lib/blog';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -73,7 +74,12 @@ export default function Home() {
             <BlogCard posts={recentPosts} />
           </div>
 
-          {/* Row 3: Featured Projects — full width */}
+          {/* Row 3: Git Activity */}
+          <div>
+            <ActivityGraph />
+          </div>
+
+          {/* Row 4: Featured Projects — full width */}
           <div id="projects" className="md:h-[420px]">
             <ProjectsCard />
           </div>

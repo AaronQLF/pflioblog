@@ -5,22 +5,6 @@ import Link from "next/link";
 import type { BlogPostMeta } from "@/lib/blog";
 import type { TfIdfIndex } from "@/lib/blog";
 
-type ReadingTimeBucket = "all" | "short" | "medium" | "long";
-
-function matchesBucket(minutes: number, bucket: ReadingTimeBucket): boolean {
-    if (bucket === "all") return true;
-    if (bucket === "short") return minutes <= 5;
-    if (bucket === "medium") return minutes >= 6 && minutes <= 12;
-    return minutes >= 13;
-}
-
-const bucketLabels: Record<ReadingTimeBucket, string> = {
-    all: "Any length",
-    short: "≤ 5 min",
-    medium: "6–12 min",
-    long: "13+ min",
-};
-
 const STOP_WORDS = new Set([
     'a','an','the','and','or','but','in','on','at','to','for','of','with','by',
     'from','is','it','its','this','that','are','was','were','be','been','being',
@@ -65,7 +49,6 @@ interface Props {
 
 export default function BlogFiltersList({ posts, searchIndex }: Props) {
     const [query, setQuery] = useState("");
-    const [readingTime, setReadingTime] = useState<ReadingTimeBucket>("all");
 
     const results = useMemo(() => {
         const q = query.trim();
@@ -99,21 +82,13 @@ export default function BlogFiltersList({ posts, searchIndex }: Props) {
             ranked = posts.map((post) => ({ post, score: 0 }));
         }
 
-        return ranked.filter(({ post }) => matchesBucket(post.readingTime, readingTime));
-    }, [posts, searchIndex, query, readingTime]);
-
-    const hasActiveFilters = query.length > 0 || readingTime !== "all";
-
-    const resetAll = () => {
-        setQuery("");
-        setReadingTime("all");
-    };
+        return ranked;
+    }, [posts, searchIndex, query]);
 
     return (
         <div>
-            {/* Filter controls */}
-            <div className="glass-card p-5 mb-8 space-y-4">
-                {/* Search */}
+            {/* Search */}
+            <div className="glass-card p-5 mb-8">
                 <div className="relative">
                     <input
                         type="text"
@@ -128,36 +103,6 @@ export default function BlogFiltersList({ posts, searchIndex }: Props) {
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-300 transition-colors text-xs"
                         >
                             clear
-                        </button>
-                    )}
-                </div>
-
-                {/* Reading time + reset row */}
-                <div className="flex items-center justify-between gap-3">
-                    <div className="flex gap-1.5">
-                        {(Object.entries(bucketLabels) as [ReadingTimeBucket, string][]).map(
-                            ([bucket, label]) => (
-                                <button
-                                    key={bucket}
-                                    onClick={() => setReadingTime(bucket)}
-                                    className={`text-[11px] font-medium px-2.5 py-1 rounded-lg border transition-all duration-200 ${
-                                        readingTime === bucket
-                                            ? "bg-blue-600 dark:bg-blue-500 text-white border-blue-600 dark:border-blue-500"
-                                            : "bg-white dark:bg-zinc-800/60 text-slate-600 dark:text-zinc-400 border-slate-200 dark:border-zinc-700 hover:border-blue-400 dark:hover:border-blue-500"
-                                    }`}
-                                >
-                                    {label}
-                                </button>
-                            )
-                        )}
-                    </div>
-
-                    {hasActiveFilters && (
-                        <button
-                            onClick={resetAll}
-                            className="text-[11px] text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-300 transition-colors"
-                        >
-                            Reset filters
                         </button>
                     )}
                 </div>

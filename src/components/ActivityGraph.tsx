@@ -1,122 +1,199 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function ActivityGraph() {
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
+function seededRandom(seed: number): number {
+    let t = (seed + 0x6d2b79f5) | 0;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+}
 
-    if (!mounted) return null;
+interface DayData {
+    commits: number;
+    intensity: number;
+    date: Date;
+}
 
-    // Generate predictable data for the graph (8 weeks). Zero out days before March 6, 2026.
-    const generateActivityData = () => {
-        const weeks = [];
-        const startDate = new Date('2026-03-06T00:00:00');
-        const today = new Date();
-        
-        // Total days for 8 weeks
-        const totalDays = 8 * 7;
-        const flatDays = [];
-        
-        // Build an array of the last 56 days
-        for (let i = totalDays - 1; i >= 0; i--) {
-            const date = new Date(today);
-            date.setDate(date.getDate() - i);
-            
-            // Start date check (ignore time portion)
-            date.setHours(0,0,0,0);
-            
-            if (date < startDate) {
-                // Before started writing
-                flatDays.push(0);
-            } else {
-                // Typical activity pattern since March 6th
-                const rand = Math.random();
-                let intensity = 0;
-                if (rand > 0.85) intensity = 4;
-                else if (rand > 0.65) intensity = 3;
-                else if (rand > 0.4) intensity = 2;
-                else if (rand > 0.2) intensity = 1;
-                flatDays.push(intensity);
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const CELL = 13;
+const GAP = 3;
+
+function commitToIntensity(commits: number): number {
+    if (commits === 0) return 0;
+    if (commits <= 2) return 1;
+    if (commits <= 5) return 2;
+    if (commits <= 8) return 3;
+    return 4;
+}
+
+function generateData(): { weeks: DayData[][]; monthLabels: { label: string; col: number }[] } {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayDay = today.getDay();
+
+    const endOfWeek = new Date(today);
+    endOfWeek.setDate(endOfWeek.getDate() + (6 - todayDay));
+
+    const totalWeeks = 53;
+    const weeks: DayData[][] = [];
+    let lastMonth = -1;
+    const monthLabels: { label: string; col: number }[] = [];
+
+    for (let w = 0; w < totalWeeks; w++) {
+        const week: DayData[] = [];
+        for (let d = 0; d < 7; d++) {
+            const daysBack = (totalWeeks - 1 - w) * 7 + (6 - d);
+            const date = new Date(endOfWeek);
+            date.setDate(endOfWeek.getDate() - daysBack);
+
+            const seed = date.getFullYear() * 1000 + date.getMonth() * 50 + date.getDate() + 7;
+            const r = seededRandom(seed);
+
+            const isFuture = date > today;
+            let commits = 0;
+            if (!isFuture) {
+                if (r > 0.65) commits = Math.floor(seededRandom(seed + 1) * 8) + 5;
+                else if (r > 0.35) commits = Math.floor(seededRandom(seed + 1) * 5) + 1;
+                else if (r > 0.08) commits = Math.floor(seededRandom(seed + 1) * 2) + 1;
+            }
+
+            week.push({ commits, intensity: isFuture ? -1 : commitToIntensity(commits), date });
+
+            if (d === 0) {
+                const month = date.getMonth();
+                if (month !== lastMonth) {
+                    monthLabels.push({ label: MONTHS[month], col: w });
+                    lastMonth = month;
+                }
             }
         }
-        
-        // Chunk into weeks (columns of 7)
-        for (let i = 0; i < totalDays; i += 7) {
-            weeks.push(flatDays.slice(i, i + 7));
-        }
-        
-        return weeks;
-    };
+        weeks.push(week);
+    }
 
-    const activityData = generateActivityData();
+    return { weeks, monthLabels };
+}
 
-    const getColor = (intensity: number) => {
-        switch (intensity) {
-            case 0: return 'bg-[#ebedf0] dark:bg-zinc-800/40 border border-black/5 dark:border-white/5';
-            case 1: return 'bg-[#9be9a8] dark:bg-[#0e4429] border border-black/5 dark:border-white/5';
-            case 2: return 'bg-[#40c463] dark:bg-[#006d32] border border-black/5 dark:border-white/5';
-            case 3: return 'bg-[#30a14e] dark:bg-[#26a641] border border-black/5 dark:border-white/5';
-            case 4: return 'bg-[#216e39] dark:bg-[#39d353] border border-black/5 dark:border-white/5';
-            default: return 'bg-[#ebedf0] dark:bg-zinc-800/40 border border-black/5 dark:border-white/5';
-        }
-    };
+const { weeks: activityData, monthLabels } = generateData();
+const totalContributions = activityData.flat().reduce((sum, d) => sum + d.commits, 0);
+
+const COLORS: Record<number, string> = {
+    0: 'bg-[#ebedf0] dark:bg-[#1a1f2b]',
+    1: 'bg-[#b3d4fc] dark:bg-[#1b3a5c]',
+    2: 'bg-[#6aa8e8] dark:bg-[#1d5a9e]',
+    3: 'bg-[#3b82d6] dark:bg-[#2b7de9]',
+    4: 'bg-[#1a56a8] dark:bg-[#58a6ff]',
+};
+
+function formatDate(date: Date): string {
+    return `${DAYS[date.getDay()]}, ${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+}
+
+export default function ActivityGraph() {
+    const [tooltip, setTooltip] = useState<{ x: number; y: number; text: string } | null>(null);
+
+    const labelColWidth = 32;
+    const gridWidth = activityData.length * (CELL + GAP) - GAP;
 
     return (
-        <div className="glass-card mb-12 p-8 flex flex-col md:flex-row gap-8 items-start md:items-end justify-between transition-all duration-300 group">
-
-            {/* Left section: Text & Metric */}
-            <div className="flex flex-col justify-between h-full">
-                <div className="mb-8">
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2 tracking-tight">
-                        Reader Activity
-                        <span className="relative flex h-2 w-2 ml-1">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                        </span>
-                    </h3>
-                    <p className="text-sm text-slate-500 dark:text-zinc-400 leading-relaxed max-w-xs">
-                        Agentic tracking of reading behavior for recently published entries.
-                    </p>
-                </div>
-
-                <div>
-                    <div className="flex items-baseline gap-2">
-                        <span className="text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
-                            322
-                        </span>
-                    </div>
-                    <span className="text-[11px] font-semibold text-slate-400 dark:text-zinc-500 uppercase tracking-widest mt-1 block">
-                        Top Unique Readers
-                    </span>
-                </div>
+        <div className="glass-card p-5 sm:p-6 transition-all duration-300 relative">
+            <div className="mb-4">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-tight">
+                    {totalContributions.toLocaleString()} contributions in the last year
+                </h3>
+                <p className="text-[11px] text-slate-400 dark:text-zinc-500 mt-0.5">
+                    GitHub (personal) &amp; GitLab (professional)
+                </p>
             </div>
 
-            {/* Right section: Graph */}
-            <div className="flex flex-col items-start md:items-end w-full md:w-auto box-border overflow-hidden">
-                <div className="flex gap-[3px] p-1 no-scrollbar overflow-x-auto w-full md:w-auto -ml-1 md:ml-0">
-                    {activityData.map((week, wIndex) => (
-                        <div key={wIndex} className="flex flex-col gap-[3px]">
-                            {week.map((day, dIndex) => (
+            <div className="overflow-x-auto no-scrollbar flex justify-center">
+                <div style={{ width: labelColWidth + gridWidth }}>
+                    <div className="flex" style={{ marginLeft: labelColWidth }}>
+                        {activityData.map((_, i) => {
+                            const label = monthLabels.find(m => m.col === i);
+                            return (
                                 <div
-                                    key={dIndex}
-                                    className={`w-[14px] h-[14px] rounded-[3px] ${getColor(day)} transition-all duration-300 hover:scale-110 cursor-pointer hover:ring-2 hover:ring-blue-400/50 hover:ring-offset-1 hover:ring-offset-white dark:hover:ring-offset-zinc-900`}
-                                    title={`Activity level: ${day}`}
-                                />
+                                    key={i}
+                                    className="text-[10px] text-slate-400 dark:text-zinc-500 font-medium shrink-0"
+                                    style={{ width: CELL + GAP }}
+                                >
+                                    {label ? label.label : ''}
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className="flex mt-1">
+                        <div className="shrink-0 flex flex-col" style={{ width: labelColWidth, gap: GAP }}>
+                            {DAYS.map((day, i) => (
+                                <div
+                                    key={i}
+                                    className="text-[10px] text-slate-400 dark:text-zinc-500 font-medium text-right pr-1.5 leading-none flex items-center justify-end"
+                                    style={{ height: CELL }}
+                                >
+                                    {i % 2 === 1 ? day : ''}
+                                </div>
                             ))}
                         </div>
-                    ))}
-                </div>
 
-                <div className="mt-4 flex items-center gap-1.5 text-[10px] font-medium text-slate-400 dark:text-zinc-500 uppercase tracking-widest">
-                    <span className="mr-1">Less</span>
-                    {[0, 1, 2, 3, 4].map(level => (
-                        <div key={level} className={`w-[10px] h-[10px] rounded-[2px] ${getColor(level)}`} />
-                    ))}
-                    <span className="ml-1">More</span>
+                        <div className="flex" style={{ gap: GAP }}>
+                            {activityData.map((week, wIndex) => (
+                                <div key={wIndex} className="flex flex-col" style={{ gap: GAP }}>
+                                    {week.map((day, dIndex) => {
+                                        if (day.intensity === -1) {
+                                            return <div key={dIndex} style={{ width: CELL, height: CELL }} />;
+                                        }
+                                        return (
+                                            <div
+                                                key={dIndex}
+                                                className={`rounded-[3px] ${COLORS[day.intensity]} cursor-pointer transition-all duration-150 hover:ring-2 hover:ring-blue-400/70 hover:ring-offset-1 hover:ring-offset-white dark:hover:ring-offset-zinc-900`}
+                                                style={{ width: CELL, height: CELL }}
+                                                onMouseEnter={(e) => {
+                                                    const rect = e.currentTarget.getBoundingClientRect();
+                                                    const parentRect = e.currentTarget.closest('.glass-card')!.getBoundingClientRect();
+                                                    const label = day.commits === 0
+                                                        ? `No contributions on ${formatDate(day.date)}`
+                                                        : `${day.commits} contribution${day.commits !== 1 ? 's' : ''} on ${formatDate(day.date)}`;
+                                                    setTooltip({
+                                                        x: rect.left - parentRect.left + rect.width / 2,
+                                                        y: rect.top - parentRect.top - 8,
+                                                        text: label,
+                                                    });
+                                                }}
+                                                onMouseLeave={() => setTooltip(null)}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <div className="mt-3 flex items-center justify-end gap-1.5 text-[10px] font-medium text-slate-400 dark:text-zinc-500">
+                <span className="mr-0.5">Less</span>
+                {[0, 1, 2, 3, 4].map(level => (
+                    <div key={level} className={`rounded-[2px] ${COLORS[level]}`} style={{ width: 10, height: 10 }} />
+                ))}
+                <span className="ml-0.5">More</span>
+            </div>
+
+            {tooltip && (
+                <div
+                    className="absolute z-50 pointer-events-none px-2.5 py-1.5 rounded-md bg-gray-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap shadow-lg"
+                    style={{
+                        left: tooltip.x,
+                        top: tooltip.y,
+                        transform: 'translate(-50%, -100%)',
+                    }}
+                >
+                    {tooltip.text}
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-zinc-700" />
+                </div>
+            )}
         </div>
     );
 }
