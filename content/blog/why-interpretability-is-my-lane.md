@@ -9,7 +9,7 @@ I do not worry about AI in the abstract. I worry in a very concrete engineering 
 
 That gap is the center of my concern.
 
-A lot of debate about AI safety gets framed as philosophy. I think the immediate problem is more basic. If a system is deployed into high impact workflows, and the team operating it cannot answer why it produced a class of behaviors, then you do not have robust control. You have managed uncertainty with dashboards.
+A lot of debate about AI safety gets framed as philosophy. I think the immediate problem is more basic. If a system is deployed into high impact workflows, and the team operating it cannot answer why it produced a class of behaviors, then you do not have reliable control. You have managed uncertainty with dashboards.
 
 ## The failure pattern I keep seeing
 
@@ -25,7 +25,7 @@ I do not think interpretability is a nice research bonus. I think it is part of 
 
 If we treat modern models as programs, then interpretability is reverse engineering. It is the process of recovering computational structure from weights and activations so we can reason about failure modes before deployment pressure forces us to reason after incidents.
 
-For teams, this has practical implications. Interpretability improves debugging velocity because you can isolate which components are causally contributing to bad outputs. It improves safety because you can monitor specific internal features and circuits instead of relying only on external behavior. It improves governance because explanations become tied to mechanism, not post hoc narrative.
+For teams, this has practical implications. Interpretability improves debugging velocity because you can isolate which components are causally contributing to bad outputs. Safety benefits too, because you can monitor specific internal features and circuits instead of relying only on external behavior. And on the governance side, explanations become tied to mechanism, not post hoc narrative.
 
 In mature engineering domains, observability is non negotiable. Nobody runs distributed systems in production without traces, metrics, and structured logs. I see interpretability as the analogous observability layer for learned cognition.
 
@@ -33,7 +33,7 @@ In mature engineering domains, observability is non negotiable. Nobody runs dist
 
 Most teams still allocate interpretability effort as a side quest. A small group runs analyses after training, findings get summarized in a deck, and roadmap pressure moves attention back to capability and latency.
 
-I think this is backwards. Interpretability should be integrated into the development lifecycle itself. During training, teams should track internal representation drift, feature emergence, and circuit level changes across checkpoints. During eval, teams should include mechanistic probes, not only pass fail tasks. During deployment, teams should monitor internal safety relevant features with alert thresholds and rollback policies.
+I think this is backwards. Interpretability should be integrated into the development lifecycle itself. During training, teams should track internal representation drift, feature emergence, and circuit level changes across checkpoints. At eval time, teams should include mechanistic probes, not only pass fail tasks. Once deployed, teams should monitor internal safety relevant features with alert thresholds and rollback policies.
 
 You do not need perfect mechanistic understanding to get value. Partial understanding already improves control. The same way imperfect observability is still vastly better than no observability.
 
@@ -55,9 +55,9 @@ It rewards patience with ambiguity, precision in language, and stubborn attentio
 
 ## The future I want teams to build
 
-I want AI engineering teams to treat interpretability as first class infrastructure, on the same level as evaluation, data quality, and security. I want model release criteria to include mechanistic confidence thresholds, not only benchmark scores. I want incident postmortems to include circuit level root cause analysis where possible.
+I want AI engineering teams to treat interpretability as first class infrastructure, on the same level as evaluation, data quality, and security. Model release criteria should include mechanistic confidence thresholds, not only benchmark scores. Incident postmortems should include circuit level root cause analysis where possible.
 
-The strategic argument is simple. Systems you understand are easier to align, easier to debug, easier to govern, and easier to trust. Systems you do not understand can still be useful, but their risk profile is opaque and therefore expensive.
+The strategic argument is simple. Systems you understand are easier to align and debug, simpler to govern, and more trustworthy. Systems you do not understand can still be useful, but their risk profile is opaque and therefore expensive.
 
 My worry about AI is not that intelligence will suddenly appear and become mystical. My worry is that we will keep shipping increasingly powerful black boxes into critical workflows while pretending behavioral testing alone is an adequate substitute for understanding.
 

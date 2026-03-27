@@ -13,9 +13,9 @@ When I talk about ASD awareness in engineering, I am not talking about posters, 
 
 Without that awareness, teams misdiagnose what they are seeing. A request for clearer scope gets interpreted as inflexibility. A need for fewer context switches gets interpreted as poor collaboration. Direct communication gets interpreted as attitude. By the time those misunderstandings stack up, everyone feels friction and nobody can explain precisely why.
 
-With awareness, the same behaviors are interpreted accurately. You can separate intent from style. You can distinguish "this person is disengaged" from "this environment is cognitively noisy." You can improve process instead of pathologizing people.
+When teams do have that awareness, the same behaviors get read correctly. Intent gets separated from style. The difference between "this person is disengaged" and "this environment is cognitively noisy" becomes visible. Process improves instead of people getting pathologized.
 
-For me, this matters for three reasons. First, it is a quality issue: teams that understand neurodiversity usually write better specs, run cleaner meetings, and make better decisions because they are forced to be explicit. Second, it is a talent issue: a lot of high-leverage engineers quietly underperform in environments that reward social smoothness over technical clarity. Third, it is a human issue: it is exhausting to spend years being misunderstood for predictable traits that a better team design could absorb.
+For me, this matters for three reasons. It is a quality issue: teams that understand neurodiversity usually write better specs, run cleaner meetings, and make better decisions because they are forced to be explicit. It is also a talent issue: a lot of high-output engineers quietly underperform in environments that reward social smoothness over technical clarity. And at its core, it is a human issue: it is exhausting to spend years being misunderstood for predictable traits that a better team design could absorb.
 
 Awareness does not mean lowering standards. It means choosing the right standards. I still want high ownership, fast iteration, and strong communication. I just think communication quality should be measured by clarity and outcomes, not by how closely someone's style matches an unspoken social template.
 
@@ -51,9 +51,9 @@ That framing became practical later in my career. Instead of trying to mimic eve
 
 Most neurodivergent performance problems are not motivation problems. They are interface problems between a person and a process.
 
-If your process depends on ambiguous verbal context, constant interruptions, and unclear priorities, you will lose output from spectrum engineers who might otherwise be your highest-leverage builders. If your process rewards precision, documented reasoning, and protected deep-work blocks, those same engineers often overperform.
+If your process depends on ambiguous verbal context, constant interruptions, and unclear priorities, you will lose output from spectrum engineers who might otherwise be your most effective builders. But a process built around precision, documented reasoning, and protected deep-work blocks tends to be where those same engineers overperform.
 
-This is not ideology. It is systems design.
+None of this is ideological. It is about how systems are designed.
 
 ## Final point
 

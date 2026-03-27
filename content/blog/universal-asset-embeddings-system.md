@@ -69,11 +69,10 @@ with `delta_pos < delta_neg`.
 
 ### Why this theorem mattered in implementation
 
-It gave me three non-negotiable engineering rules:
+It clarified a few engineering constraints I kept coming back to:
 
 1. Preprocessing is part of the model, not a data pipeline afterthought.
-2. Segmentation quality is a first-order term in retrieval quality.
-3. Regression testing must monitor neighborhood invariants, not just end-task metrics.
+2. Segmentation quality is a first-order term in retrieval quality, and regression testing needs to monitor neighborhood invariants rather than just end-task metrics.
 
 Without CRCT, the project was drifting into connector sprawl with no unifying quality target.
 
@@ -263,19 +262,15 @@ Different business units encode equivalent KPIs with incompatible schemas. Two t
 
 ### Failure mode B: Temporal dilution in long recordings
 
-Raw transcript chunks over long calls collapse topical precision. I added event segmentation and timeline-aware rerank features to prevent retrieval drift.
+Long call recordings caused a specific problem: raw transcript chunks collapsed topical precision. Event segmentation and timeline-aware rerank features fixed the retrieval drift.
 
 ### Failure mode C: Over-regularized shared space
 
 Pushing too hard for modality invariance erased modality-specific cues. I corrected this with modality-private residuals before shared projection.
 
-### Failure mode D: Version skew and phantom truth
+### Failure modes D/E: Version skew, phantom truth, and security-relevance tension
 
-Users were shown semantically perfect but version-stale snippets. I introduced version freshness priors and lineage-aware demotion in ranking.
-
-### Failure mode E: Security and relevance tension
-
-Best semantic hit may be inaccessible. If fallback logic is weak, answer quality appears random. I implemented policy-aware fallback explanations ("closest permitted evidence") to preserve user trust.
+Users were shown semantically perfect but version-stale snippets, so I introduced version freshness priors and lineage-aware demotion in ranking. A related problem: the best semantic hit may be inaccessible, and weak fallback logic makes answer quality appear random. Policy-aware fallback explanations ("closest permitted evidence") helped preserve user trust without exposing restricted content.
 
 ## Part X - Why this architecture changes the future roadmap
 
@@ -309,6 +304,4 @@ For this system, scaling means:
 - stronger alignment under tighter policy constraints;
 - better online learning from user feedback without semantic drift.
 
-That does not make it trivial. It makes it tractable.
-
-And for enterprise AI, tractable beats magical every time.
+That does not make it trivial, but it does make it tractable. For enterprise AI, tractable is better than magical.

@@ -1,15 +1,15 @@
 ---
 title: "MiroFish: Technical Analysis of an AI Swarm Simulator"
 date: "2026-03-14"
-excerpt: "A deep dive into the architecture of MiroFish, an open-source multi-agent prediction engine, along with a critique of its design patterns and 'vibe-coded' origins."
+excerpt: "A technical breakdown of the architecture of MiroFish, an open-source multi-agent prediction engine, along with a critique of its design patterns and 'vibe-coded' origins."
 tags: ["ai", "agents", "architecture", "vibe coding"]
 ---
 
 # MiroFish: Technical Analysis of an AI Swarm Simulator
 
-The narrative around MiroFish—an open-source AI prediction engine built in 10 days by an undergraduate student—often focuses on the speed of its creation via "vibe coding." However, a look under the hood reveals an interesting amalgamation of modern multi-agent design patterns. This post breaks down the technical architecture of MiroFish and offers a critique of its underlying assumptions.
+The narrative around MiroFish (an open-source AI prediction engine built in 10 days by an undergraduate student) often focuses on the speed of its creation via "vibe coding." But the actual codebase is a surprisingly coherent mix of modern multi-agent design patterns. I want to walk through the technical architecture and point out where the design works and where it doesn't.
 
-## Architectural Deep Dive
+## How It's Built
 
 MiroFish is designed to construct high-fidelity "digital parallel worlds" by extracting seed information (news, financial signals, policy drafts) and populating an environment with thousands of distinct AI agents. 
 
@@ -17,7 +17,7 @@ MiroFish is designed to construct high-fidelity "digital parallel worlds" by ext
 At its core, the backend is built in Python, while the frontend utilizes Vue. The heavy lifting for multi-agent orchestration is delegated to the **OASIS framework** (contributed by the CAMEL-AI team). OASIS serves as the foundational scaffolding, managing cycle execution, agent state transitions, and the message-passing interface required to keep thousands of agents running synchronously without deadlocking.
 
 ### Memory and State Management
-Agent memory is arguably the most critical component of a persistent simulation. MiroFish utilizes **Zep Cloud** for its memory infrastructure. This allows for:
+Agent memory is what makes or breaks a persistent simulation. MiroFish utilizes **Zep Cloud** for its memory infrastructure. This allows for:
 1.  **Temporal Memory Updates:** Agents don't just compress conversation history; they update their cognitive state over simulated time.
 2.  **Entity-Relationship Tracking:** The system relies heavily on **GraphRAG** (Retrieval-Augmented Generation over Knowledge Graphs).
 
@@ -39,11 +39,11 @@ While assembling such a complex orchestration pipeline in 10 days is a testament
 "Vibe coding" (relying on LLMs to write the bulk of the logic) in the context of multi-agent systems often results in non-deterministic execution paths and poor error handling. When dealing with stateful, long-running simulations, edge cases compound. A race condition in a message queue or a memory leak in the Zep integration won't just crash the app; it will silently corrupt the simulation state long before a hard failure occurs.
 
 ### 2. Cascading Hallucinations and the "Sim City" Illusion
-MiroFish attempts to act as a "crystal ball" for real-world scenarios. However, LLMs are fundamentally predictive text models, not physics engines or rigorous economic simulators. When agents interact over long horizons, their interactions are subject to compounding hallucinations. The GraphRAG initialization provides a solid foundation, but as the simulation diverges from the present, the agents will naturally drift toward plausible-sounding narratives rather than mathematically rigorous outcomes. It is less a prediction engine and more a high-fidelity interactive fiction generator.
+MiroFish attempts to act as a "crystal ball" for real-world scenarios. However, LLMs are fundamentally predictive text models, not physics engines or rigorous economic simulators. When agents interact over long horizons, their interactions are subject to compounding hallucinations. The GraphRAG initialization provides a solid foundation, but as the simulation diverges from the present, the agents will naturally drift toward plausible-sounding narratives rather than mathematically rigorous outcomes. What you end up with is closer to high-fidelity interactive fiction than an actual prediction engine.
 
 ### 3. State Explosion
 Running "thousands" of agents with active memory retrieval (via Zep) and GraphRAG lookups per simulation tick incurs massive latency and token costs. While the architecture supports parallelization, the I/O bottleneck of querying external LLM APIs and vector databases at this scale requires aggressive caching or batching strategies that are notoriously difficult to implement correctly in a 10-day sprint.
 
 ## Conclusion
 
-MiroFish is a fascinating proof-of-concept for the future of multi-agent software development. It successfully stitches together state-of-the-art tools (OASIS, Zep, GraphRAG) into a cohesive package. However, users should be deeply skeptical of its predictive validity. It is a brilliant sandbox for exploring *what-if* scenarios, but until the underlying models learn to reason with strict causal rigor natively, it remains a simulator of simulated realities, not our own.
+MiroFish is a solid proof-of-concept for multi-agent software development. It successfully stitches together state-of-the-art tools (OASIS, Zep, GraphRAG) into a cohesive package. That said, nobody should treat its predictions as reliable. It works as a sandbox for exploring *what-if* scenarios, but until the underlying models learn to reason with strict causal rigor natively, it remains a simulator of simulated realities, not our own.

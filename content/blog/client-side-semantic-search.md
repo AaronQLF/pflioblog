@@ -5,11 +5,9 @@ excerpt: "How I built a TF-IDF search engine that runs entirely in the browser w
 tags: ["Engineering", "Search", "NLP", "Architecture"]
 ---
 
-I wanted search on this blog to feel semantic rather than lexical. If someone types "neural network safety" I want the interpretability posts to rank high, even if those exact words do not appear together in the title. But I also did not want to call an API, load a 23MB ONNX model in the browser, or add any runtime dependency. The corpus is small. The solution should be small.
+I wanted search on this blog to feel semantic rather than lexical. If someone types "neural network safety" I want the interpretability posts to rank high, even if those exact words do not appear together in the title. But I also did not want to call an API, load a 23MB ONNX model in the browser, or add any runtime dependency. The corpus is small, so the solution should be too.
 
 So I built a TF-IDF index at build time and shipped it as static JSON. The browser does cosine similarity at query time. No model, no server, no latency beyond a dictionary lookup and some arithmetic.
-
-This post explains exactly how it works.
 
 ## The constraint that shaped the design
 
@@ -77,11 +75,11 @@ The entire ranking computation is wrapped in a `useMemo` hook keyed on the query
 
 TF-IDF is a 1970s technique. It has no learned representations, no attention heads, no contextual embeddings. But for a small, topically coherent corpus it works surprisingly well, and the reasons are structural.
 
-First, IDF does most of the heavy lifting. On a blog where every post mentions "AI" and "model," those terms contribute almost nothing to similarity scores. But a term like "connectome" or "interpretability" or "spreadsheet" is highly discriminative. IDF automatically discovers which terms are informative without any training.
+IDF does most of the heavy lifting. On a blog where every post mentions "AI" and "model," those terms contribute almost nothing to similarity scores. But a term like "connectome" or "interpretability" or "spreadsheet" is highly discriminative. IDF automatically discovers which terms are informative without any training.
 
-Second, the corpus is small enough that vocabulary coverage is high. With fifteen posts totaling maybe 40,000 words, the IDF dictionary captures essentially every meaningful term. There is no long tail of unseen vocabulary that would require embeddings to handle.
+The corpus is also small enough that vocabulary coverage is high. With fifteen posts totaling maybe 40,000 words, the IDF dictionary captures essentially every meaningful term. There is no long tail of unseen vocabulary that would require embeddings to handle.
 
-Third, double-weighting title and tags acts as a lightweight form of field boosting. A post titled "Mechanistic Interpretability" will rank highly for "interpretability" queries even if the term also appears in other posts, because the title repetition inflates its TF in the target document.
+On top of that, double-weighting title and tags acts as a lightweight form of field boosting. A post titled "Mechanistic Interpretability" will rank highly for "interpretability" queries even if the term also appears in other posts, because the title repetition inflates its TF in the target document.
 
 The main failure mode is synonymy: searching "neural net" will not match a post that only uses "neural network" because TF-IDF treats them as unrelated tokens. For a personal blog with consistent vocabulary, this rarely matters. If it did, the fix would be a small synonym map in the tokenizer, not a model upgrade.
 
@@ -99,4 +97,4 @@ Search on this blog is now instant, runs entirely in the browser, requires zero 
 
 It is not embedding-quality semantic search. It will not understand that "danger" and "risk" are related unless both terms happen to co-occur in the same documents. But for a small, self-authored corpus where I control the vocabulary, TF-IDF with cosine similarity is the right tool: simple math, zero dependencies, and surprisingly good relevance.
 
-Sometimes the 1970s solution is the correct one. You just have to know when.
+Sometimes the 1970s solution is the right one. Knowing when is the hard part.

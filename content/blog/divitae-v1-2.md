@@ -10,7 +10,7 @@ I wrote previously about building systematic trading systems and made the point 
 
 ## The Problem With Traditional Signal Pipelines
 
-Divitae v1.0 and v1.1 generated trading signals the standard way: a collection of factor models, each computing some feature of the market (momentum, mean reversion, volatility regime, cross-asset correlation shifts), feeding into a meta-model that combined them into position sizing recommendations. This works. It is also fundamentally limited.
+Divitae v1.0 and v1.1 generated trading signals the standard way: a collection of factor models, each computing some feature of the market (momentum, mean reversion, volatility regime, cross-asset correlation shifts), feeding into a meta-model that combined them into position sizing recommendations. This works, but it is limited in ways that matter.
 
 Factor models treat the market as a physical system to be measured. They compute statistics *about* price action. But markets are not physical systems. They are populations of agents making decisions based on beliefs, narratives, information cascades, and social dynamics. A momentum signal tells you that price has been going up. It tells you nothing about *why*, which means it tells you nothing about *when it will stop*.
 
@@ -63,9 +63,9 @@ M3-Agent (ICLR 2026) is a multimodal agent framework for long-term memory. Origi
 
 Memory is organized as an **entity-centric multimodal graph database** with two distinct memory types that mirror human cognition.
 
-**Episodic memory** stores specific events with full context. In the original M3-Agent paper, this is something like: "Alice picked up the coffee mug and said 'I can't go without this in the morning.'" In Divitae, an episodic memory looks like: "On March 3, 2026, agent population consensus on TSLA shifted from 61% bullish to 44% bullish over 3 simulation rounds following injection of Q4 delivery numbers. Cascade originated from institutional-persona agents and propagated to retail-persona agents with a 1.4 round lag."
+**Episodic memory** stores specific events with full context. In the original M3-Agent paper, this is something like: "Alice picked up the coffee mug and said 'I can't go without this in the morning.'" For Divitae, this translates to: "On March 3, 2026, agent population consensus on TSLA shifted from 61% bullish to 44% bullish over 3 simulation rounds following injection of Q4 delivery numbers. Cascade originated from institutional-persona agents and propagated to retail-persona agents with a 1.4 round lag."
 
-**Semantic memory** stores distilled, generalized knowledge extracted from accumulated episodes. In M3-Agent: "Alice prefers coffee in the morning." In Divitae: "TSLA consensus is highly sensitive to delivery number surprises. Institutional agents lead retail agents in TSLA belief updates by approximately 1-2 rounds. Bearish cascades in TSLA propagate faster than bullish ones."
+**Semantic memory** stores distilled, generalized knowledge extracted from accumulated episodes. In M3-Agent: "Alice prefers coffee in the morning." For Divitae, that becomes: "TSLA consensus is highly sensitive to delivery number surprises. Institutional agents lead retail agents in TSLA belief updates by approximately 1-2 rounds. Bearish cascades in TSLA propagate faster than bullish ones."
 
 Memory nodes are entities (tickers, sectors, macro themes, agent archetypes) with edges encoding relationships. Each node carries:
 - Temporal metadata (when was this knowledge formed, when was it last relevant)
@@ -74,7 +74,7 @@ Memory nodes are entities (tickers, sectors, macro themes, agent archetypes) wit
 
 ## How We Integrated M3-Agent's Memory Into Divitae
 
-Not trivial. M3-Agent was designed for a single agent observing a stream of video and audio. Divitae has 50,000 agents generating actions in parallel. Giving each agent its own M3-Agent memory graph would be computationally ruinous.
+This was far from straightforward, because M3-Agent was designed for a single agent observing a stream of video and audio while Divitae has 50,000 agents generating actions in parallel. Giving each agent its own M3-Agent memory graph would be computationally ruinous.
 
 We went with a **hierarchical shared memory** architecture.
 
@@ -153,6 +153,6 @@ Execution Layer
 
 v1.3 focuses on two things. First, replacing the Zep Cloud dependency with a self-hosted graph database. Second, *memory-conditioned agent evolution*, using the semantic memory graph not just to inform agent decisions within a simulation, but to modify agent persona parameters between simulations. If the memory graph has learned that momentum-trader agents are consistently wrong about biotech, future simulations should spawn momentum-trader agents with lower influence weights in the biotech sector. Meta-learning at the swarm level.
 
-Markets are populations of heterogeneous agents with evolving beliefs, not statistical processes with stationary parameters. MiroFish gives us the simulation engine. M3-Agent gives us the memory. The combination produces signals that feel qualitatively different from anything I've gotten out of factor models.
+Markets are populations of heterogeneous agents with evolving beliefs, not statistical processes with stationary parameters. MiroFish gives us the simulation engine, and M3-Agent provides the memory layer. Together they produce signals that feel qualitatively different from anything I've gotten out of factor models.
 
 *Research-stage system. Not investment advice. Still learning how to tune half of this.*

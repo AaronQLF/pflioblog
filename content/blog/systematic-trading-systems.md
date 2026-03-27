@@ -7,7 +7,7 @@ tags: ["Trading", "Systems", "Engineering"]
 
 # Building Systematic Trading Systems
 
-I want to draw a distinction that most introductory resources on algorithmic trading either blur or ignore entirely: the difference between a trading strategy and a trading system.
+Most introductory resources on algorithmic trading blur a distinction that matters: the difference between a trading strategy and a trading system.
 
 A strategy is a decision rule. Given some state of the world, do X. A system is everything else: the infrastructure for acquiring and cleaning data, the execution layer, the risk management logic, the monitoring, the accounting, and the plumbing that connects all of it. Most people treat the strategy as the interesting part and the system as the boring scaffolding. This is backwards. The strategy is usually the easy part. The system is where most serious attempts fail.
 
@@ -37,9 +37,9 @@ A few things I have found to be true from building these systems:
 
 **Idempotency matters more than people expect.** Your system will crash. Network connections will drop. The broker API will return an error at an inconvenient moment. When the system restarts, it needs to be able to reconstruct a consistent view of its own state from durable storage without creating duplicate orders or missing positions. Designing for this from the start is much easier than retrofitting it later.
 
-**Latency is not the same as throughput.** For most non-HFT strategies, the relevant constraint is not how fast you can process one event, but how reliably you process all events without falling behind. A system that handles individual events in microseconds but has a queue that can grow unboundedly under load is worse than a system that handles events in milliseconds with a bounded queue.
+People confuse latency with throughput, but they are different constraints. For most non-HFT strategies, the relevant constraint is not how fast you can process one event, but how reliably you process all events without falling behind. A system that handles individual events in microseconds but has a queue that can grow unboundedly under load is worse than a system that handles events in milliseconds with a bounded queue.
 
-**The monitoring layer is not optional.** In production, the only view you have into your system's behavior is through the monitoring you built. A system without good monitoring is one where problems are discovered through losses rather than through alerts. The question to ask about every component is: how would I know if this stopped working correctly?
+You also cannot ship without monitoring. In production, the only view you have into your system's behavior is through the monitoring you built. A system without good monitoring is one where problems are discovered through losses rather than through alerts. The question to ask about every component is: how would I know if this stopped working correctly?
 
 ## Risk management as a constraint, not a feature
 
@@ -47,7 +47,7 @@ Risk management is not a module you add to a trading system. It is a set of cons
 
 The framing I find useful: a trading system without risk management is not a system that takes on more risk, it is a system where the risk you are taking is not legible to you. You are taking on exactly as much risk as your positions and market conditions imply, whether or not you have computed it. The question is whether you know what it is.
 
-Position sizing, drawdown limits, exposure constraints, and correlation monitoring are not conservative choices that reduce the upside of the system. They are the mechanism by which you ensure the system's behavior in bad states remains within a range you have planned for. A system that handles good states well but has no principled behavior in bad states is not a robust system. Markets will find the bad state eventually.
+Position sizing, drawdown limits, exposure constraints, and correlation monitoring are not conservative choices that reduce the upside of the system. They are the mechanism by which you ensure the system's behavior in bad states remains within a range you have planned for. A system that handles good states well but has no principled behavior in bad states is not a reliable system. Markets will find the bad state eventually.
 
 ## What actually makes a system work in the long run
 
@@ -55,7 +55,7 @@ The honest answer is that most systematic strategies have finite lifespans. A st
 
 The implication is that a sustainable trading operation is not built around a single strategy. It is built around the capacity to research, develop, and replace strategies at a rate that matches the rate of decay. This is a different kind of problem than finding a good strategy. It is an organizational and engineering problem. The system has to be modular enough that components can be swapped, strategies can be added and retired cleanly, and the infrastructure does not have to be rebuilt from scratch every time the trading logic changes.
 
-This is, I think, the correct level of abstraction at which to think about systematic trading. Not "what is my strategy" but "how do I build a machine for generating and evaluating strategies, and how do I keep it running."
+I think this is the right way to think about systematic trading. Not "what is my strategy" but "how do I build a machine for generating and evaluating strategies, and how do I keep it running."
 
 ---
 

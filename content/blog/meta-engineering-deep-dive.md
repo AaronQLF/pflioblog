@@ -7,7 +7,7 @@ tags: ["Engineering", "Abstractions", "Software", "own exp"]
 
 # Meta-Engineering, or: Writing Code About Code About Code
 
-There is a moment in every sufficiently long software project where you stop writing the thing and start writing the thing that builds the thing. The first time this happens it feels like a productivity hack. The second time it happens it starts to feel like a pattern. The tenth time it happens you realize you have been doing a different kind of engineering than what you thought you signed up for, and you have opinions about it now.
+There is a moment in every sufficiently long software project where you stop writing the thing and start writing the thing that builds the thing. The first time this happens it feels like a productivity hack. By the second time it starts to feel like a pattern. By the tenth time you realize you have been doing a different kind of engineering than what you thought you signed up for, and you have opinions about it now.
 
 I want to be precise about what I mean by meta-engineering because the term gets used loosely. I do not mean DevOps. I do not mean "tooling" in the generic sense of writing scripts that automate your workflow. What I mean is: the practice of designing systems whose primary output is other systems, or whose primary purpose is to make the construction of other systems cheaper, faster, or more correct. Compilers, code generators, DSLs, type systems, build systems, macro systems, template engines. The software that software runs on.
 
@@ -35,7 +35,7 @@ There is something about working at the meta-level that changes how you think ab
 
 When you write application code, you are working with APIs and libraries. Code is a tool you use. When you write meta-engineering code, code becomes your material. You are shaping it, transforming it, analyzing its structure. You start to see code the way a carpenter sees wood: as a medium with a grain, with properties that make some operations natural and other operations painful.
 
-This shift in perspective is genuinely useful and I think undervalued. Once you start thinking about code as a material rather than a tool, you notice things that are otherwise invisible. Why is this refactoring hard? Because the code has a grain and you are cutting against it. Why is this API awkward to use? Because its shape does not match the shape of the problem it is being applied to. Why does this codebase resist modification? Because the abstractions baked into its structure encode assumptions that are no longer true.
+This shift in perspective is genuinely useful and I think undervalued. Once you start thinking about code as a material rather than a tool, you notice things that are otherwise invisible. Why is this refactoring hard? Because the code has a grain and you are cutting against it. An API that feels awkward to use is awkward because its shape does not match the shape of the problem it is being applied to. A codebase that resists modification resists it because the abstractions baked into its structure encode assumptions that are no longer true.
 
 I find that people who have spent time writing parsers, compilers, or code generation tools are disproportionately good at software architecture, not because those skills transfer directly, but because working at the meta-level forces you to develop a sensitivity to code structure that most application development does not require.
 
@@ -63,7 +63,7 @@ Some of the ones that taught me the most: Lua (clean, opinionated, small enough 
 
 I said earlier that there is a personality type that gravitates toward meta-engineering. I want to be more specific about the cognitive signature because I think it is recognizable.
 
-It is the compulsion to formalize before executing. Given a manual process, the instinct is not to do it faster but to describe it precisely enough that something else could do it. Given a pattern that appears twice, the instinct is not to copy-paste but to name it. Given a system with accidental complexity, the instinct is not to document the complexity but to restructure until the complexity is either essential (and therefore justified) or eliminated.
+It is the compulsion to formalize before executing. Given a manual process, the instinct is not to do it faster but to describe it precisely enough that something else could do it. When a pattern appears twice, the instinct is not to copy-paste but to name it. And when a system has accidental complexity, the instinct is not to document it but to restructure until the complexity is either essential (and therefore justified) or eliminated.
 
 I recognize this pattern in myself very clearly. It has been both my best and worst quality as an engineer. Best, because the instinct to formalize is what leads to good abstractions, clean interfaces, and systems that are genuinely easier to modify than the ones they replaced. Worst, because it is bottomless. You can always go one level more meta. You can always find another pattern to name, another abstraction to extract, another layer to insert. At some point you have to ship something, and the recursive itch does not have a natural stopping condition.
 
@@ -73,7 +73,7 @@ The discipline I have slowly developed is: formalize when the cost of not formal
 
 Meta-engineering is not a career path that most companies explicitly hire for, although some do under titles like "developer experience" or "platform engineering" or "language infrastructure." But the skills it develops are, I think, among the most transferable in software.
 
-The ability to look at a system and see its structure rather than its surface. The habit of asking not just "does this work" but "why is this shaped the way it is." The instinct to build tools that make future work cheaper rather than just doing the immediate work. These are the skills that distinguish engineers who build things that last from engineers who build things that work.
+The ability to look at a system and see its structure rather than its surface. Asking not just "does this work" but "why is this shaped the way it is." Building tools that make future work cheaper rather than just doing the immediate work. These are the skills that distinguish engineers who build things that last from engineers who build things that work.
 
 I do not think everyone should be a meta-engineer. Most software does not need another abstraction layer, and the world has enough framework authors. But I think every engineer benefits from spending some time at the meta-level, the same way every writer benefits from studying grammar even if they never diagram a sentence professionally. You understand the material better when you have worked with it at a structural level.
 

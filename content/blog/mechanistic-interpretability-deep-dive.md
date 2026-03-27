@@ -7,9 +7,9 @@ tags: ["AI", "Interpretability", "Research", "Transformers", "Machine Learning"]
 
 # Mechanistic Interpretability: Reverse-Engineering the Alien Mind
 
-I need to be upfront: this post is going to be long. Unreasonably long. Because mechanistic interpretability is the kind of field where every subproblem opens three more subproblems, and every result makes you rethink your assumptions about what computation even *means* inside a neural network. I have spent an embarrassing number of hours staring at activation patterns at 2 AM and I regret nothing.
+Fair warning: this post is long. Probably too long. Because mechanistic interpretability is the kind of field where every subproblem opens three more subproblems, and every result makes you rethink your assumptions about what computation even *means* inside a neural network. I have spent an embarrassing number of hours staring at activation patterns at 2 AM and I regret nothing.
 
-## The Problem Statement (It's Worse Than You Think)
+## The Problem Statement
 
 We have trained neural networks that can:
 - Write poetry in the style of any author who ever lived
@@ -17,9 +17,9 @@ We have trained neural networks that can:
 - Generate working code in dozens of programming languages
 - Engage in multi-step causal reasoning about novel situations
 
-And we have **essentially zero mechanistic understanding** of how they do any of it.
+And we have almost no mechanistic understanding of how they do any of it.
 
-This is not a normal state of affairs in engineering. Imagine Boeing shipping a 787 Dreamliner where nobody understood why the wings stayed on. That's where we are with AI. The models work. We can measure *that* they work. We cannot explain *how*.
+No other field of engineering works this way. Imagine Boeing shipping a 787 Dreamliner where nobody understood why the wings stayed on. That's where we are with AI. The models work. We can measure *that* they work. We cannot explain *how*.
 
 ![A visualization of neural network internals showing tangled feature representations across layers](https://media.springernature.com/lw1200/springer-static/image/art%3A10.1038%2Fsrep27755/MediaObjects/41598_2016_Article_BFsrep27755_Fig1_HTML.jpg)
 
@@ -87,7 +87,7 @@ This is related to the **Johnson-Lindenstrauss lemma**, one of those results tha
 
 The model exploits this. It represents millions of features as near-orthogonal directions in a 4096-dimensional space, accepting small interference. Since features are *sparse* (most concepts are irrelevant to most inputs), the interference rarely causes problems in practice.
 
-I find this genuinely beautiful. The model independently discovered a coding scheme that mathematicians spent decades formalizing.
+I think this is genuinely cool. The model independently discovered a coding scheme that mathematicians spent decades formalizing.
 
 ## Circuits: Features Connected by Weights
 
@@ -97,7 +97,7 @@ The canonical framework (Olah et al., 2020) proposes three claims:
 
 1. **Features** are the fundamental units, directions in activation space with interpretable meaning
 2. **Circuits** are subgraphs connecting features, they implement specific computations
-3. **Universality**: similar circuits appear across different models trained independently
+3. Similar circuits appear across different models trained independently, a property called universality
 
 That third claim is the interesting one. It suggests that there's something like a *periodic table of neural network circuits*, recurring computational motifs that any sufficiently trained model will converge on.
 
@@ -255,7 +255,7 @@ The question: **do the features survive?**
 If features are directions in activation space, and quantization perturbs the weight matrices that define those directions, then quantization is a perturbation to the feature geometry. For INT8 ($\epsilon \sim 10^{-3}$), the perturbation is small and features are mostly preserved. For INT4 ($\epsilon \sim 10^{-1}$), you're introducing genuinely large perturbations.
 
 My preliminary results suggest that:
-- **High-activation features** (the ones that fire strongly and frequently) are robust to INT4 quantization
+- **High-activation features** (the ones that fire strongly and frequently) are resilient to INT4 quantization
 - **Low-activation features** (sparse, subtle features) can drift or collapse entirely
 - The features most vulnerable to quantization are precisely the ones mech interp cares about most, the subtle, compositional features involved in complex reasoning
 

@@ -7,7 +7,7 @@ tags: ["own exp","not technical"]
 
 # On Doing Hard Things
 
-I want to be precise about what I mean by "hard." I do not mean unpleasant. Lots of things are unpleasant without being hard. What I mean by hard is: requiring sustained effort in the presence of genuine uncertainty about whether you will succeed. The uncertainty is load-bearing in that definition. Without it, you are just doing something tedious.
+Let me be specific about what "hard" means here. I do not mean unpleasant. Lots of things are unpleasant without being hard. What I mean by hard is: requiring sustained effort in the presence of genuine uncertainty about whether you will succeed. The uncertainty is load-bearing in that definition. Without it, you are just doing something tedious.
 
 Most people are not avoiding hard things because they are lazy. They are avoiding them because the cost-benefit calculation, run quickly and intuitively, comes out negative. The cost is visible and immediate. The benefit is abstract and deferred. This is a completely predictable outcome of how human cognition handles intertemporal tradeoffs, and it is also, I think, systematically wrong.
 
@@ -33,7 +33,7 @@ The opportunity cost of staying comfortable is not usually framed precisely enou
 
 It is not that you fail to grow or fail to develop resilience or whatever the usual formulation is. The more specific claim is this: you lose access to information about yourself that is only available in conditions of genuine difficulty. What you do when things are going wrong, how you respond to extended uncertainty, how your thinking degrades or holds up under pressure, these are not things you can observe about yourself under ordinary circumstances. They require conditions that comfortable living systematically avoids.
 
-This matters because self-knowledge of this kind is actually useful. It determines how much you can rely on yourself in situations that matter. If you have no data from hard situations, your self-model in those situations is running on extrapolation, which is often wrong in the direction of underestimation.
+That kind of self-knowledge turns out to be practically useful. It determines how much you can rely on yourself in situations that matter. If you have no data from hard situations, your self-model in those situations is running on extrapolation, which is often wrong in the direction of underestimation.
 
 ## Why I keep choosing harder options
 
@@ -41,6 +41,6 @@ I want to be honest that this is not some principled commitment I operate from. 
 
 When I look at the decisions I am most satisfied with, they disproportionately cluster around times I did the harder thing when the easier option was available. When I look at the decisions I regret, they disproportionately cluster around the opposite. This is a stable pattern over enough data points that I now treat it as a prior.
 
-I do not think this generalizes to everyone trivially. But I suspect it generalizes more than people expect, and that the reason most people do not notice the same pattern in their own history is that they have not looked at it with enough precision.
+This won't apply to everyone. But I suspect it applies to more people than most would guess, and that the reason most people do not notice the same pattern in their own history is that they have not looked at it with enough precision.
 
 

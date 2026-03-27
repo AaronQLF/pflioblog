@@ -11,7 +11,7 @@ The headline version is easy to parody: "digital fly runs on virtual treadmill."
 
 If the claim holds, this is not the usual pipeline where we pick a reward function, train a policy, and celebrate when the avatar learns to walk. It is a different scientific move: preserve enough biological wiring and dynamics, then ask whether behavior falls out from structure.
 
-That is a major epistemic shift. In standard embodied AI, competence is an optimization artifact. In connectome emulation, competence is evidence about biological causality. Same surface behavior, different meaning.
+That is a major epistemic shift. In standard embodied AI, competence is an optimization artifact. With connectome emulation, competence means something different: it becomes evidence about biological causality. Same surface behavior, different meaning.
 
 This is why nerds get excited about this kind of result. It makes neuroscience executable. A brain map stops being a PDF and becomes a system you can actually perturb:
 
@@ -56,15 +56,15 @@ So "just scale it" can absolutely fail. But this is still progress because it tu
 
 If this research direction is real, the implications are larger than one viral video.
 
-First, neuroscience becomes more like software engineering. We move from static atlases to executable brain stacks with versioned models, reproducible perturbation tests, and quantitative regression checks for behavior.
+Neuroscience becomes more like software engineering. We move from static atlases to executable brain stacks with versioned models, reproducible perturbation tests, and quantitative regression checks for behavior.
 
-Second, AI research gets a parallel path beside pure deep learning scaling. You can still train giant models, but now there is another route: biologically grounded architectures with explicit mechanistic constraints. That could produce systems that are more data-efficient in some domains and more interpretable in others.
+AI research gets a parallel path beside pure deep learning scaling. You can still train giant models, but now there is another route: biologically grounded architectures with explicit mechanistic constraints. That could produce systems that are more data-efficient in some domains and more interpretable in others.
 
-Third, safety and governance get a new object to regulate. We are used to discussing model weights, datasets, and inference chips. Brain emulation introduces new concerns: digital organisms, welfare thresholds, behaviorally rich simulations, and whether some classes of emulations should require oversight.
+Safety and governance also get a new object to regulate. We are used to discussing model weights, datasets, and inference chips. Brain emulation introduces new concerns: digital organisms, welfare thresholds, behaviorally rich simulations, and whether some classes of emulations should require oversight.
 
-Fourth, the compute story changes. If emulation quality scales with detailed simulation, then frontier progress is not only "more tokens and bigger transformers." It also becomes "more biophysical simulation per second," which pushes hardware and tooling in different directions.
+There's also a compute angle. If emulation quality scales with detailed simulation, then frontier progress is not only "more tokens and bigger transformers." It also becomes "more biophysical simulation per second," which pushes hardware and tooling in different directions.
 
-Finally, the AGI timeline conversation gets less rhetorical. Instead of arguing in abstractions, we can watch concrete milestones:
+And the AGI timeline conversation gets less rhetorical. Instead of arguing in abstractions, we can watch concrete milestones:
 
 - full closed-loop behavior in simple organisms;
 - transfer from locomotion to adaptive problem solving;
@@ -73,4 +73,4 @@ Finally, the AGI timeline conversation gets less rhetorical. Instead of arguing 
 
 That is a much healthier discourse than "AGI in 2 years" versus "AGI never."
 
-So yes, a simulated fly on a treadmill is still objectively funny. But it is the specific kind of funny that often precedes serious science: weird prototype first, paradigm shift later.
+So yes, a simulated fly on a treadmill is still objectively funny. But it is the specific kind of funny that often precedes serious science: weird prototype first, then the kind of result that changes how people think.
