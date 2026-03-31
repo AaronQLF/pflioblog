@@ -15,9 +15,9 @@ I moved to Montreal from Morocco when I was seventeen to study engineering. No n
 
 So I did not waste it. I also did not do much else.
 
-Full course load while interning in quantitative finance. Engineering team on weekends. Co-founded a trading fund on the side. Kept grades high because anything less felt like not trying. I am twenty-three. I have been running this way for six years.
+I had been this way before Montreal. I built a trading fund when I was fourteen. Not because anyone told me to. Because the problem was interesting and I did not know how to be interested in something without giving it everything. That pattern followed me to university and multiplied. Internships, engineering teams, coursework, all running in parallel, all feeling urgent. I am twenty-three. I have been running this way for most of my life.
 
-Each commitment was reasonable alone. Stacked, they left no room for anything that was not work.
+No single commitment was unreasonable. But I never carried just one. Stacked, they left no room for anything that was not work.
 
 I missed my brother growing up. Not in the way where you are aware of it and it hurts. In the way where you talk to him one day and realize he has a whole life you know nothing about and you cannot point to when that happened because you were not paying attention. You were debugging something. You were always debugging something.
 
@@ -84,7 +84,7 @@ Turning down something you want because you know the cost is more than you can a
 
 I do not have this resolved.
 
-I called my mom the night I made the decision. I told her what I turned down. She was quiet for a long time. Then she said something in Arabic that does not translate cleanly but means, roughly, "you are finally listening." She did not mean listening to her. She meant listening to myself. She had been watching me not listen for years and she had been waiting without saying anything because she knew I would not hear it until I was ready.
+I called my mom the morning after I made the decision. I told her what I turned down. She was quiet for a long time. Then she said something in Arabic that does not translate cleanly but means, roughly, "you are finally listening." She did not mean listening to her. She meant listening to myself. She had been watching me not listen for years and she had been waiting without saying anything because she knew I would not hear it until I was ready.
 
 That is the phone call that broke me. Not the decision. The decision was hard but it was rational. The phone call was not rational. It was my mother telling me, in the gentlest way she knew how, that she had seen everything and had been carrying the worry quietly because she loved me too much to add to the weight.
 
