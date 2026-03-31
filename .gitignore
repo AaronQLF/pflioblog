@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# cursor skills (personal, not committed)
+.cursor/skills/
+
 # vercel
 .vercel
 

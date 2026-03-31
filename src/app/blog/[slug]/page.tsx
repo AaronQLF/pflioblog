@@ -26,7 +26,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return (
         <main className="min-h-screen pt-20">
             <Header />
-            <article className="container py-16 max-w-3xl">
+            <article className="container py-16 max-w-3xl select-none">
                 {/* Back link */}
                 <Link
                     href="/blog"
