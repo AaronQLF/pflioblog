@@ -7,30 +7,30 @@ import rehypeKatex from 'rehype-katex';
 
 export default function BlogContent({ content }: { content: string }) {
     return (
-        <div className="prose prose-sm sm:prose dark:prose-invert max-w-none
-      prose-headings:font-semibold prose-headings:tracking-tight
-      prose-h1:text-2xl prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-3
-      prose-h3:text-base prose-h3:mt-6 prose-h3:mb-2
-      prose-p:text-slate-700 dark:prose-p:text-zinc-300 prose-p:leading-relaxed
-      prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
-      prose-strong:text-black dark:prose-strong:text-white
-      prose-code:text-blue-600 dark:prose-code:text-blue-400 prose-code:bg-blue-50 dark:prose-code:bg-blue-900/30 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.8em] prose-code:font-normal
-      prose-pre:bg-zinc-900 prose-pre:text-zinc-100 prose-pre:rounded-xl prose-pre:p-5
-      prose-blockquote:border-l-blue-400 prose-blockquote:text-slate-500 dark:prose-blockquote:text-zinc-400
-      prose-li:text-slate-700 dark:prose-li:text-zinc-300
-      prose-hr:border-slate-200 dark:prose-hr:border-zinc-700
-      prose-img:rounded-xl prose-img:mx-auto
-    ">
+        <div className="prose sm:prose-lg dark:prose-invert max-w-none
+          prose-headings:font-serif prose-headings:font-normal prose-headings:tracking-normal
+          prose-h1:text-3xl prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+          prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+          prose-p:text-[#1a1a1a] dark:prose-p:text-[#d4cfc8] prose-p:leading-[1.75]
+          prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:underline
+          prose-strong:text-[#1a1a1a] dark:prose-strong:text-[#e8e4df]
+          prose-code:text-[var(--color-accent)] prose-code:bg-[var(--color-code-bg)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.85em] prose-code:font-mono prose-code:font-normal
+          prose-pre:bg-[#1a1a1a] dark:prose-pre:bg-[#252220] prose-pre:text-[#d4cfc8] prose-pre:rounded-lg prose-pre:p-5
+          prose-blockquote:border-l-[var(--color-accent)] prose-blockquote:text-[var(--color-muted)] prose-blockquote:italic prose-blockquote:not-italic
+          prose-li:text-[#1a1a1a] dark:prose-li:text-[#d4cfc8]
+          prose-hr:border-[var(--color-border)]
+          prose-img:rounded-lg prose-img:mx-auto
+        ">
             <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeKatex]}
                 components={{
                     img: ({...props}) => (
                         // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-                        <img 
-                            className="rounded-xl mx-auto my-8 border border-slate-200 dark:border-zinc-800" 
-                            loading="lazy" 
-                            {...props} 
+                        <img
+                            className="rounded-lg mx-auto my-8 border border-[var(--color-border)]"
+                            loading="lazy"
+                            {...props}
                         />
                     ),
                 }}

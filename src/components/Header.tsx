@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import ContactButton from './ContactButton';
 import Link from 'next/link';
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -17,24 +17,41 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'glass-effect py-3' : 'py-5'
-      }`}>
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center">
-          <Link href="/" className="text-xl font-semibold text-gray-900 dark:text-white">HG</Link>
-        </div>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+        scrolled
+          ? 'border-b border-[var(--color-border)] bg-[#faf9f7]/90 dark:bg-[#1c1917]/90 backdrop-blur-sm py-3'
+          : 'py-5'
+      }`}
+    >
+      <div className="max-w-4xl mx-auto px-5 sm:px-6 flex justify-between items-center">
+        <Link
+          href="/"
+          className="font-serif text-2xl text-[#1a1a1a] dark:text-[#e8e4df] hover:text-[var(--color-accent)] transition-colors duration-200"
+        >
+          Haroun Guessous
+        </Link>
 
-        <nav className="hidden md:flex space-x-8">
-          <Link href={{ pathname: '/', hash: 'experience' }} className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Experience</Link>
-          <Link href="/blog" className="text-sm text-gray-700 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">Blog</Link>
-        </nav>
-
-        <div>
-          <ContactButton />
+        <div className="flex items-center gap-6">
+          <nav className="hidden sm:flex items-center gap-6">
+            <Link
+              href={{ pathname: '/', hash: 'experience' }}
+              className="link-hover-line text-sm text-[var(--color-muted)] hover:text-[#1a1a1a] dark:hover:text-[#e8e4df] transition-colors duration-200"
+            >
+              Experience
+            </Link>
+            <Link
+              href="/blog"
+              className="link-hover-line text-sm text-[var(--color-muted)] hover:text-[#1a1a1a] dark:hover:text-[#e8e4df] transition-colors duration-200"
+            >
+              Writing
+            </Link>
+          </nav>
+          <ThemeToggle />
         </div>
       </div>
     </header>
   );
 };
 
-export default Header; 
+export default Header;

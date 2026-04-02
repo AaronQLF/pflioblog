@@ -5,87 +5,94 @@ import ProjectsCard from '../components/ProjectsCard';
 import BooksCard from '../components/BooksCard';
 import BlogCard from '../components/BlogCard';
 import ActivityGraph from '../components/ActivityGraph';
+import FadeIn from '../components/FadeIn';
 import { getAllPosts } from '../lib/blog';
-
-const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 export default function Home() {
   const recentPosts = getAllPosts();
 
   return (
-    <main className="min-h-screen pt-20">
+    <main className="min-h-screen pt-24">
       <Header />
 
-      {/* Hero Section */}
-      <section className="my-16 container">
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-8">
-            <h1 className="text-6xl font-bold dark:text-white">Hi, I&apos;m</h1>
-            <div className="relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`${BASE}/images/profile.jpg`}
-                alt="Haroun Guessous"
-                width={90}
-                height={90}
-                className="rounded-full inline-block bg-[#333] w-[90px] h-[90px] object-cover"
-              />
-            </div>
-            <h1 className="text-6xl font-bold dark:text-white">Haroun Guessous!</h1>
-          </div>
-          <div className="mb-4">
-            <p className="text-5xl mb-2">
-              <span className="text-slate-400 dark:text-slate-300">I&apos;m an</span>{' '}
-              <span className="font-medium dark:text-white">R&amp;D Lead</span>{' '}
-              <span className="text-slate-400 dark:text-slate-300">at</span>
-            </p>
-            <p className="text-6xl font-bold text-primary">Stingray Digital.</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-6 mb-20">
-          <p className="text-base dark:text-slate-300">
-            Software Engineer &amp; ML Researcher building AI systems, RAG pipelines, and scalable infrastructure.
-            I also co-founded <span className="font-medium dark:text-white">Divitae Eventure</span>, a systematic trading fund
-            where 15% of annual profits go directly to leukemia research.
-            Feel free to explore my work and reach out!
+      <FadeIn>
+        <section className="container mt-20 sm:mt-28 mb-28 sm:mb-36">
+          <h1 className="text-7xl sm:text-8xl font-serif italic mb-5">Haroun Guessous</h1>
+          <p className="text-xl text-[var(--color-muted)] mb-6">
+            R&amp;D Lead at <em className="font-serif not-italic text-[#1a1a1a] dark:text-[#e8e4df]">Stingray Digital</em>.{' '}
+            M.Sc. student at <em className="font-serif not-italic text-[#1a1a1a] dark:text-[#e8e4df]">UdeM / MILA</em>.
           </p>
-        </div>
-      </section>
+          <p className="text-[17px] leading-relaxed max-w-2xl">
+            Software engineer and ML researcher building AI systems, RAG pipelines, and scalable infrastructure.
+            I also co-founded <span className="font-medium">Divitae Eventure</span>, a systematic trading fund
+            where 15% of annual profits go directly to leukemia research.
+          </p>
+          <div className="flex items-center gap-5 mt-7 text-sm text-[var(--color-muted)]">
+            <a
+              href="mailto:haroun.guessous@mail.mcgill.ca"
+              className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
+            >
+              Email
+            </a>
+            <span className="text-[var(--color-border)]">/</span>
+            <a
+              href="https://github.com/AaronQLF"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
+            >
+              GitHub
+            </a>
+            <span className="text-[var(--color-border)]">/</span>
+            <a
+              href="https://www.linkedin.com/in/harounguessous/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </section>
+      </FadeIn>
 
-      {/* Cards Grid */}
-      <section className="container py-12">
-        <div className="flex flex-col gap-6">
-
-          {/* Row 1: Experience · Education · Reading List */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            <div id="experience">
+      <div className="container space-y-28 sm:space-y-32 pb-16">
+        <FadeIn>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <section id="experience">
               <ExperienceCard />
-            </div>
-            <div id="education">
-              <EducationCard />
-            </div>
-            <div>
-              <BooksCard />
-            </div>
+            </section>
+            <FadeIn delay={100}>
+              <section id="education">
+                <EducationCard />
+              </section>
+            </FadeIn>
+            <FadeIn delay={200}>
+              <section id="reading">
+                <BooksCard />
+              </section>
+            </FadeIn>
           </div>
+        </FadeIn>
 
-          {/* Row 2: Writing */}
-          <div id="blog">
+        <FadeIn>
+          <section id="blog" className="w-full">
             <BlogCard posts={recentPosts} />
-          </div>
+          </section>
+        </FadeIn>
 
-          {/* Row 3: Git Activity */}
-          <div>
+        <FadeIn>
+          <section>
             <ActivityGraph />
-          </div>
+          </section>
+        </FadeIn>
 
-          {/* Row 4: Featured Projects — full width */}
-          <div id="projects" className="md:h-[420px]">
+        <FadeIn>
+          <section id="projects">
             <ProjectsCard />
-          </div>
-
-        </div>
-      </section>
+          </section>
+        </FadeIn>
+      </div>
     </main>
   );
 }
