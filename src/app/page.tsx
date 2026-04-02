@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Header from '../components/Header';
 import ExperienceCard from '../components/ExperienceCard';
 import EducationCard from '../components/EducationCard';
@@ -16,42 +17,62 @@ export default function Home() {
       <Header />
 
       <FadeIn>
-        <section className="container mt-20 sm:mt-28 mb-28 sm:mb-36">
-          <h1 className="text-7xl sm:text-8xl font-serif italic mb-5">Haroun Guessous</h1>
-          <p className="text-xl text-[var(--color-muted)] mb-6">
-            R&amp;D Lead at <em className="font-serif not-italic text-[#1a1a1a] dark:text-[#e8e4df]">Stingray Digital</em>.{' '}
-            M.Sc. student at <em className="font-serif not-italic text-[#1a1a1a] dark:text-[#e8e4df]">UdeM / MILA</em>.
-          </p>
-          <p className="text-[17px] leading-relaxed max-w-2xl">
-            Software engineer and ML researcher building AI systems, RAG pipelines, and scalable infrastructure.
-            I also co-founded <span className="font-medium">Divitae Eventure</span>, a systematic trading fund
-            where 15% of annual profits go directly to leukemia research.
-          </p>
-          <div className="flex items-center gap-5 mt-7 text-sm text-[var(--color-muted)]">
-            <a
-              href="mailto:haroun.guessous@mail.mcgill.ca"
-              className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
-            >
-              Email
-            </a>
-            <span className="text-[var(--color-border)]">/</span>
-            <a
-              href="https://github.com/AaronQLF"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
-            >
-              GitHub
-            </a>
-            <span className="text-[var(--color-border)]">/</span>
-            <a
-              href="https://www.linkedin.com/in/harounguessous/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
-            >
-              LinkedIn
-            </a>
+        <section className="container mt-20 sm:mt-24 mb-16 sm:mb-20">
+          <div className="flex flex-col md:flex-row md:items-start gap-10 md:gap-12 lg:gap-14">
+            <figure className="shrink-0 mx-auto md:mx-0 w-full max-w-[220px] md:max-w-[240px]">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-[var(--color-border)]/30 ring-1 ring-[var(--color-border)]">
+                <Image
+                  src="/images/profile.jpg"
+                  alt="Haroun Guessous"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 220px, 240px"
+                  className="object-cover object-center"
+                />
+              </div>
+            </figure>
+
+            <div className="min-w-0 flex-1 space-y-6 md:space-y-7 md:pt-1">
+              <div className="space-y-4">
+                <h1 className="text-[2.75rem] sm:text-5xl lg:text-6xl font-serif italic font-normal leading-[1.08] tracking-tight text-[#1a1a1a] dark:text-[#e8e4df]">
+                  Hi, I&apos;m Haroun Guessous.
+                </h1>
+              </div>
+
+              <p className="text-[17px] leading-relaxed text-[var(--color-muted)] max-w-2xl border-t border-[var(--color-border)] pt-6">
+                Software engineer and ML researcher building AI systems, RAG pipelines, and scalable
+                infrastructure. I also co-founded{' '}
+                <span className="font-medium text-[#1a1a1a] dark:text-[#e8e4df]">Divitae Eventure</span>, a
+                systematic trading fund where 15% of annual profits go directly to leukemia research.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[var(--color-muted)]">
+                <a
+                  href="mailto:haroun.guessous@mail.mcgill.ca"
+                  className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
+                >
+                  Email
+                </a>
+                <span className="text-[var(--color-border)]">/</span>
+                <a
+                  href="https://github.com/AaronQLF"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
+                >
+                  GitHub
+                </a>
+                <span className="text-[var(--color-border)]">/</span>
+                <a
+                  href="https://www.linkedin.com/in/harounguessous/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
           </div>
         </section>
       </FadeIn>
