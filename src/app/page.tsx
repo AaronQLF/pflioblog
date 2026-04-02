@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Header from '../components/Header';
 import ExperienceCard from '../components/ExperienceCard';
 import EducationCard from '../components/EducationCard';
@@ -11,6 +10,8 @@ import { getAllPosts } from '../lib/blog';
 
 export default function Home() {
   const recentPosts = getAllPosts();
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+  const profileSrc = `${basePath}/images/profile.jpg`;
 
   return (
     <main className="min-h-screen pt-24">
@@ -21,13 +22,14 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-start gap-10 md:gap-12 lg:gap-14">
             <figure className="shrink-0 mx-auto md:mx-0 w-full max-w-[220px] md:max-w-[240px]">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-[var(--color-border)]/30 ring-1 ring-[var(--color-border)]">
-                <Image
-                  src="/images/profile.jpg"
+                {/* eslint-disable-next-line @next/next/no-img-element -- basePath-prefixed URL for static export on GitHub Pages */}
+                <img
+                  src={profileSrc}
                   alt="Haroun Guessous"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 220px, 240px"
-                  className="object-cover object-center"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                  width={480}
+                  height={600}
+                  fetchPriority="high"
                 />
               </div>
             </figure>
@@ -40,7 +42,7 @@ export default function Home() {
               </div>
 
               <p className="text-[17px] leading-relaxed text-[var(--color-muted)] max-w-2xl border-t border-[var(--color-border)] pt-6">
-                Software engineer, ML research, ex-quant, runner; occasional writing. Co-founded{' '}
+                Engineer,r&d lead, ML research, ex-quant, runner; occasional writing. Co-founded{' '}
                 <span className="font-medium text-[#1a1a1a] dark:text-[#e8e4df]">Divitae Eventure</span>
                 {' '}
                 a systematic trading fund where 15% of annual profits go directly to leukemia research.
