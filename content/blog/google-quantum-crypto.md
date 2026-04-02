@@ -1,9 +1,9 @@
 ---
-title: "Google Just Published a Countdown Timer for Cryptography"
+
+## title: "Google Just Published a Countdown Timer for Cryptography"
 date: "2026-04-02"
 excerpt: "Google Quantum AI dropped two papers that reduce the resources needed to break RSA and elliptic curve cryptography by orders of magnitude. The math is beautiful. The implications are not."
 tags: ["AI", "quantum", "cryptography"]
----
 
 Google Quantum AI published a paper on March 31, 2026 that reduces the quantum resources needed to break 256-bit elliptic curve cryptography to fewer than 1,200 logical qubits. Previous best estimate was 9 million physical qubits. This paper gets it to under 500,000.
 
@@ -96,5 +96,3 @@ Post-quantum cryptography standards exist. NIST finalized replacements based on 
 Shor's algorithm has not changed since 1994. The physics has not changed. The error correction codes are well-understood. Everything that moved in these papers is engineering: better arithmetic circuits, better memory layouts, better state preparation protocols. This is not the kind of progress that hits a wall. It is the kind that compounds.
 
 Google did not publish a prediction. They published a proof, wrapped in a proof, and set a date.
-
-This is not speculation. It is a schedule.
