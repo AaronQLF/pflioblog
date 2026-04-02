@@ -40,8 +40,7 @@ export default function Home() {
               </div>
 
               <p className="text-[17px] leading-relaxed text-[var(--color-muted)] max-w-2xl border-t border-[var(--color-border)] pt-6">
-                Software engineer and ML researcher building AI systems, RAG pipelines, and scalable
-                infrastructure. I also co-founded{' '}
+                software engineer, ml research,ex-quant, runner, and occasionally technical writer. I also co-founded{' '}
                 <span className="font-medium text-[#1a1a1a] dark:text-[#e8e4df]">Divitae Eventure</span>, a
                 systematic trading fund where 15% of annual profits go directly to leukemia research.
               </p>
