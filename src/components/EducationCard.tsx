@@ -1,33 +1,21 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
-import TimelineItem from './TimelineItem';
-
-interface Education {
-  title: string;
-  company: string;
-  period: string;
-  achievements?: string[];
-  isActive?: boolean;
-  isFirst?: boolean;
-  isLast?: boolean;
-}
+import React, { useState } from "react";
+import ExpandableDetailRow from "./ExpandableDetailRow";
 
 const EducationCard: React.FC = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const educations: Education[] = [
+  const educations = [
     {
       title: "Masters in Mathematics and Computer Science",
       company: "Université de Montréal · MILA",
       period: "2025 – Present · GPA: 4.0/4.0",
+      isActive: true,
       achievements: [
         "Interpretability in large language models",
-        "Quantization properties"
+        "Quantization properties",
       ],
-      isFirst: true,
-      isActive: true,
     },
     {
       title: "Bachelor of Engineering – Software",
@@ -48,52 +36,38 @@ const EducationCard: React.FC = () => {
       period: "2017 – 2020 · Grade: 19.88/20",
       achievements: [
         "Valedictorian",
-        "2017 Regional Mathematics Olympiad winner ",
+        "2017 Regional Mathematics Olympiad winner",
         "2019 National Mathematics Olympiad participant (2nd place)",
         "First city-wide Math baccalaureate grade",
       ],
-      isLast: true,
     },
   ];
 
   return (
-    <div
-      ref={cardRef}
-      className="glass-card hover-scale"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="p-6 flex flex-col">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-black dark:text-white">Education</h2>
-          <span className="text-xs text-gray-500 dark:text-gray-400">2017—Present</span>
-        </div>
+    <div>
+      <span className="text-xs font-mono text-[var(--color-border)] block mb-2">02</span>
+      <div className="flex items-baseline justify-between gap-4 mb-10">
+        <h2 className="section-heading mb-0">Education</h2>
+        <span className="text-xs font-mono text-[var(--color-muted)] shrink-0">
+          2017 — Present
+        </span>
+      </div>
 
-        <div className="flex-grow">
-          <div
-            className="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            style={{
-              transform: isHovered ? 'translateX(0)' : 'translateX(5px)',
-              opacity: isHovered ? 1 : 0.95,
-              transition: 'all 500ms cubic-bezier(0.4, 0, 0.2, 1)'
-            }}
-          >
-            {educations.map((edu, index) => (
-              <TimelineItem
-                key={index}
-                title={edu.title}
-                company={edu.company}
-                period={edu.period}
-                achievements={edu.achievements}
-                isActive={edu.isActive}
-                isFirst={edu.isFirst}
-                isLast={edu.isLast}
-                isEducation={true}
-                expandedByDefault={true}
-              />
-            ))}
-          </div>
-        </div>
+      <div className="space-y-0">
+        {educations.map((edu, index) => (
+          <ExpandableDetailRow
+            key={index}
+            title={edu.title}
+            company={edu.company}
+            period={edu.period}
+            achievements={edu.achievements}
+            isActive={edu.isActive}
+            isOpen={openIndex === index}
+            onToggle={() =>
+              setOpenIndex((prev) => (prev === index ? null : index))
+            }
+          />
+        ))}
       </div>
     </div>
   );

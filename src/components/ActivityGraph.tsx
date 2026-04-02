@@ -18,7 +18,7 @@ interface DayData {
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const CELL = 13;
+const CELL = 12;
 const GAP = 3;
 
 function commitToIntensity(commits: number): number {
@@ -80,11 +80,11 @@ const { weeks: activityData, monthLabels } = generateData();
 const totalContributions = activityData.flat().reduce((sum, d) => sum + d.commits, 0);
 
 const COLORS: Record<number, string> = {
-    0: 'bg-[#ebedf0] dark:bg-[#1a1f2b]',
-    1: 'bg-[#b3d4fc] dark:bg-[#1b3a5c]',
-    2: 'bg-[#6aa8e8] dark:bg-[#1d5a9e]',
-    3: 'bg-[#3b82d6] dark:bg-[#2b7de9]',
-    4: 'bg-[#1a56a8] dark:bg-[#58a6ff]',
+    0: 'bg-[#e8e4df] dark:bg-[#2a2520]',
+    1: 'bg-[#e0c4c4] dark:bg-[#3d2828]',
+    2: 'bg-[#d09090] dark:bg-[#6b3a3a]',
+    3: 'bg-[#b85c6c] dark:bg-[#9e5555]',
+    4: 'bg-[#8b2252] dark:bg-[#d4a0a0]',
 };
 
 function formatDate(date: Date): string {
@@ -94,18 +94,17 @@ function formatDate(date: Date): string {
 export default function ActivityGraph() {
     const [tooltip, setTooltip] = useState<{ x: number; y: number; text: string } | null>(null);
 
-    const labelColWidth = 32;
+    const labelColWidth = 28;
     const gridWidth = activityData.length * (CELL + GAP) - GAP;
 
     return (
-        <div className="glass-card p-5 sm:p-6 transition-all duration-300 relative">
-            <div className="mb-4">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-tight">
-                    {totalContributions.toLocaleString()} contributions in the last year
-                </h3>
-                <p className="text-[11px] text-slate-400 dark:text-zinc-500 mt-0.5">
-                    GitHub (personal) &amp; GitLab (professional)
-                </p>
+        <div className="relative">
+            <span className="text-xs font-mono text-[var(--color-border)] block mb-2">05</span>
+            <div className="flex items-baseline justify-between mb-10">
+                <h2 className="section-heading mb-0">Activity</h2>
+                <span className="text-xs font-mono text-[var(--color-muted)]">
+                    {totalContributions.toLocaleString()} contributions
+                </span>
             </div>
 
             <div className="overflow-x-auto no-scrollbar flex justify-center">
@@ -116,7 +115,7 @@ export default function ActivityGraph() {
                             return (
                                 <div
                                     key={i}
-                                    className="text-[10px] text-slate-400 dark:text-zinc-500 font-medium shrink-0"
+                                    className="text-[10px] text-[var(--color-muted)] font-mono shrink-0"
                                     style={{ width: CELL + GAP }}
                                 >
                                     {label ? label.label : ''}
@@ -130,7 +129,7 @@ export default function ActivityGraph() {
                             {DAYS.map((day, i) => (
                                 <div
                                     key={i}
-                                    className="text-[10px] text-slate-400 dark:text-zinc-500 font-medium text-right pr-1.5 leading-none flex items-center justify-end"
+                                    className="text-[10px] text-[var(--color-muted)] font-mono text-right pr-1.5 leading-none flex items-center justify-end"
                                     style={{ height: CELL }}
                                 >
                                     {i % 2 === 1 ? day : ''}
@@ -148,11 +147,11 @@ export default function ActivityGraph() {
                                         return (
                                             <div
                                                 key={dIndex}
-                                                className={`rounded-[3px] ${COLORS[day.intensity]} cursor-pointer transition-all duration-150 hover:ring-2 hover:ring-blue-400/70 hover:ring-offset-1 hover:ring-offset-white dark:hover:ring-offset-zinc-900`}
+                                                className={`rounded-sm ${COLORS[day.intensity]} cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-[var(--color-accent)]/50 hover:ring-offset-1 hover:ring-offset-[#faf9f7] dark:hover:ring-offset-[#1c1917]`}
                                                 style={{ width: CELL, height: CELL }}
                                                 onMouseEnter={(e) => {
                                                     const rect = e.currentTarget.getBoundingClientRect();
-                                                    const parentRect = e.currentTarget.closest('.glass-card')!.getBoundingClientRect();
+                                                    const parentRect = e.currentTarget.closest('.relative')!.getBoundingClientRect();
                                                     const label = day.commits === 0
                                                         ? `No contributions on ${formatDate(day.date)}`
                                                         : `${day.commits} contribution${day.commits !== 1 ? 's' : ''} on ${formatDate(day.date)}`;
@@ -173,17 +172,17 @@ export default function ActivityGraph() {
                 </div>
             </div>
 
-            <div className="mt-3 flex items-center justify-end gap-1.5 text-[10px] font-medium text-slate-400 dark:text-zinc-500">
+            <div className="mt-3 flex items-center justify-end gap-1.5 text-[10px] font-mono text-[var(--color-muted)]">
                 <span className="mr-0.5">Less</span>
                 {[0, 1, 2, 3, 4].map(level => (
-                    <div key={level} className={`rounded-[2px] ${COLORS[level]}`} style={{ width: 10, height: 10 }} />
+                    <div key={level} className={`rounded-sm ${COLORS[level]}`} style={{ width: 10, height: 10 }} />
                 ))}
                 <span className="ml-0.5">More</span>
             </div>
 
             {tooltip && (
                 <div
-                    className="absolute z-50 pointer-events-none px-2.5 py-1.5 rounded-md bg-gray-900 dark:bg-zinc-700 text-white text-[11px] font-medium whitespace-nowrap shadow-lg"
+                    className="absolute z-50 pointer-events-none px-2.5 py-1.5 rounded-md bg-[#1a1a1a] dark:bg-[#2a2520] text-white text-[11px] font-mono whitespace-nowrap shadow-lg"
                     style={{
                         left: tooltip.x,
                         top: tooltip.y,
@@ -191,7 +190,7 @@ export default function ActivityGraph() {
                     }}
                 >
                     {tooltip.text}
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-zinc-700" />
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#1a1a1a] dark:border-t-[#2a2520]" />
                 </div>
             )}
         </div>

@@ -1,6 +1,7 @@
 import { getAllPosts, buildSearchIndex } from '@/lib/blog';
 import Header from '@/components/Header';
 import BlogFiltersList from '@/components/BlogFiltersList';
+import FadeIn from '@/components/FadeIn';
 
 export const metadata = {
     title: 'Blog | Haroun Guessous',
@@ -12,15 +13,17 @@ export default function BlogPage() {
     const searchIndex = buildSearchIndex();
 
     return (
-        <main className="min-h-screen pt-20">
+        <main className="min-h-screen pt-24">
             <Header />
-            <section className="container py-16">
-                <div className="mb-12">
-                    <h1 className="text-4xl font-bold dark:text-white mb-3">Blog</h1>
-                    <p className="text-base text-slate-500 dark:text-slate-400">
-                        Thoughts on AI research, engineering, and whatever I&apos;m building.
-                    </p>
-                </div>
+            <section className="container py-12">
+                <FadeIn>
+                    <div className="mb-10">
+                        <h1 className="text-4xl sm:text-5xl font-serif italic mb-3">Writing</h1>
+                        <p className="text-lg text-[var(--color-muted)]">
+                            Thoughts on AI research, engineering, and whatever I&apos;m building.
+                        </p>
+                    </div>
+                </FadeIn>
 
                 <BlogFiltersList posts={posts} searchIndex={searchIndex} />
             </section>

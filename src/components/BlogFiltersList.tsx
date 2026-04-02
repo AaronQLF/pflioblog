@@ -88,19 +88,19 @@ export default function BlogFiltersList({ posts, searchIndex }: Props) {
     return (
         <div>
             {/* Search */}
-            <div className="glass-card p-5 mb-8">
+            <div className="mb-8">
                 <div className="relative">
                     <input
                         type="text"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search posts..."
-                        className="w-full text-sm px-4 py-2.5 rounded-lg bg-white dark:bg-zinc-800/60 border border-slate-200 dark:border-zinc-700 text-slate-800 dark:text-zinc-200 placeholder:text-slate-400 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all"
+                        className="w-full text-sm px-4 py-2.5 rounded-lg bg-transparent border border-[var(--color-border)] text-[#1a1a1a] dark:text-[#e8e4df] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 font-sans"
                     />
                     {query && (
                         <button
                             onClick={() => setQuery("")}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-zinc-500 hover:text-slate-600 dark:hover:text-zinc-300 transition-colors text-xs"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-xs font-mono"
                         >
                             clear
                         </button>
@@ -110,43 +110,39 @@ export default function BlogFiltersList({ posts, searchIndex }: Props) {
 
             {/* Results */}
             {results.length === 0 ? (
-                <p className="text-sm text-slate-400 dark:text-zinc-500 py-8 text-center">
+                <p className="text-sm text-[var(--color-muted)] py-8 text-center">
                     No posts match the current filters.
                 </p>
             ) : (
-                <div className="grid gap-6">
+                <div className="space-y-0">
                     {results.map(({ post }) => (
                         <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
-                            <article className="glass-card p-6 hover:shadow-md transition-all duration-300 group-hover:scale-[1.01]">
+                            <article className="py-5 border-b border-[var(--color-border)] last:border-0">
                                 <div className="flex items-start justify-between gap-4">
                                     <div className="flex-grow min-w-0">
-                                        <div className="flex items-center gap-3 mb-2">
+                                        <div className="flex items-center gap-2 mb-1.5">
                                             {post.tags.map((tag) => (
-                                                <span
-                                                    key={tag}
-                                                    className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-                                                >
+                                                <span key={tag} className="tag text-xs">
                                                     {tag}
                                                 </span>
                                             ))}
                                         </div>
-                                        <h2 className="text-lg font-semibold dark:text-white group-hover:text-primary transition-colors mb-1">
+                                        <h2 className="text-lg font-medium group-hover:text-[var(--color-accent)] transition-colors duration-200 mb-1">
                                             {post.title}
                                         </h2>
-                                        <p className="text-sm text-slate-500 dark:text-zinc-400 line-clamp-2">
+                                        <p className="text-sm text-[var(--color-muted)] line-clamp-1">
                                             {post.excerpt}
                                         </p>
                                     </div>
                                     <div className="shrink-0 text-right">
-                                        <p className="text-xs text-slate-400 dark:text-zinc-500 whitespace-nowrap">
+                                        <p className="text-sm font-mono text-[var(--color-muted)] whitespace-nowrap">
                                             {new Date(post.date).toLocaleDateString("en-US", {
                                                 month: "short",
                                                 day: "numeric",
-                                                year: "numeric",
                                             })}
                                         </p>
-                                        <p className="text-xs text-slate-400 dark:text-zinc-500 mt-1">
-                                            {post.readingTime} min read
+                                        <p className="text-sm font-mono text-[var(--color-muted)] mt-0.5">
+                                            {post.readingTime}m
                                         </p>
                                     </div>
                                 </div>

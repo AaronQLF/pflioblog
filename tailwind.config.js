@@ -9,19 +9,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "var(--color-primary)",
-        secondary: "#333333",
-        light: "#f8f8f8",
+        accent: "var(--color-accent)",
+        muted: "var(--color-muted)",
+        surface: "var(--color-surface)",
+        "surface-hover": "var(--color-surface-hover)",
+        border: "var(--color-border)",
+        "code-bg": "var(--color-code-bg)",
       },
       fontFamily: {
-        sans: [
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "SF Pro Display",
-          "SF Pro Text",
-          "Helvetica Neue",
-          "sans-serif"
-        ],
+        serif: ['"Instrument Serif"', 'Georgia', 'Times New Roman', 'serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
     },
   },
@@ -29,4 +27,4 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
   ],
-}; 
+};

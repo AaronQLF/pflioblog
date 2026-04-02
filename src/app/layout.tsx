@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "../context/ThemeContext";
+import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "Haroun Guessous | Portfolio",
@@ -25,7 +26,8 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
-          <main className="transition-colors duration-300">{children}</main>
+          <main className="transition-colors duration-200">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
