@@ -11,7 +11,7 @@ import { getAllPosts } from '../lib/blog';
 export default function Home() {
   const recentPosts = getAllPosts();
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
-  const profileSrc = `${basePath}/images/profile.jpg`;
+  const profileSrc = `${basePath}/images/profile.png`;
 
   return (
     <main className="min-h-screen pt-24">
