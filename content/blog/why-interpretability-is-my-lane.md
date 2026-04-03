@@ -1,5 +1,5 @@
 ---
-title: "Why I chose interpretability "
+title: "Why I Chose Interpretability "
 date: "2026-03-21"
 excerpt: "My core worry about advanced AI is simple: capability is scaling faster than understanding. This is why I think engineering teams need to treat interpretability as infrastructure, and why I decided to work in this field."
 tags: ["AI", "Interpretability", "Safety", "Research", "own exp"]
