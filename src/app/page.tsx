@@ -42,10 +42,10 @@ export default function Home() {
               </div>
 
               <p className="text-[17px] leading-relaxed text-[var(--color-muted)] max-w-2xl border-t border-[var(--color-border)] pt-6">
-                Engineer,r&d lead, ML research, ex-quant, runner; occasional writing. Co-founded{' '}
+                Engineer,r&d lead, ML research, ex-quant, amateur runner; occasional writing. Co-founded{' '}
                 <span className="font-medium text-[#1a1a1a] dark:text-[#e8e4df]">Divitae Eventure</span>
                 {' '}
-                a systematic trading fund where 15% of annual profits go directly to leukemia research.
+                ,a systematic trading fund where 15% of annual profits go directly to leukemia research.
               </p>
 
               <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[var(--color-muted)]">
