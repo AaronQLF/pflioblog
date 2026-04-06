@@ -12,9 +12,16 @@ export interface BlogPost {
     tags: string[];
     readingTime: number; // minutes
     content: string;
+    series?: string;
+    seriesOrder?: number;
 }
 
 export type BlogPostMeta = Omit<BlogPost, 'content'>;
+
+export interface SeriesInfo {
+    name: string;
+    posts: BlogPostMeta[];
+}
 
 function getReadingTime(content: string): number {
     const words = content.trim().split(/\s+/).length;
@@ -43,9 +50,43 @@ export function getAllPosts(): BlogPostMeta[] {
                 excerpt: data.excerpt ?? '',
                 tags: data.tags ?? [],
                 readingTime: getReadingTime(content),
+                series: data.series ?? undefined,
+                seriesOrder: data.seriesOrder ?? undefined,
             };
         })
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export function getAllSeries(): SeriesInfo[] {
+    const posts = getAllPosts();
+    const seriesMap = new Map<string, BlogPostMeta[]>();
+
+    for (const post of posts) {
+        if (post.series) {
+            const existing = seriesMap.get(post.series) ?? [];
+            existing.push(post);
+            seriesMap.set(post.series, existing);
+        }
+    }
+
+    return Array.from(seriesMap.entries()).map(([name, seriesPosts]) => ({
+        name,
+        posts: seriesPosts.sort(
+            (a, b) => (a.seriesOrder ?? Infinity) - (b.seriesOrder ?? Infinity)
+        ),
+    }));
+}
+
+export function getSeriesForPost(slug: string): { series: SeriesInfo; currentIndex: number } | null {
+    const post = getAllPosts().find((p) => p.slug === slug);
+    if (!post?.series) return null;
+
+    const allSeries = getAllSeries();
+    const series = allSeries.find((s) => s.name === post.series);
+    if (!series) return null;
+
+    const currentIndex = series.posts.findIndex((p) => p.slug === slug);
+    return { series, currentIndex };
 }
 
 // ── TF-IDF search index (computed at build time, serialized to client) ──
@@ -140,5 +181,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
         tags: data.tags ?? [],
         readingTime: getReadingTime(content),
         content,
+        series: data.series ?? undefined,
+        seriesOrder: data.seriesOrder ?? undefined,
     };
 }

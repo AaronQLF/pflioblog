@@ -101,7 +101,7 @@ export default function ActivityGraph() {
         <div className="relative">
             <span className="text-xs font-mono text-[var(--color-border)] block mb-2">05</span>
             <div className="flex items-baseline justify-between mb-10">
-                <h2 className="section-heading mb-0">Activity</h2>
+                <h2 className="section-heading mb-0">Activity (Aggregated from GitHub,GitLab, and Bitbucket)</h2>
                 <span className="text-xs font-mono text-[var(--color-muted)]">
                     {totalContributions.toLocaleString()} contributions
                 </span>

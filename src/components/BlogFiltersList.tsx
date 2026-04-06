@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import type { BlogPostMeta } from "@/lib/blog";
+import type { BlogPostMeta, SeriesInfo } from "@/lib/blog";
 import type { TfIdfIndex } from "@/lib/blog";
 
 const STOP_WORDS = new Set([
@@ -44,49 +44,193 @@ function cosineSimilarity(
 
 interface Props {
     posts: BlogPostMeta[];
+    series: SeriesInfo[];
     searchIndex: TfIdfIndex;
 }
 
-export default function BlogFiltersList({ posts, searchIndex }: Props) {
+function SeriesFolder({ info, isExpanded, onToggle }: {
+    info: SeriesInfo;
+    isExpanded: boolean;
+    onToggle: () => void;
+}) {
+    const totalReadingTime = info.posts.reduce((sum, p) => sum + p.readingTime, 0);
+
+    return (
+        <div className="border border-[var(--color-border)] rounded-lg overflow-hidden transition-colors duration-200">
+            <button
+                onClick={onToggle}
+                className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 hover:bg-[var(--color-surface-hover)] transition-colors duration-200"
+            >
+                <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-[var(--color-muted)] text-sm shrink-0 transition-transform duration-200"
+                        style={{ transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
+                    >
+                        ▸
+                    </span>
+                    <div className="min-w-0">
+                        <h3 className="text-base font-medium truncate">{info.name}</h3>
+                        <p className="text-xs font-mono text-[var(--color-muted)] mt-0.5">
+                            {info.posts.length} {info.posts.length === 1 ? 'post' : 'posts'} · {totalReadingTime}m total
+                        </p>
+                    </div>
+                </div>
+            </button>
+
+            {isExpanded && (
+                <div className="border-t border-[var(--color-border)]">
+                    {info.posts.map((post, idx) => (
+                        <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
+                            <div className="px-5 py-3.5 flex items-center gap-3 hover:bg-[var(--color-surface-hover)] transition-colors duration-200 border-b border-[var(--color-border)] last:border-0">
+                                <span className="text-xs font-mono text-[var(--color-muted)] w-5 shrink-0 text-right">
+                                    {idx + 1}.
+                                </span>
+                                <div className="flex-grow min-w-0">
+                                    <p className="text-sm group-hover:text-[var(--color-accent)] transition-colors duration-200 truncate">
+                                        {post.title}
+                                    </p>
+                                </div>
+                                <span className="text-xs font-mono text-[var(--color-muted)] shrink-0">
+                                    {post.readingTime}m
+                                </span>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
+function PostRow({ post }: { post: BlogPostMeta }) {
+    return (
+        <Link href={`/blog/${post.slug}`} className="block group">
+            <article className="py-5 border-b border-[var(--color-border)] last:border-0">
+                <div className="flex items-start justify-between gap-4">
+                    <div className="flex-grow min-w-0">
+                        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                            {post.tags.map((tag) => (
+                                <span key={tag} className="tag text-xs">
+                                    {tag}
+                                </span>
+                            ))}
+                            {post.series && (
+                                <span className="text-xs font-mono px-2 py-0.5 rounded border border-[var(--color-accent)] text-[var(--color-accent)] opacity-70">
+                                    {post.series}
+                                </span>
+                            )}
+                        </div>
+                        <h2 className="text-lg font-medium group-hover:text-[var(--color-accent)] transition-colors duration-200 mb-1">
+                            {post.title}
+                        </h2>
+                        <p className="text-sm text-[var(--color-muted)] line-clamp-1">
+                            {post.excerpt}
+                        </p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                        <p className="text-sm font-mono text-[var(--color-muted)] whitespace-nowrap">
+                            {new Date(post.date).toLocaleDateString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                            })}
+                        </p>
+                        <p className="text-sm font-mono text-[var(--color-muted)] mt-0.5">
+                            {post.readingTime}m
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </Link>
+    );
+}
+
+export default function BlogFiltersList({ posts, series, searchIndex }: Props) {
     const [query, setQuery] = useState("");
+    const [activeSeries, setActiveSeries] = useState<string | null>(null);
+    const [expandedSeries, setExpandedSeries] = useState<Set<string>>(new Set());
 
-    const results = useMemo(() => {
+    const toggleSeries = (name: string) => {
+        setExpandedSeries((prev) => {
+            const next = new Set(prev);
+            if (next.has(name)) next.delete(name);
+            else next.add(name);
+            return next;
+        });
+    };
+
+    const isSearching = query.trim().length > 0;
+
+    const searchResults = useMemo(() => {
         const q = query.trim();
-        let ranked: { post: BlogPostMeta; score: number }[];
+        if (q.length === 0) return null;
 
-        if (q.length > 0) {
-            const tokens = tokenize(q);
-            if (tokens.length === 0) {
-                ranked = posts.map((post) => ({ post, score: 0 }));
-            } else {
-                const tf: Record<string, number> = {};
-                for (const t of tokens) tf[t] = (tf[t] ?? 0) + 1;
-                const maxTf = Math.max(...Object.values(tf));
-                const queryVec: Record<string, number> = {};
-                for (const [term, count] of Object.entries(tf)) {
-                    const idfVal = searchIndex.idf[term];
-                    if (idfVal !== undefined) {
-                        queryVec[term] = (0.5 + 0.5 * count / maxTf) * idfVal;
-                    }
-                }
+        const tokens = tokenize(q);
+        if (tokens.length === 0) return posts.map((post) => ({ post, score: 0 }));
 
-                ranked = posts
-                    .map((post) => ({
-                        post,
-                        score: cosineSimilarity(queryVec, searchIndex.docs[post.slug] ?? {}),
-                    }))
-                    .filter(({ score }) => score > 0)
-                    .sort((a, b) => b.score - a.score);
+        const tf: Record<string, number> = {};
+        for (const t of tokens) tf[t] = (tf[t] ?? 0) + 1;
+        const maxTf = Math.max(...Object.values(tf));
+        const queryVec: Record<string, number> = {};
+        for (const [term, count] of Object.entries(tf)) {
+            const idfVal = searchIndex.idf[term];
+            if (idfVal !== undefined) {
+                queryVec[term] = (0.5 + 0.5 * count / maxTf) * idfVal;
             }
-        } else {
-            ranked = posts.map((post) => ({ post, score: 0 }));
         }
 
-        return ranked;
+        return posts
+            .map((post) => ({
+                post,
+                score: cosineSimilarity(queryVec, searchIndex.docs[post.slug] ?? {}),
+            }))
+            .filter(({ score }) => score > 0)
+            .sort((a, b) => b.score - a.score);
     }, [posts, searchIndex, query]);
+
+    const filteredBySeriesPosts = useMemo(() => {
+        if (!activeSeries) return posts;
+        const seriesInfo = series.find((s) => s.name === activeSeries);
+        if (!seriesInfo) return posts;
+        return seriesInfo.posts;
+    }, [posts, series, activeSeries]);
+
+    const standalonePosts = useMemo(() => {
+        return posts.filter((p) => !p.series);
+    }, [posts]);
+
+    const showFolderView = !isSearching && !activeSeries;
 
     return (
         <div>
+            {/* Series pills */}
+            {series.length > 0 && (
+                <div className="flex items-center gap-2 mb-5 flex-wrap">
+                    <button
+                        onClick={() => setActiveSeries(null)}
+                        className={`text-xs font-mono px-3 py-1.5 rounded-md border transition-colors duration-200 ${
+                            !activeSeries
+                                ? 'border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent)]/5'
+                                : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]'
+                        }`}
+                    >
+                        All
+                    </button>
+                    {series.map((s) => (
+                        <button
+                            key={s.name}
+                            onClick={() => setActiveSeries(activeSeries === s.name ? null : s.name)}
+                            className={`text-xs font-mono px-3 py-1.5 rounded-md border transition-colors duration-200 ${
+                                activeSeries === s.name
+                                    ? 'border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent)]/5'
+                                    : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]'
+                            }`}
+                        >
+                            {s.name}
+                            <span className="ml-1.5 opacity-60">{s.posts.length}</span>
+                        </button>
+                    ))}
+                </div>
+            )}
+
             {/* Search */}
             <div className="mb-8">
                 <div className="relative">
@@ -108,48 +252,63 @@ export default function BlogFiltersList({ posts, searchIndex }: Props) {
                 </div>
             </div>
 
-            {/* Results */}
-            {results.length === 0 ? (
-                <p className="text-sm text-[var(--color-muted)] py-8 text-center">
-                    No posts match the current filters.
-                </p>
-            ) : (
-                <div className="space-y-0">
-                    {results.map(({ post }) => (
-                        <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
-                            <article className="py-5 border-b border-[var(--color-border)] last:border-0">
-                                <div className="flex items-start justify-between gap-4">
-                                    <div className="flex-grow min-w-0">
-                                        <div className="flex items-center gap-2 mb-1.5">
-                                            {post.tags.map((tag) => (
-                                                <span key={tag} className="tag text-xs">
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <h2 className="text-lg font-medium group-hover:text-[var(--color-accent)] transition-colors duration-200 mb-1">
-                                            {post.title}
-                                        </h2>
-                                        <p className="text-sm text-[var(--color-muted)] line-clamp-1">
-                                            {post.excerpt}
-                                        </p>
-                                    </div>
-                                    <div className="shrink-0 text-right">
-                                        <p className="text-sm font-mono text-[var(--color-muted)] whitespace-nowrap">
-                                            {new Date(post.date).toLocaleDateString("en-US", {
-                                                month: "short",
-                                                day: "numeric",
-                                            })}
-                                        </p>
-                                        <p className="text-sm font-mono text-[var(--color-muted)] mt-0.5">
-                                            {post.readingTime}m
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                        </Link>
-                    ))}
-                </div>
+            {/* Search results mode */}
+            {isSearching && searchResults && (
+                searchResults.length === 0 ? (
+                    <p className="text-sm text-[var(--color-muted)] py-8 text-center">
+                        No posts match your search.
+                    </p>
+                ) : (
+                    <div className="space-y-0">
+                        {searchResults.map(({ post }) => (
+                            <PostRow key={post.slug} post={post} />
+                        ))}
+                    </div>
+                )
+            )}
+
+            {/* Series filter mode */}
+            {!isSearching && activeSeries && (
+                filteredBySeriesPosts.length === 0 ? (
+                    <p className="text-sm text-[var(--color-muted)] py-8 text-center">
+                        No posts in this series yet.
+                    </p>
+                ) : (
+                    <div className="space-y-0">
+                        {filteredBySeriesPosts.map((post) => (
+                            <PostRow key={post.slug} post={post} />
+                        ))}
+                    </div>
+                )
+            )}
+
+            {/* Default folder view */}
+            {showFolderView && (
+                <>
+                    {series.length > 0 && (
+                        <div className="space-y-3 mb-10">
+                            {series.map((s) => (
+                                <SeriesFolder
+                                    key={s.name}
+                                    info={s}
+                                    isExpanded={expandedSeries.has(s.name)}
+                                    onToggle={() => toggleSeries(s.name)}
+                                />
+                            ))}
+                        </div>
+                    )}
+
+                    <div className="space-y-0">
+                        {standalonePosts.length > 0 && series.length > 0 && (
+                            <p className="text-xs font-mono text-[var(--color-muted)] mb-4 uppercase tracking-wider">
+                                Standalone posts
+                            </p>
+                        )}
+                        {standalonePosts.map((post) => (
+                            <PostRow key={post.slug} post={post} />
+                        ))}
+                    </div>
+                </>
             )}
         </div>
     );
