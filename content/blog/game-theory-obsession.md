@@ -1,6 +1,6 @@
 ---
 title: "Game Theory Is the Most Underrated Formal Framework in AI and Nobody Will Convince Me Otherwise"
-date: "2026-04-05"
+date: "2026-04-06"
 excerpt: "I keep finding game theory inside every problem I care about. Multi-agent alignment, trading systems, interpretability, mechanism design. At some point the coincidences stop being coincidences and start being structure."
 tags: ["AI", "Research", "own exp", "not technical"]
 ---
