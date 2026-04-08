@@ -1,9 +1,9 @@
 ---
-
-## title: "Mapping My Own Writing in Embedding Space"
+title: "Mapping My Own Writing in Embedding Space"
 date: "2026-04-08"
 excerpt: "I built a 3D visualization that maps every post on this blog as a vector from the origin, positioned by semantic similarity. Local embeddings, PCA to three dimensions, no API keys. Here is how it works and what it reveals."
 tags: ["AI", "Engineering", "Embeddings", "Architecture"]
+---
 
 I spent a non-trivial amount of time staring at my own blog posts arranged in three-dimensional space. Not reading them. Looking at where they ended up relative to each other when a sentence transformer decided what they meant.
 
