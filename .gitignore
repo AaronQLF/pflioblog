@@ -20,6 +20,9 @@
 # production
 /build
 
+# local ML model cache (Xenova / Hugging Face)
+.cache/
+
 # misc
 .DS_Store
 *.pem
