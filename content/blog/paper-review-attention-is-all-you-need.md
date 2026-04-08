@@ -89,4 +89,4 @@ But mostly I come back because it is a perfect case study in the relationship be
 
 I think about this every time I see a new architecture paper. The question is never just "is this a better model?" The question is "is this a better model for the hardware we have, and for the hardware we are about to have?" Vaswani et al. answered that question, probably without fully realizing it, and it changed everything.
 
-*This is the first entry in the Paper Review series. Next up is undecided, but probably something on scaling laws.*
+*First entry in the Paper Review series. Next: Scaling Laws for Neural Language Models.*
