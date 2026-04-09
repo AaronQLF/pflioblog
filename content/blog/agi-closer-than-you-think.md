@@ -1,9 +1,9 @@
 ---
-
-## title: "AGI Is Closer Than You Think and That Should Concern You"
+title: "AGI Is Closer Than You Think and That Should Concern You"
 date: "2026-04-09"
 excerpt: "The technical distance between current frontier systems and something that qualifies as general intelligence is smaller than the public discourse suggests. I am not saying this to be provocative. I am saying it because the evidence has been accumulating for two years and most people are pattern-matching it against the wrong reference class."
 tags: ["AI", "Research", "own exp"]
+---
 
 I want to be careful here because this topic attracts two failure modes. The first is breathless hype from people who want AGI to be imminent because they have financial or ideological stakes in the narrative. The second is reflexive dismissal from people who have been hearing "AGI is five years away" for thirty years and have learned, correctly, to discount those claims. Both groups are wrong right now, and for the same reason: they are reasoning from vibes rather than from the technical evidence.
 
