@@ -77,6 +77,29 @@ export function getAllSeries(): SeriesInfo[] {
     }));
 }
 
+export interface TagInfo {
+    name: string;
+    count: number;
+}
+
+export function getAllTags(): TagInfo[] {
+    const posts = getAllPosts();
+    const canonicalName = new Map<string, string>();
+    const tagCounts = new Map<string, number>();
+
+    for (const post of posts) {
+        for (const tag of post.tags) {
+            const key = tag.toLowerCase();
+            if (!canonicalName.has(key)) canonicalName.set(key, tag);
+            tagCounts.set(key, (tagCounts.get(key) ?? 0) + 1);
+        }
+    }
+
+    return Array.from(tagCounts.entries())
+        .map(([key, count]) => ({ name: canonicalName.get(key)!, count }))
+        .sort((a, b) => b.count - a.count);
+}
+
 export function getSeriesForPost(slug: string): { series: SeriesInfo; currentIndex: number } | null {
     const post = getAllPosts().find((p) => p.slug === slug);
     if (!post?.series) return null;

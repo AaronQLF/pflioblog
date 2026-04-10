@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAllPosts, getAllSeries, buildSearchIndex } from '@/lib/blog';
+import { getAllPosts, getAllSeries, getAllTags, buildSearchIndex } from '@/lib/blog';
 import Header from '@/components/Header';
 import BlogFiltersList from '@/components/BlogFiltersList';
 import FadeIn from '@/components/FadeIn';
@@ -12,6 +12,7 @@ export const metadata = {
 export default function BlogPage() {
     const posts = getAllPosts();
     const series = getAllSeries();
+    const tags = getAllTags();
     const searchIndex = buildSearchIndex();
 
     return (
@@ -39,7 +40,7 @@ export default function BlogPage() {
                     </div>
                 </FadeIn>
 
-                <BlogFiltersList posts={posts} series={series} searchIndex={searchIndex} />
+                <BlogFiltersList posts={posts} series={series} tags={tags} searchIndex={searchIndex} />
             </section>
         </main>
     );

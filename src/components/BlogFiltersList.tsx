@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import type { BlogPostMeta, SeriesInfo } from "@/lib/blog";
+import type { BlogPostMeta, SeriesInfo, TagInfo } from "@/lib/blog";
 import type { TfIdfIndex } from "@/lib/blog";
 
 const STOP_WORDS = new Set([
@@ -45,6 +45,7 @@ function cosineSimilarity(
 interface Props {
     posts: BlogPostMeta[];
     series: SeriesInfo[];
+    tags: TagInfo[];
     searchIndex: TfIdfIndex;
 }
 
@@ -143,9 +144,10 @@ function PostRow({ post }: { post: BlogPostMeta }) {
     );
 }
 
-export default function BlogFiltersList({ posts, series, searchIndex }: Props) {
+export default function BlogFiltersList({ posts, series, tags, searchIndex }: Props) {
     const [query, setQuery] = useState("");
     const [activeSeries, setActiveSeries] = useState<string | null>(null);
+    const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
     const [expandedSeries, setExpandedSeries] = useState<Set<string>>(new Set());
 
     const toggleSeries = (name: string) => {
@@ -157,7 +159,31 @@ export default function BlogFiltersList({ posts, series, searchIndex }: Props) {
         });
     };
 
+    const toggleTag = (name: string) => {
+        setActiveTags((prev) => {
+            const next = new Set(prev);
+            if (next.has(name)) next.delete(name);
+            else next.add(name);
+            return next;
+        });
+    };
+
+    const [showAllTags, setShowAllTags] = useState(false);
+    const TAG_PREVIEW_COUNT = 8;
+
+    const hasActiveFilters = activeTags.size > 0;
     const isSearching = query.trim().length > 0;
+
+    function postHasTag(post: BlogPostMeta, tag: string): boolean {
+        return post.tags.some((t) => t.toLowerCase() === tag.toLowerCase());
+    }
+
+    function filterByTags(postList: BlogPostMeta[]): BlogPostMeta[] {
+        if (activeTags.size === 0) return postList;
+        return postList.filter((p) =>
+            Array.from(activeTags).every((t) => postHasTag(p, t))
+        );
+    }
 
     const searchResults = useMemo(() => {
         const q = query.trim();
@@ -177,25 +203,46 @@ export default function BlogFiltersList({ posts, series, searchIndex }: Props) {
             }
         }
 
-        return posts
+        const results = posts
             .map((post) => ({
                 post,
                 score: cosineSimilarity(queryVec, searchIndex.docs[post.slug] ?? {}),
             }))
             .filter(({ score }) => score > 0)
             .sort((a, b) => b.score - a.score);
-    }, [posts, searchIndex, query]);
+
+        if (activeTags.size === 0) return results;
+        return results.filter(({ post }) =>
+            Array.from(activeTags).every((t) => postHasTag(post, t))
+        );
+    }, [posts, searchIndex, query, activeTags]);
 
     const filteredBySeriesPosts = useMemo(() => {
-        if (!activeSeries) return posts;
-        const seriesInfo = series.find((s) => s.name === activeSeries);
-        if (!seriesInfo) return posts;
-        return seriesInfo.posts;
-    }, [posts, series, activeSeries]);
+        let base: BlogPostMeta[];
+        if (!activeSeries) {
+            base = posts;
+        } else {
+            const seriesInfo = series.find((s) => s.name === activeSeries);
+            base = seriesInfo ? seriesInfo.posts : posts;
+        }
+        return filterByTags(base);
+    }, [posts, series, activeSeries, activeTags]);
 
     const standalonePosts = useMemo(() => {
-        return posts.filter((p) => !p.series);
-    }, [posts]);
+        return filterByTags(posts.filter((p) => !p.series));
+    }, [posts, activeTags]);
+
+    const filteredSeries = useMemo(() => {
+        if (activeTags.size === 0) return series;
+        return series
+            .map((s) => ({
+                ...s,
+                posts: s.posts.filter((p) =>
+                    Array.from(activeTags).every((t) => postHasTag(p, t))
+                ),
+            }))
+            .filter((s) => s.posts.length > 0);
+    }, [series, activeTags]);
 
     const showFolderView = !isSearching && !activeSeries;
 
@@ -230,6 +277,55 @@ export default function BlogFiltersList({ posts, series, searchIndex }: Props) {
                     ))}
                 </div>
             )}
+
+            {/* Tag pills */}
+            {tags.length > 0 && (() => {
+                const visibleTags = showAllTags ? tags : tags.slice(0, TAG_PREVIEW_COUNT);
+                const hiddenCount = tags.length - TAG_PREVIEW_COUNT;
+                return (
+                    <div className="flex items-center gap-2 mb-5 flex-wrap">
+                        <span className="text-xs font-mono text-[var(--color-muted)] mr-1">Tags</span>
+                        {visibleTags.map((tag) => (
+                            <button
+                                key={tag.name}
+                                onClick={() => toggleTag(tag.name)}
+                                className={`text-xs font-mono px-2.5 py-1 rounded-full border transition-colors duration-200 ${
+                                    activeTags.has(tag.name)
+                                        ? 'border-[var(--color-fg)] text-[var(--color-fg)] bg-[var(--color-fg)]/10'
+                                        : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-fg)]/40 hover:text-[var(--color-fg)]'
+                                }`}
+                            >
+                                {tag.name}
+                                <span className="ml-1 opacity-50">{tag.count}</span>
+                            </button>
+                        ))}
+                        {!showAllTags && hiddenCount > 0 && (
+                            <button
+                                onClick={() => setShowAllTags(true)}
+                                className="text-xs font-mono px-2.5 py-1 rounded-full border border-dashed border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-fg)]/40 hover:text-[var(--color-fg)] transition-colors duration-200"
+                            >
+                                +{hiddenCount} more
+                            </button>
+                        )}
+                        {showAllTags && hiddenCount > 0 && (
+                            <button
+                                onClick={() => setShowAllTags(false)}
+                                className="text-xs font-mono text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                            >
+                                less
+                            </button>
+                        )}
+                        {hasActiveFilters && (
+                            <button
+                                onClick={() => setActiveTags(new Set())}
+                                className="text-xs font-mono text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors duration-200 ml-1"
+                            >
+                                clear
+                            </button>
+                        )}
+                    </div>
+                );
+            })()}
 
             {/* Search */}
             <div className="mb-8">
@@ -271,7 +367,7 @@ export default function BlogFiltersList({ posts, series, searchIndex }: Props) {
             {!isSearching && activeSeries && (
                 filteredBySeriesPosts.length === 0 ? (
                     <p className="text-sm text-[var(--color-muted)] py-8 text-center">
-                        No posts in this series yet.
+                        No posts match{hasActiveFilters ? ' the selected tags in this series' : ' in this series yet'}.
                     </p>
                 ) : (
                     <div className="space-y-0">
@@ -285,9 +381,9 @@ export default function BlogFiltersList({ posts, series, searchIndex }: Props) {
             {/* Default folder view */}
             {showFolderView && (
                 <>
-                    {series.length > 0 && (
+                    {filteredSeries.length > 0 && (
                         <div className="space-y-3 mb-10">
-                            {series.map((s) => (
+                            {filteredSeries.map((s) => (
                                 <SeriesFolder
                                     key={s.name}
                                     info={s}
@@ -299,7 +395,7 @@ export default function BlogFiltersList({ posts, series, searchIndex }: Props) {
                     )}
 
                     <div className="space-y-0">
-                        {standalonePosts.length > 0 && series.length > 0 && (
+                        {standalonePosts.length > 0 && filteredSeries.length > 0 && (
                             <p className="text-xs font-mono text-[var(--color-muted)] mb-4 uppercase tracking-wider">
                                 Standalone posts
                             </p>
@@ -308,6 +404,12 @@ export default function BlogFiltersList({ posts, series, searchIndex }: Props) {
                             <PostRow key={post.slug} post={post} />
                         ))}
                     </div>
+
+                    {hasActiveFilters && standalonePosts.length === 0 && filteredSeries.length === 0 && (
+                        <p className="text-sm text-[var(--color-muted)] py-8 text-center">
+                            No posts match the selected tags.
+                        </p>
+                    )}
                 </>
             )}
         </div>
