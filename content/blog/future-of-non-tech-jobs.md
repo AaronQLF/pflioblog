@@ -1,9 +1,9 @@
 ---
-
-## title: "The Five Forces Reshaping Non-Tech Jobs"
+title: "The Five Forces Reshaping Non-Tech Jobs"
 date: "2026-04-10"
 excerpt: "The standard takes on AI and jobs are boring and mostly wrong. The actual dynamics are structural forces that almost nobody is talking about: legibility traps, credential compression, accountability markets, taste economies, and the hard problem residual."
 tags: ["AI", "Opinion", "not technical"]
+---
 
 Most commentary on AI and non-tech employment follows a predictable script. Either AI will destroy all the jobs, or AI will create new ones we cannot imagine yet, or the answer is somewhere in the middle and everyone should learn prompt engineering. These takes are not wrong so much as they are uninteresting. They describe the surface of the water without saying anything about the currents underneath.
 
