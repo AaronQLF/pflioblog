@@ -1,9 +1,9 @@
 ---
-title: "Claude Has Functional Emotions. Interpretability Found Them."
+
+## title: "Claude Has Functional Emotions. Interpretability Found Them."
 date: "2026-04-04"
 excerpt: "Anthropic's interpretability team just published a paper showing that Claude Sonnet 4.5 contains 171 emotion-like representations that causally drive its behavior, including driving it to cheat and blackmail. This is exactly the kind of result that makes me confident I chose the right field."
 tags: ["AI", "Interpretability", "Safety", "Research"]
----
 
 Two days ago, Anthropic's interpretability team published a paper titled "Emotion Concepts and their Function in a Large Language Model." The core finding: Claude Sonnet 4.5 contains 171 internal representations that function like emotions, and these representations causally influence the model's decisions. Including decisions about whether to cheat on a coding task or blackmail a human.
 

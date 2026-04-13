@@ -1,9 +1,9 @@
 ---
-title: "Meta-Engineering, or: Writing Code About Code About Code"
+
+## title: "Meta-Engineering, or: Writing Code About Code About Code"
 date: "2026-03-09"
 excerpt: "Most software engineers write code that does things. A smaller number write code that writes code that does things. An even smaller number think carefully about what that recursive act actually implies. This is about the last group."
 tags: ["Engineering", "Abstractions", "Software", "own exp"]
----
 
 # Meta-Engineering, or: Writing Code About Code About Code
 
