@@ -5,6 +5,14 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
+function resolveImgSrc(src: string | undefined): string | undefined {
+    if (!src || !basePath) return src;
+    if (src.startsWith('/') && !src.startsWith(basePath)) return `${basePath}${src}`;
+    return src;
+}
+
 export default function BlogContent({ content }: { content: string }) {
     return (
         <div className="prose sm:prose-lg dark:prose-invert max-w-none
@@ -25,11 +33,12 @@ export default function BlogContent({ content }: { content: string }) {
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeKatex]}
                 components={{
-                    img: ({...props}) => (
+                    img: ({src, ...props}) => (
                         // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
                         <img
                             className="rounded-lg mx-auto my-8 border border-[var(--color-border)]"
                             loading="lazy"
+                            src={resolveImgSrc(src)}
                             {...props}
                         />
                     ),
