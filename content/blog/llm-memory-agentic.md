@@ -1,9 +1,9 @@
 ---
-
-## title: "Agentic Architecture: Structuring Mid-Term and Long-Term Memory in LLMs"
+title: "Agentic Architecture: Structuring Mid-Term and Long-Term Memory in LLMs"
 date: "2026-03-18"
 excerpt: "As LLMs move from stateless oracles to autonomous agents, proper memory architecture becomes critical. Here is an analysis of the best strategies for managing mid-term context and long-term memory."
 tags: ["AI", "Agents", "Memory", "Architecture"]
+---
 
 The transition from stateless Large Language Models (LLMs) to fully autonomous agents means rethinking how memory works. A stateless model answers queries based solely on its weights and immediate context window. An agent, however, must persist state, learn from past interactions, and retrieve context across extended time horizons.
 
