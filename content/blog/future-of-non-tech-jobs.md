@@ -21,7 +21,7 @@ Contrast this with a social worker assessing whether a child is safe in a home. 
 
 This reframes the entire automation conversation. The question is not "is this job creative?" It is "can this job be written down?" A surprising number of white-collar jobs that feel sophisticated are actually highly legible. And a surprising number of blue-collar jobs that feel simple are deeply illegible. A plumber diagnosing a strange noise in the pipes of a 1940s building is doing something closer to medical differential diagnosis than to following a manual. The knowledge is embodied, contextual, and resistant to formalization.
 
-The Legibility-Liability Matrix
+![The Legibility-Liability Matrix](/images/blog/legibility-liability-matrix.png)
 
 The matrix above maps jobs along two axes: legibility and liability. The bottom-right quadrant, high legibility and low liability, is where AI replaces humans fastest. The top-left, low legibility and high liability, is where humans are most durable. But the interesting quadrants are the other two, which I will return to.
 
@@ -33,7 +33,7 @@ Consider the structure of a law firm. At the bottom, paralegals do document revi
 
 AI compresses this ladder. A paralegal with access to competent AI tools can produce work that previously required a junior associate. A junior associate with AI can handle matters that previously required a senior one. The work does not disappear. The credential gatekeeping that determined who was allowed to do it becomes economically irrational.
 
-Credential Compression
+![Credential Compression](/images/blog/credential-compression.png)
 
 This is not a thought experiment. It is already happening in radiology, where AI-assisted technicians can flag anomalies that previously required a radiologist's eye. It is happening in accounting, where bookkeepers with AI tools produce analyses that previously required a CPA. The pattern is consistent: the middle tiers of professional hierarchies get compressed into the bottom tier, augmented by AI.
 
@@ -49,7 +49,7 @@ If an AI system generates a misdiagnosis, writes a contract with a fatal error, 
 
 This means that every domain involving legal liability, medicine, law, engineering, financial advice, construction, will continue to require a human in the loop. But the human's role changes. The AI generates the diagnosis, the draft, the plan. The human reviews it, signs it, and accepts legal responsibility for it. The human's primary value is no longer their expertise. It is their *suability*.
 
-The Accountability Gap
+![The Accountability Gap](/images/blog/accountability-gap-flow.png)
 
 This is not a cynical framing. It is a description of how liability law works. Someone must be the named defendant. Someone must carry malpractice insurance. Someone must have a license that can be revoked. AI cannot fill any of these roles, regardless of how competent it becomes. The result is a new category of professional whose core function is to serve as a liability sink for AI-generated decisions.
 
