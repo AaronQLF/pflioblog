@@ -27,9 +27,12 @@ const Header = () => {
       <div className="max-w-4xl mx-auto px-5 sm:px-6 flex justify-between items-center">
         <Link
           href="/"
-          className="font-serif text-2xl text-[#1a1a1a] dark:text-[#e8e4df] hover:text-[var(--color-accent)] transition-colors duration-200"
+          className="flex items-center gap-3 group"
         >
-          Haroun Guessous
+          <span className="inline-block w-3 h-3 rounded-full bg-[#1a1a1a] dark:bg-[#e8e4df] group-hover:bg-[var(--color-accent)] transition-colors duration-200" />
+          <span className="font-serif text-2xl text-[#1a1a1a] dark:text-[#e8e4df] group-hover:text-[var(--color-accent)] transition-colors duration-200">
+            Haroun Guessous
+          </span>
         </Link>
 
         <div className="flex items-center gap-6">
