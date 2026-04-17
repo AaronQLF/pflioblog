@@ -22,14 +22,6 @@ const Footer = () => {
             >
               GitHub
             </a>
-            <a
-              href="https://www.linkedin.com/in/harounguessous/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
-            >
-              LinkedIn
-            </a>
           </div>
 
           <p className="text-xs">Montreal, QC</p>

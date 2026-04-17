@@ -64,15 +64,6 @@ export default function Home() {
                 >
                   GitHub
                 </a>
-                <span className="text-[var(--color-border)]">/</span>
-                <a
-                  href="https://www.linkedin.com/in/harounguessous/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link-hover-line hover:text-[var(--color-accent)] transition-colors duration-200"
-                >
-                  LinkedIn
-                </a>
               </div>
             </div>
           </div>
