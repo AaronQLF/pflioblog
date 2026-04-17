@@ -1,6 +1,6 @@
 ---
 title: "Two Bad Outcomes"
-date: "2026-04-15"
+date: "2026-04-17"
 excerpt: "The thing that keeps me anxious is not that AGI might fail or that the bubble might pop. It is that both directions lead somewhere painful, and I cannot find a version of the next five years that does not involve mass economic damage to people I know."
 tags: ["AI", "own exp", "not technical"]
 ---
