@@ -25,7 +25,7 @@ At some point the honest response to that recognition is to stop pacing and eith
 
 I am not saying prediction is inherently worthless. Some people have genuine expertise that makes their predictions decision-relevant. Economists, epidemiologists, climate scientists. Their predictions feed into systems that can act on them.
 
-I do not have that. I am an engineer. I build things. My predictions about the AI bubble do not feed into any system. Nobody is going to restructure their portfolio because a 21-year-old interpretability researcher wrote a blog post. The posts were performing a function for me, not for the reader. Continuing to publish them once I understood that felt dishonest.
+I do not have that. I am an engineer. I build things. My predictions about the AI bubble do not feed into any system. Nobody is going to restructure their portfolio because a 23-year-old interpretability researcher wrote a blog post. The posts were performing a function for me, not for the reader. Continuing to publish them once I understood that felt dishonest.
 
 ## The actual reason it matters
 
