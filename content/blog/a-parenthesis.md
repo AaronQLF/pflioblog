@@ -31,7 +31,7 @@ I do not have that. I am an engineer. I build things. My predictions about the A
 
 There is a deeper thing here that I think is worth saying once and then leaving alone.
 
-Every hour I spent writing about what AI might do to the economy was an hour I did not spend building tools that make AI systems more understandable. Every paragraph I wrote predicting labor displacement was a paragraph I could have written explaining sparse autoencoders or circuit analysis or feature steering. The prediction posts were easier to write, got more engagement, and produced nothing of lasting value. The technical posts are harder, reach fewer people, and might actually matter.
+Every hour I spent writing about what AI might do to the economy was an hour I did not spend building tools that make AI systems more understandable. Every paragraph I wrote predicting labor displacement was a paragraph I could have written explaining sparse autoencoders or circuit analysis or feature steering. The prediction posts were easier to write but produced nothing of lasting value. The technical posts are harder, reach fewer people, and might actually matter.
 
 I was optimizing for the wrong loss function. The work that I am capable of contributing to the world is not forecasting. It is interpretability research, engineering, and the specific kind of clear technical writing that I seem to be decent at. The non-technical prediction content was a detour into a space where I have no comparative advantage and no ability to affect outcomes.
 
