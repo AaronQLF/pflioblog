@@ -10,7 +10,7 @@ const EducationCard: React.FC = () => {
     {
       title: "Masters in Mathematics and Computer Science",
       company: "Université de Montréal · MILA",
-      period: "2025 – Present · GPA: 4.0/4.0",
+      period: "2025 – Present · GPA: 4.3/4.3",
       isActive: true,
       achievements: [
         "Interpretability in large language models",
