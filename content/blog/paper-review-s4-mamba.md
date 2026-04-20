@@ -1,5 +1,5 @@
 ---
-title: "Paper Review: S4 and Mamba — State Space Models as an Alternative Sequence Backbone"
+title: "Paper Review: S4 and Mamba. State Space Models as an Alternative Sequence Backbone"
 date: "2026-04-19"
 excerpt: "Tenth entry in the Paper Review series. Gu et al. (2021) asked what happens if you replace attention with a linear dynamical system that has the right memory structure. The answer is S4: a state space model that can be trained as a convolution but run as a recurrence, scaling linearly in sequence length. Mamba (Gu & Dao, 2023) then broke the model's own constraint by making the dynamics input-dependent, and the result is the first serious architectural alternative to the Transformer in seven years."
 tags: ["Paper Review", "AI", "Research", "Sequence Models"]

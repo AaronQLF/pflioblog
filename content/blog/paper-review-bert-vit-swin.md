@@ -1,5 +1,5 @@
 ---
-title: "Paper Review: BERT, ViT, and Swin — How the Transformer Encoder Colonized Vision"
+title: "Paper Review: BERT, ViT, and Swin.  How the Transformer Encoder Colonized Vision"
 date: "2026-04-19"
 excerpt: "Eleventh entry in the Paper Review series. Devlin et al. (2018) showed that a bidirectional Transformer encoder pretrained with masked language modeling could dominate every NLP benchmark simultaneously. Dosovitskiy et al. (2020) asked whether the same architecture could replace convolutions for images. Liu et al. (2021) answered the follow-up question: how do you make it work for dense prediction? Together, these three papers trace the path from a language-specific encoder to a universal visual backbone."
 tags: ["Paper Review", "AI", "Research", "Transformers"]
