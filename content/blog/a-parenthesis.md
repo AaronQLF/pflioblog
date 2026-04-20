@@ -1,6 +1,6 @@
 ---
 title: "A Parenthesis"
-date: "2026-04-17"
+date: "2026-04-17bar"
 excerpt: "I removed the prediction posts from this blog. This is the only explanation I am going to give."
 tags: ["own exp"]
 ---
