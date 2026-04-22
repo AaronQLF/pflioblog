@@ -1,6 +1,6 @@
 ---
 title: "Paper Review: LeWorldModel"
-date: "2026-04-20"
+date: "2026-04-22"
 excerpt: "Eleventh entry in the Paper Review series. Maes, Le Lidec, Scieur, LeCun, and Balestriero (2026) built a JEPA world model that trains stably from pixels with two loss terms. The math is clean. The benchmarks are not. I wrote a sympathetic post about JEPA two months ago and this paper has not made me more confident."
 tags: ["Paper Review", "AI", "Research", "World Models", "JEPA"]
 series: "Paper Review"
