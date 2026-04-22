@@ -9,7 +9,7 @@ seriesOrder: 11
 
 I need to be upfront about something before I start this review. I wrote a post in March about Yann LeCun leaving Meta to start AMI, and I was sympathetic. I said the math behind JEPA "makes an uncomfortable amount of sense." I meant it. The argument that autoregressive generation wastes capacity predicting irrelevant noise, and that predicting in latent space avoids that waste, is structurally sound. I still think it is structurally sound.
 
-"LeWorldModel: Stable End-to-End Joint-Embedding Predictive Architecture from Pixels" (Maes, Le Lidec, Scieur, LeCun, Balestriero, 2026) is supposed to be evidence for that thesis. LeCun is a co-author. The paper comes from Mila and NYU. It builds directly on the JEPA framework. It claims to solve the collapse problem that has plagued JEPAs since the architecture was proposed. And the evidence it offers is planning performance on Push-T, a task where you push a T-shaped block around a table.
+"LeWorldModel: Stable End-to-End Joint-Embedding Predictive Architecture from Pixels" (Maes, Le Lidec, Scieur, LeCun, Balestriero, 2026) is supposed to be evidence for that thesis. LeCun is a co-author. The paper comes from Mila (Shoutout !!!) and NYU. It builds directly on the JEPA framework. It claims to solve the collapse problem that has plagued JEPAs since the architecture was proposed. And the evidence it offers is planning performance on Push-T, a task where you push a T-shaped block around a table.
 
 I do not think this paper is bad. I think the gap between what it claims and what it demonstrates is large enough to be worth documenting carefully.
 
