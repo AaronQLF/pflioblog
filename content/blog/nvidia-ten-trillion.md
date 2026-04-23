@@ -5,9 +5,7 @@ excerpt: "Nvidia is worth 4.9 trillion dollars today. Ten trillion requires roug
 tags: ["AI", "Engineering", "Finance", "Hardware"]
 ---
 
-This is not a prediction. I have written predictions on this blog before, and I removed them for reasons I have explained elsewhere. This is an engineering analysis. I am going to lay out the quantitative inputs, trace them through to a market capitalization, and let the arithmetic speak for itself. If you disagree with the inputs, you will disagree with the conclusion, and that is fine. The point is to make the inputs explicit so the disagreement can be specific.
-
-Nvidia closed at 202.50 per share on April 22, 2026. With roughly 24.3 billion shares outstanding, the market capitalization is approximately 4.9 trillion dollars. The question is whether the path to 10 trillion is plausible on a timeline of two to three years, and if so, what the structural drivers are.
+Nvidia closed at 202.50 per share on April 22, 2026. With roughly 24.3 billion shares outstanding, the market capitalization is approximately 4.9 trillion dollars. The question is whether the path to 10 trillion is plausible on a timeline of two to three years, and what the structural drivers are.
 
 ## The Arithmetic
 
@@ -93,7 +91,7 @@ Physical AI, which includes robotics, autonomous vehicles, and industrial simula
 
 ## The Bear Case
 
-I would not trust an analysis that did not address the risks, so here they are.
+The risks are real and worth quantifying.
 
 **Margin compression.** Nvidia's 75% gross margin is historically anomalous for a semiconductor company. AMD's MI350X is competitive on training performance and priced aggressively. Google's TPUs are not sold commercially but reduce Google's own demand for Nvidia hardware. As the market matures and competition intensifies, margins could compress to 65-70%. At 65% gross and 45% net, the revenue threshold for 10 trillion rises from 605 billion to approximately 740 billion. That is harder but not impossible at 40% CAGR.
 
@@ -117,4 +115,4 @@ The silicon roadmap (Rubin, Rubin Ultra, Feynman) ensures a new product cycle ev
 
 The path from 4.9 trillion to 10 trillion requires that these inputs hold, not that they accelerate. The current growth rate, modestly decelerated, is sufficient. The margin structure, modestly compressed, is sufficient. The multiple, in line with large-cap growth peers, is sufficient.
 
-No single company has ever been worth 10 trillion dollars. The math says Nvidia will be the first, not because of optimism, but because the demand curve for AI compute has a slope that no amount of competition has flattened and no amount of skepticism has bent.
+No single company has ever been worth 10 trillion dollars. The math says Nvidia will be the first.
