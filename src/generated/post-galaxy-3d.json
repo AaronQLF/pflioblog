@@ -1,114 +1,112 @@
 {
   "model": "Xenova/all-MiniLM-L6-v2",
   "reduction": "pca-3-center-scale",
-  "generatedAt": "2026-04-13T11:57:38.932Z",
+  "generatedAt": "2026-04-23T12:14:10.747Z",
   "axes": {
     "components": [
       {
         "id": "PC1",
         "axis": "x",
-        "explainedVariance": 0.13529722625996668,
-        "cumulativeVariance": 0.13529722625996668
+        "explainedVariance": 0.12300014433015721,
+        "cumulativeVariance": 0.12300014433015721
       },
       {
         "id": "PC2",
         "axis": "y",
-        "explainedVariance": 0.08801597343632642,
-        "cumulativeVariance": 0.2233131996962931
+        "explainedVariance": 0.08461429643738382,
+        "cumulativeVariance": 0.20761444076754104
       },
       {
         "id": "PC3",
         "axis": "z",
-        "explainedVariance": 0.07365779717600786,
-        "cumulativeVariance": 0.29697099687230094
+        "explainedVariance": 0.06743573927201005,
+        "cumulativeVariance": 0.27505018003955106
       }
     ]
   },
   "regions": [
     {
-      "label": "AI",
+      "label": "Paper Review",
       "color": "#6ee7b7",
-      "count": 7,
-      "x": 0.8622676038813702,
-      "y": -1.2539112878469196,
-      "z": 0.7952978434385284
+      "count": 14,
+      "x": -1.9864204316561278,
+      "y": -0.7162097264330239,
+      "z": -0.11986475511313441
     },
     {
       "label": "engineering",
       "color": "#93c5fd",
-      "count": 6,
-      "x": 0.7530001567737102,
-      "y": 1.6582188679664205,
-      "z": -0.25674425169471154
+      "count": 7,
+      "x": 2.0580549478369567,
+      "y": 0.7940925740143078,
+      "z": 0.7595261161042554
+    },
+    {
+      "label": "AI",
+      "color": "#fbbf24",
+      "count": 4,
+      "x": 1.1039754135971007,
+      "y": 0.16663149609533914,
+      "z": -1.9937190110476128
     },
     {
       "label": "Interpretability",
-      "color": "#fbbf24",
-      "count": 4,
-      "x": 1.1913411839623451,
-      "y": -0.08189869815291348,
-      "z": -2.0056184760134124
+      "color": "#f87171",
+      "count": 3,
+      "x": 1.5378659154979903,
+      "y": -1.4114435203007627,
+      "z": 1.042377765967479
+    },
+    {
+      "label": "Machine Learning",
+      "color": "#c084fc",
+      "count": 3,
+      "x": -0.30663633632764903,
+      "y": -1.075384729438724,
+      "z": -0.4858737662685962
     },
     {
       "label": "Architecture",
-      "color": "#f87171",
+      "color": "#67e8f9",
       "count": 3,
-      "x": -2.1252491272388583,
-      "y": 2.21924210400354,
-      "z": 1.3099692403866492
-    },
-    {
-      "label": "Paper Review",
-      "color": "#c084fc",
-      "count": 3,
-      "x": -2.3203164870965005,
-      "y": -1.2287969674659756,
-      "z": -1.3480170618710536
+      "x": 0.3247267991943486,
+      "y": 2.8844089570614133,
+      "z": 1.6746614160853106
     }
   ],
   "legend": [
     {
-      "label": "AI",
+      "label": "Paper Review",
       "color": "#6ee7b7",
-      "count": 7
+      "count": 14
     },
     {
       "label": "engineering",
       "color": "#93c5fd",
-      "count": 6
+      "count": 7
     },
     {
-      "label": "Interpretability",
+      "label": "AI",
       "color": "#fbbf24",
       "count": 4
     },
     {
-      "label": "Architecture",
+      "label": "Interpretability",
       "color": "#f87171",
       "count": 3
     },
     {
-      "label": "Paper Review",
+      "label": "Machine Learning",
       "color": "#c084fc",
+      "count": 3
+    },
+    {
+      "label": "Architecture",
+      "color": "#67e8f9",
       "count": 3
     }
   ],
   "points": [
-    {
-      "slug": "agi-closer-than-you-think",
-      "title": "The Technical Case for Short AGI Timelines",
-      "date": "2026-04-09",
-      "tags": [
-        "AI",
-        "Research",
-        "own exp"
-      ],
-      "cluster": "AI",
-      "color": "#6ee7b7",
-      "x": 0.8025857527038216,
-      "y": -0.5303996967865506,
-      "z": 1.3452191763032704
-    },
     {
       "slug": "autism-in-engineering-teams",
       "title": "Autism in Engineering Teams",
@@ -120,9 +118,9 @@
       ],
       "cluster": "engineering",
       "color": "#93c5fd",
-      "x": 4.131907428878481,
-      "y": 1.2598964477564607,
-      "z": -0.9145409304574859
+      "x": 4.358130717234626,
+      "y": -2.029359926930063,
+      "z": 1.3741888292612512
     },
     {
       "slug": "claude-emotions-interpretability-vindication",
@@ -135,10 +133,10 @@
         "Research"
       ],
       "cluster": "Interpretability",
-      "color": "#fbbf24",
-      "x": 2.0077950600145003,
-      "y": 0.9887920836966673,
-      "z": -2.26435149918247
+      "color": "#f87171",
+      "x": 2.580639899709539,
+      "y": -1.7765712748681555,
+      "z": 1.786197078818035
     },
     {
       "slug": "client-side-semantic-search",
@@ -152,9 +150,25 @@
       ],
       "cluster": "engineering",
       "color": "#93c5fd",
-      "x": -3.757841183290375,
-      "y": 2.800889012682023,
-      "z": -0.7287393944045534
+      "x": -0.7014758154650914,
+      "y": 3.3113161393245023,
+      "z": 2.75540885020619
+    },
+    {
+      "slug": "computation-in-superposition",
+      "title": "Computation in Superposition",
+      "date": "2026-04-20",
+      "tags": [
+        "AI",
+        "Interpretability",
+        "Research",
+        "Machine Learning"
+      ],
+      "cluster": "Machine Learning",
+      "color": "#c084fc",
+      "x": -1.6816562869026805,
+      "y": -1.430399065670579,
+      "z": -0.16035886582064524
     },
     {
       "slug": "divitae-v1-2",
@@ -169,9 +183,9 @@
       ],
       "cluster": "Agents",
       "color": "#737373",
-      "x": -0.9249831331621847,
-      "y": 2.0141536275325045,
-      "z": 1.7040248755078913
+      "x": 1.5327997160855447,
+      "y": 1.8165733775405937,
+      "z": 1.2748502993264716
     },
     {
       "slug": "dlss-5.0",
@@ -184,10 +198,10 @@
         "Neural Networks"
       ],
       "cluster": "AI",
-      "color": "#6ee7b7",
-      "x": -0.9891721407107836,
-      "y": -3.4215426645715716,
-      "z": 0.2606144677877646
+      "color": "#fbbf24",
+      "x": -0.33639720140853696,
+      "y": 0.3764283656821183,
+      "z": -3.397749129255386
     },
     {
       "slug": "doing-hard-things",
@@ -199,24 +213,9 @@
       ],
       "cluster": "Other",
       "color": "#737373",
-      "x": 2.15759672645666,
-      "y": -1.6621340427255218,
-      "z": 0.5905006218944808
-    },
-    {
-      "slug": "future-of-non-tech-jobs",
-      "title": "The Five Forces Reshaping Non-Tech Jobs",
-      "date": "2026-04-10",
-      "tags": [
-        "AI",
-        "Opinion",
-        "not technical"
-      ],
-      "cluster": "AI",
-      "color": "#6ee7b7",
-      "x": 2.376406681965293,
-      "y": 0.0021198572902882667,
-      "z": -1.3051474365571816
+      "x": 2.732934181094559,
+      "y": -1.478555749016584,
+      "z": -1.682865153872986
     },
     {
       "slug": "game-theory-obsession",
@@ -229,10 +228,10 @@
         "not technical"
       ],
       "cluster": "AI",
-      "color": "#6ee7b7",
-      "x": 2.1340941842563113,
-      "y": 0.8864041671572774,
-      "z": 0.9644613421200916
+      "color": "#fbbf24",
+      "x": 3.2798386720275454,
+      "y": -0.8459558437832649,
+      "z": 0.0760421420518187
     },
     {
       "slug": "google-quantum-crypto",
@@ -244,10 +243,10 @@
         "cryptography"
       ],
       "cluster": "AI",
-      "color": "#6ee7b7",
-      "x": -1.846663507904121,
-      "y": -3.5924371688464367,
-      "z": 2.94690160617314
+      "color": "#fbbf24",
+      "x": 0.22944948559274106,
+      "y": 2.09946172814007,
+      "z": -3.5545061705325103
     },
     {
       "slug": "llm-memory-agentic",
@@ -260,10 +259,10 @@
         "Architecture"
       ],
       "cluster": "Architecture",
-      "color": "#f87171",
-      "x": -2.7869284241305734,
-      "y": 1.9153836380603702,
-      "z": 1.0352435383062857
+      "color": "#67e8f9",
+      "x": -0.41716175452295007,
+      "y": 3.3278805760270824,
+      "z": 1.545587762415701
     },
     {
       "slug": "llm-trends-2026",
@@ -278,9 +277,9 @@
       ],
       "cluster": "Scaling",
       "color": "#737373",
-      "x": -1.9530639542063877,
-      "y": -2.073504885827599,
-      "z": 0.8321701103248942
+      "x": 0.05399672166451704,
+      "y": 2.2710024170910335,
+      "z": -1.9491815897615203
     },
     {
       "slug": "mechanistic-interpretability-deep-dive",
@@ -293,11 +292,11 @@
         "Transformers",
         "Machine Learning"
       ],
-      "cluster": "Interpretability",
-      "color": "#fbbf24",
-      "x": 1.1213188488533434,
-      "y": -0.884908531591122,
-      "z": -2.8794677239976068
+      "cluster": "Machine Learning",
+      "color": "#c084fc",
+      "x": 0.7827340799339833,
+      "y": -2.441084280731617,
+      "z": 0.8069365809972926
     },
     {
       "slug": "meta-engineering-deep-dive",
@@ -311,9 +310,9 @@
       ],
       "cluster": "engineering",
       "color": "#93c5fd",
-      "x": 2.7076583207066736,
-      "y": 0.7348452795666375,
-      "z": -0.4108218914913714
+      "x": 3.7665352935072547,
+      "y": -0.3436515046046607,
+      "z": 0.7384558612434212
     },
     {
       "slug": "mirofish",
@@ -326,10 +325,26 @@
         "vibe coding"
       ],
       "cluster": "Architecture",
-      "color": "#f87171",
-      "x": -1.322948693935712,
-      "y": 1.3436568944691347,
-      "z": 1.0653241789570491
+      "color": "#67e8f9",
+      "x": 1.06782574557132,
+      "y": 2.271315392752976,
+      "z": 1.1003786475409933
+    },
+    {
+      "slug": "nvidia-ten-trillion",
+      "title": "The Quantitative Case for Nvidia at Ten Trillion",
+      "date": "2026-04-23",
+      "tags": [
+        "AI",
+        "Engineering",
+        "Finance",
+        "Hardware"
+      ],
+      "cluster": "engineering",
+      "color": "#93c5fd",
+      "x": 1.1845905418300828,
+      "y": 2.604845628114463,
+      "z": -3.584273126708653
     },
     {
       "slug": "paper-review-attention-is-all-you-need",
@@ -342,10 +357,123 @@
         "Transformers"
       ],
       "cluster": "Paper Review",
-      "color": "#c084fc",
-      "x": -2.416139376098726,
-      "y": -1.0401836169329708,
-      "z": -2.0184834728621808
+      "color": "#6ee7b7",
+      "x": -2.7253725737228574,
+      "y": -0.03168447143507748,
+      "z": 0.5312236034749871
+    },
+    {
+      "slug": "paper-review-barlow-twins",
+      "title": "Paper Review: Barlow Twins",
+      "date": "2026-04-14",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Machine Learning"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -2.582258250851132,
+      "y": -3.519305647238114,
+      "z": 0.07350225577994995
+    },
+    {
+      "slug": "paper-review-bert-vit-swin",
+      "title": "Paper Review: BERT, ViT, and Swin.  How the Transformer Encoder Colonized Vision",
+      "date": "2026-04-19",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Transformers"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -3.432880199434718,
+      "y": 0.2251790146435854,
+      "z": 1.0368263652414682
+    },
+    {
+      "slug": "paper-review-byol",
+      "title": "Paper Review: Bootstrap Your Own Latent",
+      "date": "2026-04-19",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Machine Learning"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -0.8339661877341003,
+      "y": -2.9847080522835805,
+      "z": 0.1349452265197796
+    },
+    {
+      "slug": "paper-review-dino",
+      "title": "Paper Review: Emerging Properties in Self-Supervised Vision Transformers (DINO)",
+      "date": "2026-04-15",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Machine Learning"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -2.9639205495222534,
+      "y": -2.6872364353699423,
+      "z": 0.6720473899887988
+    },
+    {
+      "slug": "paper-review-dpo",
+      "title": "Paper Review: Direct Preference Optimization",
+      "date": "2026-04-14",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Scaling"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": 0.008851807624966264,
+      "y": -0.46581752608393795,
+      "z": -0.20373338000126495
+    },
+    {
+      "slug": "paper-review-leworldmodel",
+      "title": "Paper Review: LeWorldModel",
+      "date": "2026-04-22",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "World Models",
+        "JEPA"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -0.9067344825310324,
+      "y": -0.5999275309398056,
+      "z": -0.8245344071928495
+    },
+    {
+      "slug": "paper-review-moco",
+      "title": "Paper Review: Momentum Contrast for Unsupervised Visual Representation Learning",
+      "date": "2026-04-15",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Machine Learning"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -2.76277260353666,
+      "y": -2.461967536810571,
+      "z": 0.5610161045558182
     },
     {
       "slug": "paper-review-neural-text-degeneration",
@@ -358,10 +486,58 @@
         "NLP"
       ],
       "cluster": "Paper Review",
-      "color": "#c084fc",
-      "x": -2.2715746048559633,
-      "y": -0.4277092705752128,
-      "z": -2.0902213234126426
+      "color": "#6ee7b7",
+      "x": -1.1683079890459591,
+      "y": 0.5632433064876572,
+      "z": 0.7300613715253554
+    },
+    {
+      "slug": "paper-review-pixelcnn",
+      "title": "Paper Review: Pixel Recurrent Neural Networks",
+      "date": "2026-04-18",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Generative Models"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -3.6376472411630956,
+      "y": -0.9358171136963085,
+      "z": -0.5531452101520345
+    },
+    {
+      "slug": "paper-review-reinforce",
+      "title": "Paper Review: REINFORCE. The Algorithm That Made Policy Gradients Respectable",
+      "date": "2026-04-20",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Reinforcement Learning"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -0.3462108673726235,
+      "y": -0.9171526791410306,
+      "z": -2.04629880303996
+    },
+    {
+      "slug": "paper-review-s4-mamba",
+      "title": "Paper Review: S4 and Mamba. State Space Models as an Alternative Sequence Backbone",
+      "date": "2026-04-19",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Sequence Models"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -2.49483233548014,
+      "y": 1.8364209882549487,
+      "z": -0.07793046467612419
     },
     {
       "slug": "paper-review-scaling-laws",
@@ -374,10 +550,26 @@
         "Scaling"
       ],
       "cluster": "Paper Review",
-      "color": "#c084fc",
-      "x": -2.273235480334812,
-      "y": -2.2184980148897426,
-      "z": 0.06465361066166207
+      "color": "#6ee7b7",
+      "x": -1.0925883314080094,
+      "y": 1.07780207131711,
+      "z": -2.2553284970855283
+    },
+    {
+      "slug": "paper-review-transformer-xl",
+      "title": "Paper Review: Transformer-XL",
+      "date": "2026-04-17",
+      "tags": [
+        "Paper Review",
+        "AI",
+        "Research",
+        "Transformers"
+      ],
+      "cluster": "Paper Review",
+      "color": "#6ee7b7",
+      "x": -2.8712462390081734,
+      "y": 0.8740354422327332,
+      "z": 0.5432418734777223
     },
     {
       "slug": "post-galaxy-semantic-map",
@@ -391,9 +583,9 @@
       ],
       "cluster": "engineering",
       "color": "#93c5fd",
-      "x": -3.163681087401002,
-      "y": 3.0306699401844113,
-      "z": -1.41014429143731
+      "x": -0.8120106796967742,
+      "y": 2.2439158128174648,
+      "z": 3.3030741545128954
     },
     {
       "slug": "simulated-fly-treadmill",
@@ -406,10 +598,10 @@
         "Robotics"
       ],
       "cluster": "AI",
-      "color": "#6ee7b7",
-      "x": 0.79024056153227,
-      "y": -1.9677224462626737,
-      "z": -1.1048603501225531
+      "color": "#fbbf24",
+      "x": 1.2430106981766529,
+      "y": -0.9634082656575665,
+      "z": -1.0986628864543728
     },
     {
       "slug": "sparse-autoencoders-llm-features",
@@ -421,10 +613,10 @@
         "Research"
       ],
       "cluster": "Interpretability",
-      "color": "#fbbf24",
-      "x": -1.5156956148843772,
-      "y": -0.8904007338230264,
-      "z": -3.0088806043368126
+      "color": "#f87171",
+      "x": -1.9538534454396326,
+      "y": -1.285601731103921,
+      "z": 0.9958491419789103
     },
     {
       "slug": "systematic-trading-systems",
@@ -437,9 +629,9 @@
       ],
       "cluster": "engineering",
       "color": "#93c5fd",
-      "x": 1.8418460806557675,
-      "y": 1.2991218148383394,
-      "z": 3.223882736646332
+      "x": 3.268980348159963,
+      "y": 0.5519886222107653,
+      "z": -0.6232854970279937
     },
     {
       "slug": "tech-debt-vibe-coding",
@@ -455,25 +647,9 @@
       ],
       "cluster": "engineering",
       "color": "#93c5fd",
-      "x": 2.758111381092716,
-      "y": 0.8238907127706505,
-      "z": -1.3001017390238807
-    },
-    {
-      "slug": "the-ai-bubble",
-      "title": "The AI Bubble Is Real and the Fallout Will Be Worse Than People Think",
-      "date": "2026-03-25",
-      "tags": [
-        "AI",
-        "Finance",
-        "own exp",
-        "not technical"
-      ],
-      "cluster": "AI",
-      "color": "#6ee7b7",
-      "x": 2.768381695326802,
-      "y": -0.1538010629087702,
-      "z": 2.4598960983651668
+      "x": 3.3416342292886356,
+      "y": -0.7804067528323174,
+      "z": 1.3531137412426764
     },
     {
       "slug": "universal-asset-embeddings-system",
@@ -487,10 +663,10 @@
         "RAG"
       ],
       "cluster": "Architecture",
-      "color": "#f87171",
-      "x": -2.2658702636502897,
-      "y": 3.3986857794811156,
-      "z": 1.8293400038966128
+      "color": "#67e8f9",
+      "x": 0.3235164065346757,
+      "y": 3.0540309024041803,
+      "z": 2.3780178382992374
     },
     {
       "slug": "why-interpretability-is-my-lane",
@@ -504,10 +680,10 @@
         "own exp"
       ],
       "cluster": "Interpretability",
-      "color": "#fbbf24",
-      "x": 3.151946441865914,
-      "y": 0.4589223891058273,
-      "z": 0.13022592346323933
+      "color": "#f87171",
+      "x": 3.986811292224065,
+      "y": -1.1721575549302112,
+      "z": 0.3450870771054918
     },
     {
       "slug": "yann-lecun-ami",
@@ -521,10 +697,10 @@
         "JEPA"
       ],
       "cluster": "Machine Learning",
-      "color": "#737373",
-      "x": -1.2620916997432499,
-      "y": -2.09418950885051,
-      "z": 0.9833023668781671
+      "color": "#c084fc",
+      "x": -0.020986802014249895,
+      "y": 0.6453291580860248,
+      "z": -2.104199013982436
     }
   ]
 }
