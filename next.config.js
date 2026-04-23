@@ -10,6 +10,7 @@ if (process.env.NEXT_PUBLIC_BASE_PATH) {
 
 const nextConfig = {
   output: 'export',
+  trailingSlash: true,
   basePath,
   assetPrefix: basePath,
   // Exposed so static <img src> and similar can match basePath (next/image usually handles this;
