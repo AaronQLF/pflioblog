@@ -1,6 +1,6 @@
 ---
 title: "Paper Review: The Reversal Curse"
-date: "2026-04-28"
+date: "2026-04-29"
 excerpt: "Thirteenth entry in the Paper Review series. Berglund et al. (2023) trained language models on 'A is B' and showed they completely failed to learn 'B is A'. The experimental design is unusually clean, the finding is reproducible at every scale they tried, and the implications for how transformer factual memory actually works are larger than the paper's modest scope suggests."
 tags: ["Paper Review", "AI", "Interpretability", "Research"]
 series: "Paper Review"
