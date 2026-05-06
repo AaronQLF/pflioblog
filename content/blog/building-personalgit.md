@@ -7,6 +7,8 @@ tags: ["Engineering", "Architecture", "Storage", "own exp"]
 
 I built personalGit because every "second brain" tool I tried as a student fell off the same cliff. Notion does not handle PDFs the way I read them. Miro makes you pay the moment you have more than three boards. Obsidian is a text editor pretending to be a graph. None of them give you a single surface where you can drop a paper, a sticky note, a rich page of math, and a slide export, and treat them as one workspace.
 
+The live app is at [studygit-tau.vercel.app](https://studygit-tau.vercel.app/) and the source is on GitHub at [AaronQLF/studygit](https://github.com/AaronQLF/studygit).
+
 I built it. An infinite React Flow canvas, per-workspace, with link nodes, image nodes, sticky notes, Tiptap pages, document nodes with threaded highlights, and a PDF viewer with annotation. Open any node and it spawns a floating, draggable, resizable panel above the canvas. Open another and it spawns next to the first. Read a paper and write a page side by side without a single modal getting in your way.
 
 The product part is the easy version of this story. The interesting part is that I wanted personalGit to stay free, forever, and the moment I committed to that constraint, ninety percent of my engineering effort moved to a single subsystem: storage. This post is about that subsystem.
