@@ -12,6 +12,18 @@ interface Project {
 const ProjectsCard: React.FC = () => {
   const projects: Project[] = [
     {
+      title: "personalGit",
+      description: "Infinite-canvas student workspace — drop PDFs, Notion-like pages, sticky notes, and links into independent workspaces, highlight passages, and ask AI grounded in your selection. Native desktop app on macOS and Windows.",
+      technologies: ["Next.js", "TypeScript", "React Flow", "Tiptap", "Supabase", "Cloudflare R2", "PDF.js", "Electron"],
+      link: "https://studygit-tau.vercel.app/",
+    },
+    {
+      title: "Mech Interp Toolkit",
+      description: "Interactive textbook for the math behind mechanistic interpretability — from vectors and matrices to attention circuits and sparse autoencoders. Every page is a widget you can drag and scrub.",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "KaTeX", "Framer Motion"],
+      link: "https://mechanistic-interpretability-toolki.vercel.app/",
+    },
+    {
       title: "Threader.cloud",
       description: "Branching conversations for LLMs — the missing UX pattern for multi-threaded AI dialogue.",
       technologies: ["React", "Vite.js", "TypeScript", "Tailwind CSS", "OpenAI API"],
@@ -57,7 +69,6 @@ const ProjectsCard: React.FC = () => {
                   className="hover:text-[var(--color-accent)] transition-colors duration-200"
                 >
                   {project.title}
-                  <span className="text-[var(--color-muted)] text-xs ml-1">&nearr;</span>
                 </a>
               ) : (
                 project.title
