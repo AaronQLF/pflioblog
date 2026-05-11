@@ -1,10 +1,9 @@
 ---
-
-## title: "What I Choose to Ignore: Prioritization in an Industry That Will Not Hold Still"
-
+title: "What I Choose to Ignore: Prioritization in an Industry That Will Not Hold Still"
 date: "2026-05-11"
 excerpt: "The volume of new tools, papers, frameworks, and announcements crossed the line of human-readable some time around 2023. Here is the system I actually use to decide what to read, what to build, and what to ignore on purpose."
 tags: ["Engineering", "Career", "own exp"]
+---
 
 The thing nobody admits in engineering circles is that the volume of new tools, papers, frameworks, and announcements crossed the line of human-readable some time around 2023. Everyone I respect is, in some sense, faking it. They have a private filter. They do not write it down. They will not tell you what it is, because the filter sounds like advice for losing.
 
