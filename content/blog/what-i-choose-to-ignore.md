@@ -1,9 +1,9 @@
 ---
-title: "What I Choose to Ignore: Prioritization in an Industry That Will Not Hold Still"
+
+## title: "What I Choose to Ignore: Prioritization in an Industry That Will Not Hold Still"
 date: "2026-05-11"
 excerpt: "The volume of new tools, papers, frameworks, and announcements crossed the line of human-readable some time around 2023. Here is the system I actually use to decide what to read, what to build, and what to ignore on purpose."
 tags: ["Engineering", "Career", "own exp"]
----
 
 The thing nobody admits in engineering circles is that the volume of new tools, papers, frameworks, and announcements crossed the line of human-readable some time around 2023. Everyone I respect is, in some sense, faking it. They have a private filter. They do not write it down. They will not tell you what it is, because the filter sounds like advice for losing.
 
@@ -76,12 +76,6 @@ The practical implication is that I now read priority labels with a question att
 The second pathology is the tyranny of the recent ticket. The most recently filed ticket has a structural advantage in mindshare. It is visible. It is being discussed. It feels relevant. None of that has anything to do with whether it should be the next thing I work on. The cure is unsentimental: actually look at the backlog, not just the inbox. Most of the things I should be working on filed themselves into the backlog three months ago and have been quietly compounding ever since.
 
 The third pathology is context switching. A real engineering culture should be hostile to context switching in a way that is sometimes mistaken for inflexibility. The cost of switching is not the time it takes to load the new context. The cost is the depth I never reach on the original problem because I keep getting yanked off it. Two weeks of uninterrupted work on a hard problem is not equivalent to ten weeks of interrupted work on the same problem. It is qualitatively different. The interrupted version often does not converge at all.
-
-## The autism note
-
-I am on the autism spectrum, which is relevant here in a specific way. I have less of the social signal that would normally pressure me into chasing whatever the current thing is. When a new framework lands and everyone in my feed is excited about it, I notice that there is a thing called excitement happening, but I do not feel a corresponding pull to participate. That is not a virtue, it is a cognitive profile with a tradeoff. The upside is that the breadth-clock filter works on me almost by default. The downside is that I sometimes go too deep on the wrong thing for too long, because nothing socially is yanking me out of it.
-
-I am not recommending this profile. I am pointing out that the social pressure to keep up is itself a force, and that the cost of resisting it is real even if the cost of submitting to it is larger. If you do not have my baseline, you have to manufacture some of the same effect deliberately. The four questions above are part of how I would manufacture it if I had to.
 
 ## The compounding argument
 
