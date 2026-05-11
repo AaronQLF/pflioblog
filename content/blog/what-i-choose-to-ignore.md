@@ -1,6 +1,7 @@
 ---
 
 ## title: "What I Choose to Ignore: Prioritization in an Industry That Will Not Hold Still"
+
 date: "2026-05-11"
 excerpt: "The volume of new tools, papers, frameworks, and announcements crossed the line of human-readable some time around 2023. Here is the system I actually use to decide what to read, what to build, and what to ignore on purpose."
 tags: ["Engineering", "Career", "own exp"]
@@ -94,5 +95,3 @@ I am not claiming this is universal. There are roles where breadth is the job. D
 I am also not claiming I have this fully figured out. I get the four questions wrong about a third of the time. I have a few notable instances of going deep on a thing that turned out to be a dead end, and a smaller number of instances of dismissing a thing that turned out to matter. The point is not to be right every time. The point is to have a system at all, so that the errors are recoverable and the wins compound.
 
 The alternative, in my experience, is not running on intuition. The alternative is running on the ambient anxiety of the field, which is a system optimized for engagement, not for your career.
-
-Most people do not write down their filter. I notice. I am writing down mine.
