@@ -5,21 +5,21 @@
 @tailwind utilities;
 
 :root {
-  --color-accent: #8b2252;
-  --color-muted: #6b6b6b;
+  --color-accent: #0e6e66;
+  --color-muted: #5f6b75;
   --color-surface: #ffffff;
-  --color-surface-hover: #f5f3f0;
-  --color-border: #e8e4df;
-  --color-code-bg: #f3f0ec;
+  --color-surface-hover: #eef1f4;
+  --color-border: #d9e0e6;
+  --color-code-bg: #eef1f4;
 }
 
 html.dark {
-  --color-accent: #d4a0a0;
-  --color-muted: #9a9a9a;
-  --color-surface: #221f1d;
-  --color-surface-hover: #2a2520;
-  --color-border: #2a2520;
-  --color-code-bg: #252220;
+  --color-accent: #69c4b8;
+  --color-muted: #8b96a2;
+  --color-surface: #1b2026;
+  --color-surface-hover: #232a31;
+  --color-border: #2a323b;
+  --color-code-bg: #1b2127;
 }
 
 @layer base {
@@ -30,13 +30,13 @@ html.dark {
   }
 
   body {
-    background-color: #faf9f7;
-    @apply text-[#1a1a1a] min-h-screen transition-colors duration-200;
+    background-color: #f3f6f8;
+    @apply text-[#161b21] min-h-screen transition-colors duration-200;
   }
 
   html.dark body {
-    background-color: #1c1917;
-    @apply text-[#e8e4df];
+    background-color: #11151a;
+    @apply text-[#dce3ea];
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -51,11 +51,11 @@ html.dark {
   }
 
   ::selection {
-    background-color: #8b225233;
+    background-color: #0e6e6633;
   }
 
   html.dark ::selection {
-    background-color: #d4a0a044;
+    background-color: #69c4b844;
   }
 }
 

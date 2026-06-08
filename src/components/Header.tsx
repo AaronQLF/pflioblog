@@ -20,7 +20,7 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         scrolled
-          ? 'border-b border-[var(--color-border)] bg-[#faf9f7]/90 dark:bg-[#1c1917]/90 backdrop-blur-sm py-3'
+          ? 'border-b border-[var(--color-border)] bg-[#f3f6f8]/90 dark:bg-[#11151a]/90 backdrop-blur-sm py-3'
           : 'py-5'
       }`}
     >
@@ -29,8 +29,8 @@ const Header = () => {
           href="/"
           className="flex items-center gap-3 group"
         >
-          <span className="inline-block w-3 h-3 rounded-full bg-[#1a1a1a] dark:bg-[#e8e4df] group-hover:bg-[var(--color-accent)] transition-colors duration-200" />
-          <span className="font-serif text-2xl text-[#1a1a1a] dark:text-[#e8e4df] group-hover:text-[var(--color-accent)] transition-colors duration-200">
+          <span className="inline-block w-3 h-3 rounded-full bg-[#161b21] dark:bg-[#dce3ea] group-hover:bg-[var(--color-accent)] transition-colors duration-200" />
+          <span className="font-serif text-2xl text-[#161b21] dark:text-[#dce3ea] group-hover:text-[var(--color-accent)] transition-colors duration-200">
             Haroun Guessous
           </span>
         </Link>
@@ -39,13 +39,13 @@ const Header = () => {
           <nav className="hidden sm:flex items-center gap-6">
             <Link
               href={{ pathname: '/', hash: 'experience' }}
-              className="link-hover-line text-sm text-[var(--color-muted)] hover:text-[#1a1a1a] dark:hover:text-[#e8e4df] transition-colors duration-200"
+              className="link-hover-line text-sm text-[var(--color-muted)] hover:text-[#161b21] dark:hover:text-[#dce3ea] transition-colors duration-200"
             >
               Experience
             </Link>
             <Link
               href="/blog"
-              className="link-hover-line text-sm text-[var(--color-muted)] hover:text-[#1a1a1a] dark:hover:text-[#e8e4df] transition-colors duration-200"
+              className="link-hover-line text-sm text-[var(--color-muted)] hover:text-[#161b21] dark:hover:text-[#dce3ea] transition-colors duration-200"
             >
               Writing
             </Link>

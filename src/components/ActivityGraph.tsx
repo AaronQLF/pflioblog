@@ -80,11 +80,11 @@ const { weeks: activityData, monthLabels } = generateData();
 const totalContributions = activityData.flat().reduce((sum, d) => sum + d.commits, 0);
 
 const COLORS: Record<number, string> = {
-    0: 'bg-[#e8e4df] dark:bg-[#2a2520]',
-    1: 'bg-[#e0c4c4] dark:bg-[#3d2828]',
-    2: 'bg-[#d09090] dark:bg-[#6b3a3a]',
-    3: 'bg-[#b85c6c] dark:bg-[#9e5555]',
-    4: 'bg-[#8b2252] dark:bg-[#d4a0a0]',
+    0: 'bg-[#d9e0e6] dark:bg-[#2a323b]',
+    1: 'bg-[#c2dedb] dark:bg-[#26403d]',
+    2: 'bg-[#8fc4bf] dark:bg-[#2f5f59]',
+    3: 'bg-[#3f928b] dark:bg-[#3f857d]',
+    4: 'bg-[#0e6e66] dark:bg-[#69c4b8]',
 };
 
 function formatDate(date: Date): string {
@@ -147,7 +147,7 @@ export default function ActivityGraph() {
                                         return (
                                             <div
                                                 key={dIndex}
-                                                className={`rounded-sm ${COLORS[day.intensity]} cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-[var(--color-accent)]/50 hover:ring-offset-1 hover:ring-offset-[#faf9f7] dark:hover:ring-offset-[#1c1917]`}
+                                                className={`rounded-sm ${COLORS[day.intensity]} cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-[var(--color-accent)]/50 hover:ring-offset-1 hover:ring-offset-[#f3f6f8] dark:hover:ring-offset-[#11151a]`}
                                                 style={{ width: CELL, height: CELL }}
                                                 onMouseEnter={(e) => {
                                                     const rect = e.currentTarget.getBoundingClientRect();
@@ -182,7 +182,7 @@ export default function ActivityGraph() {
 
             {tooltip && (
                 <div
-                    className="absolute z-50 pointer-events-none px-2.5 py-1.5 rounded-md bg-[#1a1a1a] dark:bg-[#2a2520] text-white text-[11px] font-mono whitespace-nowrap shadow-lg"
+                    className="absolute z-50 pointer-events-none px-2.5 py-1.5 rounded-md bg-[#161b21] dark:bg-[#232a31] text-white text-[11px] font-mono whitespace-nowrap shadow-lg"
                     style={{
                         left: tooltip.x,
                         top: tooltip.y,
@@ -190,7 +190,7 @@ export default function ActivityGraph() {
                     }}
                 >
                     {tooltip.text}
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#1a1a1a] dark:border-t-[#2a2520]" />
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#161b21] dark:border-t-[#232a31]" />
                 </div>
             )}
         </div>

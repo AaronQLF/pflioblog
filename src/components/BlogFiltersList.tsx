@@ -335,7 +335,7 @@ export default function BlogFiltersList({ posts, series, tags, searchIndex }: Pr
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search posts..."
-                        className="w-full text-sm px-4 py-2.5 rounded-lg bg-transparent border border-[var(--color-border)] text-[#1a1a1a] dark:text-[#e8e4df] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 font-sans"
+                        className="w-full text-sm px-4 py-2.5 rounded-lg bg-transparent border border-[var(--color-border)] text-[#161b21] dark:text-[#dce3ea] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 font-sans"
                     />
                     {query && (
                         <button

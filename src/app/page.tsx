@@ -36,14 +36,14 @@ export default function Home() {
 
             <div className="min-w-0 flex-1 space-y-6 md:space-y-7 md:pt-1">
               <div className="space-y-4">
-                <h1 className="text-[2.75rem] sm:text-5xl lg:text-6xl font-serif italic font-normal leading-[1.08] tracking-tight text-[#1a1a1a] dark:text-[#e8e4df]">
+                <h1 className="text-[2.75rem] sm:text-5xl lg:text-6xl font-serif italic font-normal leading-[1.08] tracking-tight text-[#161b21] dark:text-[#dce3ea]">
                   Hi, I&apos;m Haroun Guessous.
                 </h1>
               </div>
 
               <p className="text-[17px] leading-relaxed text-[var(--color-muted)] max-w-2xl border-t border-[var(--color-border)] pt-6">
                 Engineer,Team Lead, ML research, ex-quant, amateur runner; occasional writing. Co-founded{' '}
-                <span className="font-medium text-[#1a1a1a] dark:text-[#e8e4df]">Divitae Eventure</span>
+                <span className="font-medium text-[#161b21] dark:text-[#dce3ea]">Divitae Eventure</span>
                 {' '}
                 ,a systematic trading fund where 15% of annual profits go directly to leukemia research.
               </p>
