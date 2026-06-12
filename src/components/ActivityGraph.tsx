@@ -147,7 +147,7 @@ export default function ActivityGraph() {
                                         return (
                                             <div
                                                 key={dIndex}
-                                                className={`rounded-sm ${COLORS[day.intensity]} cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-[var(--color-accent)]/50 hover:ring-offset-1 hover:ring-offset-[#f3f6f8] dark:hover:ring-offset-[#11151a]`}
+                                                className={`rounded-sm ${COLORS[day.intensity]} cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-[var(--color-accent)]/50 hover:ring-offset-1 hover:ring-offset-[#f5f1e6] dark:hover:ring-offset-[#0e1511]`}
                                                 style={{ width: CELL, height: CELL }}
                                                 onMouseEnter={(e) => {
                                                     const rect = e.currentTarget.getBoundingClientRect();

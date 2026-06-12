@@ -24,7 +24,9 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/aspect-ratio'),
+    // @tailwindcss/aspect-ratio removed: it overrides the core aspectRatio
+    // theme, which silently kills the built-in aspect-video/aspect-square
+    // utilities (project image containers collapsed to 0 height).
     require('@tailwindcss/typography'),
   ],
 };

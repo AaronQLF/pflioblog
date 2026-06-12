@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
+import { withBasePath } from '@/lib/basePath';
 
 const MontrealMapCard: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -24,7 +25,7 @@ const MontrealMapCard: React.FC = () => {
           {/* Map images for light and dark mode */}
           <div className="absolute inset-0 block dark:hidden">
             <Image
-              src="/images/projects/Desktop_16-9_White_Montreal.png"
+              src={withBasePath("/images/projects/Desktop_16-9_White_Montreal.png")}
               alt="Montreal Map - Light Mode"
               fill
               className="object-cover"
@@ -34,7 +35,7 @@ const MontrealMapCard: React.FC = () => {
           
           <div className="absolute inset-0 hidden dark:block">
             <Image
-              src="/images/projects/Desktop_16-9_Black_Montreal.png"
+              src={withBasePath("/images/projects/Desktop_16-9_Black_Montreal.png")}
               alt="Montreal Map - Dark Mode"
               fill
               className="object-cover"

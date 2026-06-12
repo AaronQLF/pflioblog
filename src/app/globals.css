@@ -4,22 +4,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Porsche-green theme: deep forest accent on warm paper (light),
+   green-tinted near-black with sage accent (dark). */
 :root {
-  --color-accent: #0e6e66;
-  --color-muted: #6b6358;
-  --color-surface: #fdfbf6;
-  --color-surface-hover: #efeae0;
-  --color-border: #e4ded2;
-  --color-code-bg: #efeae0;
+  --color-accent: #11472f;
+  --color-fg: #1d1b14;
+  --color-muted: #6f6757;
+  --color-surface: #fcfaf4;
+  --color-surface-hover: #efeadc;
+  --color-border: #ded8c5;
+  --color-code-bg: #eee9da;
 }
 
 html.dark {
-  --color-accent: #69c4b8;
-  --color-muted: #9a9282;
-  --color-surface: #221f18;
-  --color-surface-hover: #2b271e;
-  --color-border: #332f25;
-  --color-code-bg: #201d16;
+  --color-accent: #8fc7a4;
+  --color-fg: #e6e2d4;
+  --color-muted: #97a195;
+  --color-surface: #15201a;
+  --color-surface-hover: #1c2a22;
+  --color-border: #28372d;
+  --color-code-bg: #121b15;
 }
 
 @layer base {
@@ -30,13 +34,13 @@ html.dark {
   }
 
   body {
-    background-color: #f6f3ec;
-    @apply text-[#1c1a14] min-h-screen transition-colors duration-200;
+    background-color: #f5f1e6;
+    @apply text-[#1d1b14] min-h-screen transition-colors duration-200;
   }
 
   html.dark body {
-    background-color: #17150f;
-    @apply text-[#e8e2d6];
+    background-color: #0e1511;
+    @apply text-[#e6e2d4];
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -51,11 +55,11 @@ html.dark {
   }
 
   ::selection {
-    background-color: #0e6e6633;
+    background-color: #11472f2b;
   }
 
   html.dark ::selection {
-    background-color: #69c4b844;
+    background-color: #8fc7a43d;
   }
 }
 

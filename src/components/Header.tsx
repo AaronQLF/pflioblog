@@ -20,7 +20,7 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         scrolled
-          ? 'border-b border-[var(--color-border)] bg-[#f3f6f8]/90 dark:bg-[#11151a]/90 backdrop-blur-sm py-3'
+          ? 'border-b border-[var(--color-border)] bg-[#f5f1e6]/90 dark:bg-[#0e1511]/90 backdrop-blur-sm py-3'
           : 'py-5'
       }`}
     >
