@@ -42,8 +42,13 @@ export default function Home() {
               </div>
 
               <p className="text-[17px] leading-relaxed text-[var(--color-muted)] max-w-2xl border-t border-[var(--color-border)] pt-6">
+<<<<<<< Updated upstream
                 Engineer,Team Lead, ML research, ex-quant, amateur runner; occasional writing. Co-founded{' '}
                 <span className="font-medium text-[#161b21] dark:text-[#dce3ea]">Divitae Eventure</span>
+=======
+                Engineer, Team Lead, ML research, amateur runner; occasional writing. Co-founded{' '}
+                <span className="font-medium text-[#1a1a1a] dark:text-[#e8e4df]">Divitae Eventure</span>
+>>>>>>> Stashed changes
                 {' '}
                 ,a systematic trading fund where 15% of annual profits go directly to leukemia research.
               </p>
