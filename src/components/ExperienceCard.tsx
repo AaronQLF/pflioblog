@@ -29,7 +29,7 @@ const ExperienceCard: React.FC = () => {
       ],
     },
     {
-      title: "Researcher",
+      title: "Analyst",
       company: "CDPQ",
       period: "Jan 2025 – Jan 2026 · Full-time",
       achievements: [
@@ -41,7 +41,7 @@ const ExperienceCard: React.FC = () => {
       ],
     },
     {
-      title: "Research Intern",
+      title: "Analyst Intern",
       company: "CDPQ",
       period: "Oct 2024 – Jan 2025",
       achievements: [
