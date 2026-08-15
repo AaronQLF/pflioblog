@@ -72,7 +72,7 @@ export default function Home() {
 
       <div className="container space-y-28 sm:space-y-32 pb-16">
         <FadeIn>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <section id="experience">
               <ExperienceCard />
             </section>
@@ -81,12 +81,13 @@ export default function Home() {
                 <EducationCard />
               </section>
             </FadeIn>
-            <FadeIn delay={200}>
-              <section id="reading">
-                <BooksCard />
-              </section>
-            </FadeIn>
           </div>
+        </FadeIn>
+
+        <FadeIn>
+          <section id="reading" className="w-full">
+            <BooksCard />
+          </section>
         </FadeIn>
 
         <FadeIn>
