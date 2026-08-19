@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title: "Haroun Guessous | Portfolio",
-  description: "R&D Lead at Stingray Digital · Masters in CS at UdeM/MILA",
+  description: "Masters in CS at UdeM/MILA · ML research, ex-quant",
 };
 
 export default function RootLayout({

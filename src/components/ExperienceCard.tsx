@@ -16,20 +16,7 @@ const ExperienceCard: React.FC = () => {
 
   const experiences: Experience[] = [
     {
-      title: "R&D Lead",
-      company: "Stingray Digital",
-      period: "Feb 2026 – Present · Full-time",
-      isActive: true,
-      achievements: [
-        "Led development of an internal LLM-powered engineering assistant using RAG pipelines and custom agent tools",
-        "Designed and implemented custom AI agent toolchains (LangChain-based) integrating internal APIs and knowledge bases",
-        "Built a real-time AI voice synthesis pipeline for radio content generation and broadcast personalization",
-        "Developed conversational AI chatbot interfaces with TypeScript/React and Python backends",
-        "Architected AI service infrastructure connecting LLM services, vector databases, and internal datasets",
-      ],
-    },
-    {
-      title: "Analyst",
+      title: "Quantitative Researcher",
       company: "CDPQ",
       period: "Jan 2025 – Jan 2026 · Full-time",
       achievements: [
@@ -41,7 +28,7 @@ const ExperienceCard: React.FC = () => {
       ],
     },
     {
-      title: "Analyst Intern",
+      title: "Quantitative Research Intern",
       company: "CDPQ",
       period: "Oct 2024 – Jan 2025",
       achievements: [
