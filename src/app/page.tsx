@@ -42,7 +42,7 @@ export default function Home() {
               </div>
 
               <p className="text-[17px] leading-relaxed text-[var(--color-muted)] max-w-2xl border-t border-[var(--color-border)] pt-6">
-                Engineer, Team Lead, ML research, amateur runner; occasional writing. Co-founded{' '}
+                Engineer, ML research, amateur runner; occasional writing. Co-founded{' '}
                 <span className="font-medium text-[#161b21] dark:text-[#dce3ea]">Divitae Eventure</span>
                 {' '}
                 ,a systematic trading fund where 15% of annual profits go directly to leukemia research.

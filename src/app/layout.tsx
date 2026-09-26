@@ -14,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head suppressHydrationWarning>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
@@ -24,7 +24,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider>
           <main className="transition-colors duration-200">{children}</main>
           <Footer />

@@ -18,29 +18,10 @@ export default function BlogPage() {
     return (
         <main className="min-h-screen pt-24">
             <Header />
-            <section className="container py-12">
+            <section className="max-w-[1200px] mx-auto px-5 sm:px-6 py-12">
                 <FadeIn>
-                    <div className="mb-10">
-                        <h1 className="text-4xl sm:text-5xl font-serif italic mb-3">Writing</h1>
-                        <p className="text-lg text-[var(--color-muted)]">
-                            Thoughts on AI research, engineering, and whatever I&apos;m building.
-                        </p>
-                        <p className="mt-4 text-sm">
-                            <Link
-                                href="/blog/galaxy"
-                                className="font-mono text-[var(--color-accent)] underline-offset-4 hover:underline"
-                            >
-                                3D semantic map of posts
-                            </Link>
-                            <span className="text-[var(--color-muted)]">
-                                {" "}
-                                (local embeddings, no API)
-                            </span>
-                        </p>
-                    </div>
+                    <BlogFiltersList posts={posts} series={series} tags={tags} searchIndex={searchIndex} />
                 </FadeIn>
-
-                <BlogFiltersList posts={posts} series={series} tags={tags} searchIndex={searchIndex} />
             </section>
         </main>
     );

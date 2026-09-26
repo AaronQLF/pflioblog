@@ -49,96 +49,31 @@ interface Props {
     searchIndex: TfIdfIndex;
 }
 
-function SeriesFolder({ info, isExpanded, onToggle }: {
-    info: SeriesInfo;
-    isExpanded: boolean;
-    onToggle: () => void;
-}) {
-    const totalReadingTime = info.posts.reduce((sum, p) => sum + p.readingTime, 0);
+function PostEntry({ post, isHero = false }: { post: BlogPostMeta, isHero?: boolean }) {
+    // Format date as YYYY-MM-DD
+    const dateStr = new Date(post.date).toISOString().split('T')[0];
 
     return (
-        <div className="border border-[var(--color-border)] rounded-lg overflow-hidden transition-colors duration-200">
-            <button
-                onClick={onToggle}
-                className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 hover:bg-[var(--color-surface-hover)] transition-colors duration-200"
-            >
-                <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-[var(--color-muted)] text-sm shrink-0 transition-transform duration-200"
-                        style={{ transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
-                    >
-                        ▸
-                    </span>
-                    <div className="min-w-0">
-                        <h3 className="text-base font-medium truncate">{info.name}</h3>
-                        <p className="text-xs font-mono text-[var(--color-muted)] mt-0.5">
-                            {info.posts.length} {info.posts.length === 1 ? 'post' : 'posts'} · {totalReadingTime}m total
-                        </p>
+        <Link href={`/blog/${post.slug}`} className="block group mb-12 last:mb-0">
+            <article className="border-t-[1.5px] border-[var(--color-fg)] pt-4 pb-2">
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 mb-3">
+                    <p className="text-sm font-mono text-[var(--color-fg)] font-medium">
+                        {dateStr}
+                    </p>
+                    <div className="flex gap-2 text-xs font-mono text-[var(--color-muted)] uppercase tracking-widest flex-wrap">
+                        {post.tags.map(tag => `[${tag}]`).join(' ')}
+                        {post.series && ` // SERIES: ${post.series}`}
                     </div>
                 </div>
-            </button>
-
-            {isExpanded && (
-                <div className="border-t border-[var(--color-border)]">
-                    {info.posts.map((post, idx) => (
-                        <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
-                            <div className="px-5 py-3.5 flex items-center gap-3 hover:bg-[var(--color-surface-hover)] transition-colors duration-200 border-b border-[var(--color-border)] last:border-0">
-                                <span className="text-xs font-mono text-[var(--color-muted)] w-5 shrink-0 text-right">
-                                    {idx + 1}.
-                                </span>
-                                <div className="flex-grow min-w-0">
-                                    <p className="text-sm group-hover:text-[var(--color-accent)] transition-colors duration-200 truncate">
-                                        {post.title}
-                                    </p>
-                                </div>
-                                <span className="text-xs font-mono text-[var(--color-muted)] shrink-0">
-                                    {post.readingTime}m
-                                </span>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-}
-
-function PostRow({ post }: { post: BlogPostMeta }) {
-    return (
-        <Link href={`/blog/${post.slug}`} className="block group">
-            <article className="py-5 border-b border-[var(--color-border)] last:border-0">
-                <div className="flex items-start justify-between gap-4">
-                    <div className="flex-grow min-w-0">
-                        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                            {post.tags.map((tag) => (
-                                <span key={tag} className="tag text-xs">
-                                    {tag}
-                                </span>
-                            ))}
-                            {post.series && (
-                                <span className="text-xs font-mono px-2 py-0.5 rounded border border-[var(--color-accent)] text-[var(--color-accent)] opacity-70">
-                                    {post.series}
-                                </span>
-                            )}
-                        </div>
-                        <h2 className="text-lg font-medium group-hover:text-[var(--color-accent)] transition-colors duration-200 mb-1">
-                            {post.title}
-                        </h2>
-                        <p className="text-sm text-[var(--color-muted)] line-clamp-1">
-                            {post.excerpt}
-                        </p>
-                    </div>
-                    <div className="shrink-0 text-right">
-                        <p className="text-sm font-mono text-[var(--color-muted)] whitespace-nowrap">
-                            {new Date(post.date).toLocaleDateString("en-US", {
-                                month: "short",
-                                day: "numeric",
-                            })}
-                        </p>
-                        <p className="text-sm font-mono text-[var(--color-muted)] mt-0.5">
-                            {post.readingTime}m
-                        </p>
-                    </div>
-                </div>
+                
+                <h2 className={`${isHero ? 'text-3xl sm:text-4xl' : 'text-2xl sm:text-3xl'} font-serif text-[var(--color-fg)] group-hover:text-[var(--color-accent)] transition-colors duration-200 mb-4`}>
+                    {post.title}
+                </h2>
+                
+                <p className={`text-[15px] sm:text-base text-[var(--color-fg)] opacity-80 leading-[1.8] font-serif ${isHero ? 'line-clamp-4' : 'line-clamp-3'}`}>
+                    <span className="font-semibold text-[var(--color-fg)] opacity-100 font-sans text-sm uppercase tracking-widest mr-2">Abstract.</span> 
+                    {post.excerpt}
+                </p>
             </article>
         </Link>
     );
@@ -148,16 +83,6 @@ export default function BlogFiltersList({ posts, series, tags, searchIndex }: Pr
     const [query, setQuery] = useState("");
     const [activeSeries, setActiveSeries] = useState<string | null>(null);
     const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
-    const [expandedSeries, setExpandedSeries] = useState<Set<string>>(new Set());
-
-    const toggleSeries = (name: string) => {
-        setExpandedSeries((prev) => {
-            const next = new Set(prev);
-            if (next.has(name)) next.delete(name);
-            else next.add(name);
-            return next;
-        });
-    };
 
     const toggleTag = (name: string) => {
         setActiveTags((prev) => {
@@ -169,9 +94,8 @@ export default function BlogFiltersList({ posts, series, tags, searchIndex }: Pr
     };
 
     const [showAllTags, setShowAllTags] = useState(false);
-    const TAG_PREVIEW_COUNT = 8;
+    const TAG_PREVIEW_COUNT = 10;
 
-    const hasActiveFilters = activeTags.size > 0;
     const isSearching = query.trim().length > 0;
 
     function postHasTag(post: BlogPostMeta, tag: string): boolean {
@@ -211,207 +135,165 @@ export default function BlogFiltersList({ posts, series, tags, searchIndex }: Pr
             .filter(({ score }) => score > 0)
             .sort((a, b) => b.score - a.score);
 
-        if (activeTags.size === 0) return results;
-        return results.filter(({ post }) =>
-            Array.from(activeTags).every((t) => postHasTag(post, t))
-        );
-    }, [posts, searchIndex, query, activeTags]);
+        let filtered = results;
+        if (activeSeries) {
+            filtered = filtered.filter(({ post }) => post.series === activeSeries);
+        }
+        if (activeTags.size > 0) {
+            filtered = filtered.filter(({ post }) =>
+                Array.from(activeTags).every((t) => postHasTag(post, t))
+            );
+        }
+        return filtered;
+    }, [posts, searchIndex, query, activeTags, activeSeries]);
 
-    const filteredBySeriesPosts = useMemo(() => {
-        let base: BlogPostMeta[];
-        if (!activeSeries) {
-            base = posts;
-        } else {
+    const displayedPosts = useMemo(() => {
+        if (isSearching && searchResults) {
+            return searchResults.map(r => r.post);
+        }
+        let base = posts;
+        if (activeSeries) {
             const seriesInfo = series.find((s) => s.name === activeSeries);
-            base = seriesInfo ? seriesInfo.posts : posts;
+            base = seriesInfo ? seriesInfo.posts : [];
         }
         return filterByTags(base);
-    }, [posts, series, activeSeries, activeTags]);
-
-    const standalonePosts = useMemo(() => {
-        return filterByTags(posts.filter((p) => !p.series));
-    }, [posts, activeTags]);
-
-    const filteredSeries = useMemo(() => {
-        if (activeTags.size === 0) return series;
-        return series
-            .map((s) => ({
-                ...s,
-                posts: s.posts.filter((p) =>
-                    Array.from(activeTags).every((t) => postHasTag(p, t))
-                ),
-            }))
-            .filter((s) => s.posts.length > 0);
-    }, [series, activeTags]);
-
-    const showFolderView = !isSearching && !activeSeries;
+    }, [posts, series, activeSeries, activeTags, isSearching, searchResults]);
 
     return (
-        <div>
-            {/* Series pills */}
-            {series.length > 0 && (
-                <div className="flex items-center gap-2 mb-5 flex-wrap">
-                    <button
-                        onClick={() => setActiveSeries(null)}
-                        className={`text-xs font-mono px-3 py-1.5 rounded-md border transition-colors duration-200 ${
-                            !activeSeries
-                                ? 'border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent)]/5'
-                                : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]'
-                        }`}
+        <div className="flex flex-col lg:flex-row gap-16 items-start relative">
+            {/* Sidebar */}
+            <aside className="w-full lg:w-[260px] shrink-0 lg:sticky lg:top-28">
+                <div className="mb-12">
+                    <h1 className="text-4xl font-serif text-[var(--color-fg)] tracking-tight mb-4">Publications</h1>
+                    <p className="text-[13px] font-mono text-[var(--color-muted)] leading-relaxed uppercase tracking-wider mb-6">
+                        Archive // Research & Engineering
+                    </p>
+                    <Link
+                        href="/blog/galaxy"
+                        className="font-mono text-xs text-[var(--color-fg)] underline underline-offset-4 decoration-[var(--color-border)] hover:decoration-[var(--color-accent)] transition-colors"
                     >
-                        All
-                    </button>
-                    {series.map((s) => (
-                        <button
-                            key={s.name}
-                            onClick={() => setActiveSeries(activeSeries === s.name ? null : s.name)}
-                            className={`text-xs font-mono px-3 py-1.5 rounded-md border transition-colors duration-200 ${
-                                activeSeries === s.name
-                                    ? 'border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent)]/5'
-                                    : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]'
-                            }`}
-                        >
-                            {s.name}
-                            <span className="ml-1.5 opacity-60">{s.posts.length}</span>
-                        </button>
-                    ))}
+                        View 3D Semantic Map &rarr;
+                    </Link>
                 </div>
-            )}
 
-            {/* Tag pills */}
-            {tags.length > 0 && (() => {
-                const visibleTags = showAllTags ? tags : tags.slice(0, TAG_PREVIEW_COUNT);
-                const hiddenCount = tags.length - TAG_PREVIEW_COUNT;
-                return (
-                    <div className="flex items-center gap-2 mb-5 flex-wrap">
-                        <span className="text-xs font-mono text-[var(--color-muted)] mr-1">Tags</span>
-                        {visibleTags.map((tag) => (
+                {/* Search */}
+                <div className="mb-10">
+                    <div className="relative">
+                        <input
+                            type="text"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="QUERY..."
+                            className="w-full text-xs font-mono uppercase tracking-widest px-0 py-2 bg-transparent border-0 border-b-[1.5px] border-[var(--color-fg)] text-[var(--color-fg)] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors rounded-none shadow-none"
+                        />
+                        {query && (
                             <button
-                                key={tag.name}
-                                onClick={() => toggleTag(tag.name)}
-                                className={`text-xs font-mono px-2.5 py-1 rounded-full border transition-colors duration-200 ${
-                                    activeTags.has(tag.name)
-                                        ? 'border-[var(--color-fg)] text-[var(--color-fg)] bg-[var(--color-fg)]/10'
-                                        : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-fg)]/40 hover:text-[var(--color-fg)]'
+                                onClick={() => setQuery("")}
+                                className="absolute right-0 top-1/2 -translate-y-1/2 text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-[10px] font-mono uppercase tracking-widest"
+                            >
+                                [X]
+                            </button>
+                        )}
+                    </div>
+                </div>
+
+                {/* Series filter */}
+                {series.length > 0 && (
+                    <div className="mb-10">
+                        <p className="text-[11px] font-mono font-bold text-[var(--color-fg)] uppercase tracking-widest mb-4">Collections</p>
+                        <div className="flex flex-col gap-2">
+                            <button
+                                onClick={() => setActiveSeries(null)}
+                                className={`text-left text-xs font-mono tracking-wide transition-colors duration-200 ${
+                                    !activeSeries
+                                        ? 'text-[var(--color-accent)] font-bold'
+                                        : 'text-[var(--color-muted)] hover:text-[var(--color-fg)]'
                                 }`}
                             >
-                                {tag.name}
-                                <span className="ml-1 opacity-50">{tag.count}</span>
+                                {'>'} ALL
                             </button>
-                        ))}
-                        {!showAllTags && hiddenCount > 0 && (
-                            <button
-                                onClick={() => setShowAllTags(true)}
-                                className="text-xs font-mono px-2.5 py-1 rounded-full border border-dashed border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-fg)]/40 hover:text-[var(--color-fg)] transition-colors duration-200"
-                            >
-                                +{hiddenCount} more
-                            </button>
-                        )}
-                        {showAllTags && hiddenCount > 0 && (
-                            <button
-                                onClick={() => setShowAllTags(false)}
-                                className="text-xs font-mono text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors duration-200"
-                            >
-                                less
-                            </button>
-                        )}
-                        {hasActiveFilters && (
-                            <button
-                                onClick={() => setActiveTags(new Set())}
-                                className="text-xs font-mono text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors duration-200 ml-1"
-                            >
-                                clear
-                            </button>
-                        )}
-                    </div>
-                );
-            })()}
-
-            {/* Search */}
-            <div className="mb-8">
-                <div className="relative">
-                    <input
-                        type="text"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Search posts..."
-                        className="w-full text-sm px-4 py-2.5 rounded-lg bg-transparent border border-[var(--color-border)] text-[#161b21] dark:text-[#dce3ea] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 font-sans"
-                    />
-                    {query && (
-                        <button
-                            onClick={() => setQuery("")}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors text-xs font-mono"
-                        >
-                            clear
-                        </button>
-                    )}
-                </div>
-            </div>
-
-            {/* Search results mode */}
-            {isSearching && searchResults && (
-                searchResults.length === 0 ? (
-                    <p className="text-sm text-[var(--color-muted)] py-8 text-center">
-                        No posts match your search.
-                    </p>
-                ) : (
-                    <div className="space-y-0">
-                        {searchResults.map(({ post }) => (
-                            <PostRow key={post.slug} post={post} />
-                        ))}
-                    </div>
-                )
-            )}
-
-            {/* Series filter mode */}
-            {!isSearching && activeSeries && (
-                filteredBySeriesPosts.length === 0 ? (
-                    <p className="text-sm text-[var(--color-muted)] py-8 text-center">
-                        No posts match{hasActiveFilters ? ' the selected tags in this series' : ' in this series yet'}.
-                    </p>
-                ) : (
-                    <div className="space-y-0">
-                        {filteredBySeriesPosts.map((post) => (
-                            <PostRow key={post.slug} post={post} />
-                        ))}
-                    </div>
-                )
-            )}
-
-            {/* Default folder view */}
-            {showFolderView && (
-                <>
-                    {filteredSeries.length > 0 && (
-                        <div className="space-y-3 mb-10">
-                            {filteredSeries.map((s) => (
-                                <SeriesFolder
+                            {series.map((s) => (
+                                <button
                                     key={s.name}
-                                    info={s}
-                                    isExpanded={expandedSeries.has(s.name)}
-                                    onToggle={() => toggleSeries(s.name)}
-                                />
+                                    onClick={() => setActiveSeries(s.name)}
+                                    className={`text-left text-xs font-mono tracking-wide transition-colors duration-200 flex items-center justify-between ${
+                                        activeSeries === s.name
+                                            ? 'text-[var(--color-accent)] font-bold'
+                                            : 'text-[var(--color-muted)] hover:text-[var(--color-fg)]'
+                                    }`}
+                                >
+                                    <span>{'>'} {s.name.toUpperCase()}</span>
+                                    <span className="opacity-50">[{s.posts.length}]</span>
+                                </button>
                             ))}
                         </div>
-                    )}
-
-                    <div className="space-y-0">
-                        {standalonePosts.length > 0 && filteredSeries.length > 0 && (
-                            <p className="text-xs font-mono text-[var(--color-muted)] mb-4 uppercase tracking-wider">
-                                Standalone posts
-                            </p>
-                        )}
-                        {standalonePosts.map((post) => (
-                            <PostRow key={post.slug} post={post} />
-                        ))}
                     </div>
+                )}
 
-                    {hasActiveFilters && standalonePosts.length === 0 && filteredSeries.length === 0 && (
-                        <p className="text-sm text-[var(--color-muted)] py-8 text-center">
-                            No posts match the selected tags.
+                {/* Tags filter */}
+                {tags.length > 0 && (() => {
+                    const visibleTags = showAllTags ? tags : tags.slice(0, TAG_PREVIEW_COUNT);
+                    const hiddenCount = tags.length - TAG_PREVIEW_COUNT;
+                    return (
+                        <div className="mb-8">
+                            <div className="flex items-center justify-between mb-4">
+                                <p className="text-[11px] font-mono font-bold text-[var(--color-fg)] uppercase tracking-widest">Index</p>
+                                {activeTags.size > 0 && (
+                                    <button
+                                        onClick={() => setActiveTags(new Set())}
+                                        className="text-[10px] font-mono text-[var(--color-accent)] hover:underline"
+                                    >
+                                        [CLEAR]
+                                    </button>
+                                )}
+                            </div>
+                            <div className="flex flex-wrap gap-x-3 gap-y-2">
+                                {visibleTags.map((tag) => (
+                                    <button
+                                        key={tag.name}
+                                        onClick={() => toggleTag(tag.name)}
+                                        className={`text-[11px] font-mono tracking-wide transition-colors duration-200 ${
+                                            activeTags.has(tag.name)
+                                                ? 'text-[var(--color-accent)] font-bold'
+                                                : 'text-[var(--color-muted)] hover:text-[var(--color-fg)]'
+                                        }`}
+                                    >
+                                        #{tag.name.toUpperCase()}
+                                    </button>
+                                ))}
+                                {!showAllTags && hiddenCount > 0 && (
+                                    <button
+                                        onClick={() => setShowAllTags(true)}
+                                        className="text-[11px] font-mono tracking-wide text-[var(--color-muted)] hover:text-[var(--color-fg)] transition-colors duration-200"
+                                    >
+                                        +{hiddenCount} MORE...
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })()}
+            </aside>
+
+            {/* Main Content List */}
+            <div className="flex-1 min-w-0 w-full pt-2">
+                {displayedPosts.length === 0 ? (
+                    <div className="py-20 border-t-[1.5px] border-[var(--color-fg)]">
+                        <p className="text-[var(--color-fg)] font-mono text-sm uppercase tracking-widest">
+                            No documents found.
                         </p>
-                    )}
-                </>
-            )}
+                    </div>
+                ) : (
+                    <div className="flex flex-col">
+                        {displayedPosts.map((post, index) => {
+                            const isHero = index === 0;
+                            return (
+                                <PostEntry key={post.slug} post={post} isHero={isHero} />
+                            );
+                        })}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
