@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "katex/dist/katex.min.css";
 import { ThemeProvider } from "../context/ThemeContext";
 import Footer from "../components/Footer";
 
@@ -18,11 +19,6 @@ export default function RootLayout({
       <head suppressHydrationWarning>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
-          crossOrigin="anonymous"
-        />
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
