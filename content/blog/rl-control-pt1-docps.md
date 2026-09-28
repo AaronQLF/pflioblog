@@ -4,6 +4,7 @@ date: "2026-09-26"
 excerpt: "Breaking down the foundations of Discrete-Time Optimal Control Problems (DOCPs). Understanding state transitions, cost functions, and the ultimate goal of finding the optimal policy."
 tags: ["rl", "control", "math", "optimization"]
 series: "RL & Control"
+seriesOrder: 1
 readingTime: 8
 ---
 

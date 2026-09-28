@@ -15,6 +15,13 @@ export default function FadeIn({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setVisible(true);
+      return;
+    }
+
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -22,7 +29,7 @@ export default function FadeIn({
           obs.disconnect();
         }
       },
-      { threshold: 0.08 }
+      { threshold: 0 }
     );
     obs.observe(el);
     return () => obs.disconnect();
