@@ -7,6 +7,11 @@ import Footer from "../components/Footer";
 export const metadata: Metadata = {
   title: "Haroun Guessous | Portfolio",
   description: "Masters in CS at UdeM/MILA · ML research, ex-quant",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({

@@ -1,3 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <circle cx="16" cy="16" r="10" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b2820"/>
+      <stop offset="100%" stop-color="#0e1712"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="url(#appleGrad)"/>
+  <circle cx="32" cy="32" r="30.25" fill="none" stroke="#8fc7a4" stroke-width="1.5" stroke-opacity="0.3"/>
+  <text x="32" y="39.5" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif" font-size="23" font-weight="600" fill="#f5f1e6" text-anchor="middle" letter-spacing="0.5">HG</text>
 </svg>
