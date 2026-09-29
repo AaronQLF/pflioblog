@@ -16,6 +16,17 @@ const ExperienceCard: React.FC = () => {
 
   const experiences: Experience[] = [
     {
+      title: "Forward Deployed Engineer",
+      company: "Slalom",
+      period: "Aug 2026 – Present · Full-time",
+      isActive: true,
+      achievements: [
+        "Architecting and deploying production AI/ML solutions and cloud data pipelines for enterprise clients",
+        "Partnering with executive and technical stakeholders to design scalable machine learning workflows, modern data architectures, and LLM integrations",
+        "Leading hands-on implementation of high-throughput data processing and AI infrastructure tailored to complex domain requirements",
+      ],
+    },
+    {
       title: "Quantitative Researcher",
       company: "CDPQ",
       period: "Jan 2025 – Jan 2026 · Full-time",

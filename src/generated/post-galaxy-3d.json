@@ -1,7 +1,7 @@
 {
   "model": "Xenova/all-MiniLM-L6-v2",
   "reduction": "pca-3-center-scale",
-  "generatedAt": "2026-09-29T20:05:57.437Z",
+  "generatedAt": "2026-09-29T20:08:55.228Z",
   "axes": {
     "components": [
       {
