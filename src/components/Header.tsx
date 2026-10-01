@@ -90,22 +90,6 @@ const Header = () => {
 
         {/* Right: macOS Status Controls */}
         <div className="flex items-center gap-3 sm:gap-4">
-          {/* Wifi Pill */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-muted)] text-[11px]">
-            <svg className="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-            </svg>
-            <span>online</span>
-          </div>
-
-          {/* Battery Status */}
-          <div className="hidden sm:flex items-center gap-1 text-[var(--color-muted)] text-[11px]" title="Battery 100%">
-            <svg className="w-5 h-3" viewBox="0 0 24 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="0.5" y="0.5" width="19" height="13" rx="3" stroke="currentColor" strokeWidth="1.2" />
-              <rect x="2.5" y="2.5" width="15" height="9" rx="1.5" fill="#10b981" />
-              <path d="M21 4.5v5c.8-.5 1.5-1.5 1.5-2.5s-.7-2-1.5-2.5z" fill="currentColor" />
-            </svg>
-          </div>
 
           {/* Live Clock */}
           {currentTime && (
