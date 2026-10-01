@@ -3,6 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { BOOKS } from '@/data/books';
+import MacWindowCard from './MacWindowCard';
 
 const Bookshelf3D = dynamic(() => import('./Bookshelf3D'), {
   ssr: false,
@@ -17,26 +18,30 @@ const Bookshelf3D = dynamic(() => import('./Bookshelf3D'), {
 
 const BooksCard: React.FC = () => {
   return (
-    <div>
-      <span className="text-xs font-mono text-[var(--color-border)] block mb-2">03</span>
-      <div className="flex items-baseline justify-between mb-6">
-        <h2 className="section-heading mb-0">Recent readings</h2>
+    <MacWindowCard title="bookshelf_3d.scene" actionText={`${BOOKS.length} volumes`}>
+      <div className="flex items-baseline justify-between mb-4 pb-3 border-b border-[var(--color-border)]">
+        <div>
+          <span className="text-[10px] font-mono text-[var(--color-accent)] block uppercase tracking-wider mb-1">
+            Library
+          </span>
+          <h2 className="section-heading mb-0 text-2xl sm:text-3xl">Recent Readings</h2>
+        </div>
         <a
           href="https://www.goodreads.com/user/show/150192618-haroun-guessous"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors duration-200"
+          className="text-xs font-mono text-[var(--color-accent)] hover:underline flex items-center gap-1"
         >
           Goodreads &rarr;
         </a>
       </div>
 
-      <p className="mb-2 max-w-2xl text-[15px] leading-relaxed text-[var(--color-muted)]">
-        Books I keep going back to. Drag the shelf to browse, click a volume to pick it up.
+      <p className="mb-4 text-sm leading-relaxed text-[var(--color-muted)] font-mono">
+        Books I keep going back to. Drag the 3D shelf to rotate, click a volume to pick it up.
       </p>
 
       <Bookshelf3D />
-    </div>
+    </MacWindowCard>
   );
 };
 

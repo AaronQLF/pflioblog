@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import MacWindowCard from "./MacWindowCard";
 
 function seededRandom(seed: number): number {
     let t = (seed + 0x6d2b79f5) | 0;
@@ -60,19 +61,20 @@ function generateData(): { weeks: DayData[][]; monthLabels: { label: string; col
                 else if (r > 0.08) commits = Math.floor(seededRandom(seed + 1) * 2) + 1;
             }
 
-            week.push({ commits, intensity: isFuture ? -1 : commitToIntensity(commits), date });
-
-            if (d === 0) {
-                const month = date.getMonth();
-                if (month !== lastMonth) {
-                    monthLabels.push({ label: MONTHS[month], col: w });
-                    lastMonth = month;
-                }
+            const m = date.getMonth();
+            if (m !== lastMonth && d === 0 && !isFuture) {
+                monthLabels.push({ label: MONTHS[m], col: w });
+                lastMonth = m;
             }
+
+            week.push({
+                commits,
+                intensity: isFuture ? -1 : commitToIntensity(commits),
+                date,
+            });
         }
         weeks.push(week);
     }
-
     return { weeks, monthLabels };
 }
 
@@ -98,101 +100,104 @@ export default function ActivityGraph() {
     const gridWidth = activityData.length * (CELL + GAP) - GAP;
 
     return (
-        <div className="relative">
-            <span className="text-xs font-mono text-[var(--color-border)] block mb-2">05</span>
-            <div className="flex items-baseline justify-between mb-10">
-                <h2 className="section-heading mb-0">Activity (Aggregated from GitHub,GitLab, and Bitbucket)</h2>
-                <span className="text-xs font-mono text-[var(--color-muted)]">
-                    {totalContributions.toLocaleString()} contributions
-                </span>
-            </div>
-
-            <div className="overflow-x-auto no-scrollbar flex justify-center">
-                <div style={{ width: labelColWidth + gridWidth }}>
-                    <div className="flex" style={{ marginLeft: labelColWidth }}>
-                        {activityData.map((_, i) => {
-                            const label = monthLabels.find(m => m.col === i);
-                            return (
-                                <div
-                                    key={i}
-                                    className="text-[10px] text-[var(--color-muted)] font-mono shrink-0"
-                                    style={{ width: CELL + GAP }}
-                                >
-                                    {label ? label.label : ''}
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                    <div className="flex mt-1">
-                        <div className="shrink-0 flex flex-col" style={{ width: labelColWidth, gap: GAP }}>
-                            {DAYS.map((day, i) => (
-                                <div
-                                    key={i}
-                                    className="text-[10px] text-[var(--color-muted)] font-mono text-right pr-1.5 leading-none flex items-center justify-end"
-                                    style={{ height: CELL }}
-                                >
-                                    {i % 2 === 1 ? day : ''}
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="flex" style={{ gap: GAP }}>
-                            {activityData.map((week, wIndex) => (
-                                <div key={wIndex} className="flex flex-col" style={{ gap: GAP }}>
-                                    {week.map((day, dIndex) => {
-                                        if (day.intensity === -1) {
-                                            return <div key={dIndex} style={{ width: CELL, height: CELL }} />;
-                                        }
-                                        return (
-                                            <div
-                                                key={dIndex}
-                                                className={`rounded-sm ${COLORS[day.intensity]} cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-[var(--color-accent)]/50 hover:ring-offset-1 hover:ring-offset-[#f5f1e6] dark:hover:ring-offset-[#0e1511]`}
-                                                style={{ width: CELL, height: CELL }}
-                                                onMouseEnter={(e) => {
-                                                    const rect = e.currentTarget.getBoundingClientRect();
-                                                    const parentRect = e.currentTarget.closest('.relative')!.getBoundingClientRect();
-                                                    const label = day.commits === 0
-                                                        ? `No contributions on ${formatDate(day.date)}`
-                                                        : `${day.commits} contribution${day.commits !== 1 ? 's' : ''} on ${formatDate(day.date)}`;
-                                                    setTooltip({
-                                                        x: rect.left - parentRect.left + rect.width / 2,
-                                                        y: rect.top - parentRect.top - 8,
-                                                        text: label,
-                                                    });
-                                                }}
-                                                onMouseLeave={() => setTooltip(null)}
-                                            />
-                                        );
-                                    })}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+        <MacWindowCard title="activity_commits.git" actionText={`${totalContributions.toLocaleString()} commits`}>
+            <div className="flex items-baseline justify-between mb-4 pb-3 border-b border-[var(--color-border)]">
+                <div>
+                    <span className="text-[10px] font-mono text-[var(--color-accent)] block uppercase tracking-wider mb-1">
+                        Commit Telemetry
+                    </span>
+                    <h2 className="section-heading mb-0 text-2xl sm:text-3xl">Engineering Activity</h2>
                 </div>
             </div>
 
-            <div className="mt-3 flex items-center justify-end gap-1.5 text-[10px] font-mono text-[var(--color-muted)]">
-                <span className="mr-0.5">Less</span>
-                {[0, 1, 2, 3, 4].map(level => (
-                    <div key={level} className={`rounded-sm ${COLORS[level]}`} style={{ width: 10, height: 10 }} />
-                ))}
-                <span className="ml-0.5">More</span>
-            </div>
+            <div className="relative">
+                <div className="overflow-x-auto no-scrollbar flex justify-center py-2">
+                    <div style={{ width: labelColWidth + gridWidth }}>
+                        <div className="flex" style={{ marginLeft: labelColWidth }}>
+                            {activityData.map((_, i) => {
+                                const label = monthLabels.find(m => m.col === i);
+                                return (
+                                    <div
+                                        key={i}
+                                        className="text-[10px] text-[var(--color-muted)] font-mono shrink-0"
+                                        style={{ width: CELL + GAP }}
+                                    >
+                                        {label ? label.label : ''}
+                                    </div>
+                                );
+                            })}
+                        </div>
 
-            {tooltip && (
-                <div
-                    className="absolute z-50 pointer-events-none px-2.5 py-1.5 rounded-md bg-[#161b21] dark:bg-[#232a31] text-white text-[11px] font-mono whitespace-nowrap shadow-lg"
-                    style={{
-                        left: tooltip.x,
-                        top: tooltip.y,
-                        transform: 'translate(-50%, -100%)',
-                    }}
-                >
-                    {tooltip.text}
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#161b21] dark:border-t-[#232a31]" />
+                        <div className="flex mt-1">
+                            <div className="shrink-0 flex flex-col" style={{ width: labelColWidth, gap: GAP }}>
+                                {DAYS.map((day, i) => (
+                                    <div
+                                        key={i}
+                                        className="text-[10px] text-[var(--color-muted)] font-mono text-right pr-1.5 leading-none flex items-center justify-end"
+                                        style={{ height: CELL }}
+                                    >
+                                        {i % 2 === 1 ? day : ''}
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="flex" style={{ gap: GAP }}>
+                                {activityData.map((week, wIndex) => (
+                                    <div key={wIndex} className="flex flex-col" style={{ gap: GAP }}>
+                                        {week.map((day, dIndex) => {
+                                            if (day.intensity === -1) {
+                                                return <div key={dIndex} style={{ width: CELL, height: CELL }} />;
+                                            }
+                                            return (
+                                                <div
+                                                    key={dIndex}
+                                                    className={`rounded-sm ${COLORS[day.intensity]} cursor-pointer transition-all duration-150 hover:ring-1 hover:ring-[var(--color-accent)]/50 hover:ring-offset-1 hover:ring-offset-[#f5f1e6] dark:hover:ring-offset-[#0e1511]`}
+                                                    style={{ width: CELL, height: CELL }}
+                                                    onMouseEnter={(e) => {
+                                                        const rect = e.currentTarget.getBoundingClientRect();
+                                                        const parentRect = e.currentTarget.closest('.relative')!.getBoundingClientRect();
+                                                        const label = day.commits === 0
+                                                            ? `No contributions on ${formatDate(day.date)}`
+                                                            : `${day.commits} contribution${day.commits !== 1 ? 's' : ''} on ${formatDate(day.date)}`;
+                                                        setTooltip({
+                                                            x: rect.left - parentRect.left + rect.width / 2,
+                                                            y: rect.top - parentRect.top - 8,
+                                                            text: label,
+                                                        });
+                                                    }}
+                                                    onMouseLeave={() => setTooltip(null)}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            )}
-        </div>
+
+                <div className="mt-4 flex items-center justify-end gap-1.5 text-[10px] font-mono text-[var(--color-muted)]">
+                    <span className="mr-0.5">Less</span>
+                    {[0, 1, 2, 3, 4].map(level => (
+                        <div key={level} className={`rounded-sm ${COLORS[level]}`} style={{ width: 10, height: 10 }} />
+                    ))}
+                    <span className="ml-0.5">More</span>
+                </div>
+
+                {tooltip && (
+                    <div
+                        className="absolute z-50 pointer-events-none px-2.5 py-1.5 rounded-md bg-[#161b21] dark:bg-[#232a31] text-white text-[11px] font-mono whitespace-nowrap shadow-lg"
+                        style={{
+                            left: tooltip.x,
+                            top: tooltip.y,
+                            transform: 'translate(-50%, -100%)',
+                        }}
+                    >
+                        {tooltip.text}
+                        <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#161b21] dark:border-t-[#232a31]" />
+                    </div>
+                )}
+            </div>
+        </MacWindowCard>
     );
 }

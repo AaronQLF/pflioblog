@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import ExpandableDetailRow from "./ExpandableDetailRow";
+import MacWindowCard from "./MacWindowCard";
 
 interface Experience {
   title: string;
@@ -88,13 +89,14 @@ const ExperienceCard: React.FC = () => {
   ];
 
   return (
-    <div>
-      <span className="text-xs font-mono text-[var(--color-border)] block mb-2">01</span>
-      <div className="flex items-baseline justify-between gap-4 mb-10">
-        <h2 className="section-heading mb-0">Experience</h2>
-        <span className="text-xs font-mono text-[var(--color-muted)] shrink-0">
-          2022 — Present
-        </span>
+    <MacWindowCard title="experience.app" actionText="2022 — Present">
+      <div className="flex items-baseline justify-between gap-4 mb-6 pb-3 border-b border-[var(--color-border)]">
+        <div>
+          <span className="text-[10px] font-mono text-[var(--color-accent)] block uppercase tracking-wider mb-1">
+            Career Timeline
+          </span>
+          <h2 className="section-heading mb-0 text-2xl sm:text-3xl">Work & Leadership</h2>
+        </div>
       </div>
 
       <div className="space-y-0">
@@ -113,7 +115,7 @@ const ExperienceCard: React.FC = () => {
           />
         ))}
       </div>
-    </div>
+    </MacWindowCard>
   );
 };
 

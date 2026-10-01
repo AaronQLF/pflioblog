@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import ExpandableDetailRow from "./ExpandableDetailRow";
+import MacWindowCard from "./MacWindowCard";
 
 const EducationCard: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -44,13 +45,14 @@ const EducationCard: React.FC = () => {
   ];
 
   return (
-    <div>
-      <span className="text-xs font-mono text-[var(--color-border)] block mb-2">02</span>
-      <div className="flex items-baseline justify-between gap-4 mb-10">
-        <h2 className="section-heading mb-0">Education</h2>
-        <span className="text-xs font-mono text-[var(--color-muted)] shrink-0">
-          2017 — Present
-        </span>
+    <MacWindowCard title="education.db" actionText="2017 — Present">
+      <div className="flex items-baseline justify-between gap-4 mb-6 pb-3 border-b border-[var(--color-border)]">
+        <div>
+          <span className="text-[10px] font-mono text-[var(--color-accent)] block uppercase tracking-wider mb-1">
+            Academic Foundation
+          </span>
+          <h2 className="section-heading mb-0 text-2xl sm:text-3xl">Education</h2>
+        </div>
       </div>
 
       <div className="space-y-0">
@@ -69,7 +71,7 @@ const EducationCard: React.FC = () => {
           />
         ))}
       </div>
-    </div>
+    </MacWindowCard>
   );
 };
 
