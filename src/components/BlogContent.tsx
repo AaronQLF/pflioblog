@@ -43,7 +43,7 @@ export default function BlogContent({ content }: { content: string }) {
                     ),
                     pre: ({children, ...props}) => (
                         <div className="my-6 rounded-xl border border-[var(--color-border)] overflow-hidden shadow-md">
-                            <div className="bg-[#111115] dark:bg-[#0d0d0f] px-4 py-2 flex items-center justify-between border-b border-gray-800/80 select-none">
+                            <div className="bg-[#0c0c0e] dark:bg-[#080808] px-4 py-2 flex items-center justify-between border-b border-gray-800/90 select-none">
                                 <div className="flex items-center gap-1.5">
                                     <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
                                     <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
