@@ -182,3 +182,16 @@ html.dark {
     scrollbar-width: none;
   }
 }
+
+@keyframes cloudDrift {
+  0% {
+    transform: translateX(0px) translateY(0px);
+  }
+  50% {
+    transform: translateX(45px) translateY(-12px);
+  }
+  100% {
+    transform: translateX(0px) translateY(0px);
+  }
+}
+

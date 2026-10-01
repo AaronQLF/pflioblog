@@ -3,6 +3,7 @@ import "./globals.css";
 import "katex/dist/katex.min.css";
 import { ThemeProvider } from "../context/ThemeContext";
 import Footer from "../components/Footer";
+import LivelyCloudBackground from "../components/LivelyCloudBackground";
 
 export const metadata: Metadata = {
   title: "Haroun Guessous | Portfolio",
@@ -25,10 +26,13 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className="relative min-h-screen">
         <ThemeProvider>
-          <main className="transition-colors duration-200">{children}</main>
-          <Footer />
+          <LivelyCloudBackground />
+          <div className="relative z-10">
+            <main className="transition-colors duration-200">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>
