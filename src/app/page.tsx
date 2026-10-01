@@ -49,14 +49,6 @@ export default function Home() {
 
               <div className="min-w-0 flex-1 space-y-5">
                 <div className="space-y-2">
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="gloss-pill text-[10px] text-teal-600 dark:text-teal-400">
-                      Forward Deployed Eng @ Slalom
-                    </span>
-                    <span className="gloss-pill text-[10px] text-sky-600 dark:text-sky-400">
-                      M.Sc. @ UdeM / Mila
-                    </span>
-                  </div>
                   <h1 className="text-3xl sm:text-5xl font-serif italic font-normal leading-tight text-[var(--color-fg)]">
                     Hi, I&apos;m Haroun Guessous.
                   </h1>

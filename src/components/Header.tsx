@@ -50,7 +50,7 @@ const Header = () => {
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
             <span className="font-serif text-lg tracking-tight group-hover:text-[var(--color-accent)] transition-colors">
-              haroun.app
+              Haroun Guessous
             </span>
           </Link>
 
