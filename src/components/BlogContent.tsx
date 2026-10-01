@@ -23,6 +23,7 @@ export default function BlogContent({ content }: { content: string }) {
           prose-a:text-[var(--color-accent)] prose-a:no-underline hover:prose-a:underline
           prose-strong:text-[var(--color-fg)]
           prose-code:text-[var(--color-accent)] prose-code:bg-[var(--color-code-bg)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.85em] prose-code:font-mono prose-code:font-normal
+          prose-pre:code:bg-transparent prose-pre:code:p-0 prose-pre:code:text-inherit prose-pre:code:font-mono
           prose-blockquote:border-l-4 prose-blockquote:border-[var(--color-accent)] prose-blockquote:bg-[var(--color-surface-hover)] prose-blockquote:p-4 prose-blockquote:rounded-r-lg prose-blockquote:text-[var(--color-muted)] prose-blockquote:italic
           prose-li:text-[var(--color-fg)]
           prose-hr:border-[var(--color-border)]
@@ -51,7 +52,7 @@ export default function BlogContent({ content }: { content: string }) {
                                 <span className="font-mono text-[11px] text-gray-400">terminal.sh</span>
                                 <div className="w-10" />
                             </div>
-                            <pre className="!bg-[#161b22] !text-[#f0f6fc] !m-0 !p-4 !rounded-none overflow-x-auto text-sm" {...props}>
+                            <pre className="!bg-[#161b22] !text-[#f0f6fc] !m-0 !p-4 !rounded-none overflow-x-auto text-sm [&_code]:!bg-transparent [&_code]:!p-0 [&_code]:!text-inherit [&_code]:!border-none" {...props}>
                                 {children}
                             </pre>
                         </div>
