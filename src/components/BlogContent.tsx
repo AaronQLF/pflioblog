@@ -43,7 +43,7 @@ export default function BlogContent({ content }: { content: string }) {
                     ),
                     pre: ({children, ...props}) => (
                         <div className="my-6 rounded-xl border border-[var(--color-border)] overflow-hidden shadow-md">
-                            <div className="bg-[#1f242c] dark:bg-[#161b22] px-4 py-2 flex items-center justify-between border-b border-gray-700/50 select-none">
+                            <div className="bg-[#111115] dark:bg-[#0d0d0f] px-4 py-2 flex items-center justify-between border-b border-gray-800/80 select-none">
                                 <div className="flex items-center gap-1.5">
                                     <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
                                     <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
@@ -52,7 +52,7 @@ export default function BlogContent({ content }: { content: string }) {
                                 <span className="font-mono text-[11px] text-gray-400">terminal.sh</span>
                                 <div className="w-10" />
                             </div>
-                            <pre className="!bg-[#161b22] !text-[#f0f6fc] !m-0 !p-4 !rounded-none overflow-x-auto text-sm [&_code]:!bg-transparent [&_code]:!p-0 [&_code]:!text-inherit [&_code]:!border-none" {...props}>
+                            <pre className="!bg-[#000000] !text-[#f0f6fc] !m-0 !p-4 !rounded-none overflow-x-auto text-sm [&_code]:!bg-transparent [&_code]:!p-0 [&_code]:!text-inherit [&_code]:!border-none" {...props}>
                                 {children}
                             </pre>
                         </div>
