@@ -22,17 +22,17 @@
 }
 
 html.dark {
-  --color-bg: #000000;
+  --color-bg: #050505;
   --color-accent: #38bdf8;
   --color-accent-light: #7dd3fc;
-  --color-fg: #f0f6fc;
-  --color-muted: #7e8792;
-  --color-surface: #040404;
-  --color-surface-hover: #0a0a0a;
-  --color-border: #181818;
-  --color-win-bar: linear-gradient(90deg, #080808 0%, #101010 50%, #080808 100%);
-  --color-code-bg: #040404;
-  --shadow-window: 0 12px 35px -5px rgba(0, 0, 0, 0.95), 0 4px 15px -2px rgba(0, 0, 0, 0.85);
+  --color-fg: #f0f0f0;
+  --color-muted: #888888;
+  --color-surface: #111111;
+  --color-surface-hover: #1a1a1a;
+  --color-border: #262626;
+  --color-win-bar: linear-gradient(90deg, #181818 0%, #242424 50%, #181818 100%);
+  --color-code-bg: #121212;
+  --shadow-window: 0 12px 35px -5px rgba(0, 0, 0, 0.8), 0 4px 15px -2px rgba(0, 0, 0, 0.6);
 }
 
 @layer base {

@@ -13,7 +13,7 @@ const LivelyCloudBackground: React.FC = () => {
 
       {/* Layer 1: Top Sky Clouds */}
       <div
-        className="absolute -top-4 left-[2%] text-[var(--color-border)] dark:text-slate-800 opacity-50 dark:opacity-40 animate-[cloudDrift_40s_linear_infinite]"
+        className="absolute -top-4 left-[2%] text-[var(--color-border)] dark:text-neutral-900 opacity-50 dark:opacity-40 animate-[cloudDrift_40s_linear_infinite]"
       >
         <svg width="240" height="130" viewBox="0 0 240 130" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -37,7 +37,7 @@ const LivelyCloudBackground: React.FC = () => {
       </div>
 
       <div
-        className="absolute top-4 left-[42%] text-[var(--color-border)] dark:text-slate-800 opacity-40 dark:opacity-30 animate-[cloudDrift_55s_linear_infinite_reverse]"
+        className="absolute top-4 left-[42%] text-[var(--color-border)] dark:text-neutral-900 opacity-40 dark:opacity-30 animate-[cloudDrift_55s_linear_infinite_reverse]"
       >
         <svg width="170" height="90" viewBox="0 0 170 90" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -53,7 +53,7 @@ const LivelyCloudBackground: React.FC = () => {
       </div>
 
       <div
-        className="absolute top-12 right-[2%] text-[var(--color-border)] dark:text-slate-800 opacity-55 dark:opacity-45 animate-[cloudDrift_65s_linear_infinite_reverse]"
+        className="absolute top-12 right-[2%] text-[var(--color-border)] dark:text-neutral-900 opacity-55 dark:opacity-45 animate-[cloudDrift_65s_linear_infinite_reverse]"
       >
         <svg width="290" height="155" viewBox="0 0 290 155" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -77,7 +77,7 @@ const LivelyCloudBackground: React.FC = () => {
 
       {/* Layer 2: Upper-Mid Sky Clouds */}
       <div
-        className="absolute top-[22%] left-[18%] text-[var(--color-border)] dark:text-slate-800 opacity-35 dark:opacity-30 animate-[cloudDrift_50s_linear_infinite]"
+        className="absolute top-[22%] left-[18%] text-[var(--color-border)] dark:text-neutral-900 opacity-35 dark:opacity-30 animate-[cloudDrift_50s_linear_infinite]"
       >
         <svg width="210" height="110" viewBox="0 0 210 110" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -93,7 +93,7 @@ const LivelyCloudBackground: React.FC = () => {
       </div>
 
       <div
-        className="absolute top-[30%] right-[16%] text-[var(--color-border)] dark:text-slate-800 opacity-40 dark:opacity-35 animate-[cloudDrift_70s_linear_infinite_reverse]"
+        className="absolute top-[30%] right-[16%] text-[var(--color-border)] dark:text-neutral-900 opacity-40 dark:opacity-35 animate-[cloudDrift_70s_linear_infinite_reverse]"
       >
         <svg width="230" height="120" viewBox="0 0 230 120" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -117,7 +117,7 @@ const LivelyCloudBackground: React.FC = () => {
 
       {/* Layer 3: Mid Screen Clouds */}
       <div
-        className="absolute top-[44%] left-[-2%] text-[var(--color-border)] dark:text-slate-800 opacity-45 dark:opacity-35 animate-[cloudDrift_80s_linear_infinite]"
+        className="absolute top-[44%] left-[-2%] text-[var(--color-border)] dark:text-neutral-900 opacity-45 dark:opacity-35 animate-[cloudDrift_80s_linear_infinite]"
       >
         <svg width="260" height="140" viewBox="0 0 260 140" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -140,7 +140,7 @@ const LivelyCloudBackground: React.FC = () => {
       </div>
 
       <div
-        className="absolute top-[52%] right-[28%] text-[var(--color-border)] dark:text-slate-800 opacity-30 dark:opacity-25 animate-[cloudDrift_48s_linear_infinite_reverse]"
+        className="absolute top-[52%] right-[28%] text-[var(--color-border)] dark:text-neutral-900 opacity-30 dark:opacity-25 animate-[cloudDrift_48s_linear_infinite_reverse]"
       >
         <svg width="180" height="95" viewBox="0 0 180 95" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -157,7 +157,7 @@ const LivelyCloudBackground: React.FC = () => {
 
       {/* Layer 4: Lower Sky Clouds */}
       <div
-        className="absolute top-[68%] left-[8%] text-[var(--color-border)] dark:text-slate-800 opacity-40 dark:opacity-35 animate-[cloudDrift_62s_linear_infinite]"
+        className="absolute top-[68%] left-[8%] text-[var(--color-border)] dark:text-neutral-900 opacity-40 dark:opacity-35 animate-[cloudDrift_62s_linear_infinite]"
       >
         <svg width="240" height="130" viewBox="0 0 240 130" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -180,7 +180,7 @@ const LivelyCloudBackground: React.FC = () => {
       </div>
 
       <div
-        className="absolute top-[75%] right-[-1%] text-[var(--color-border)] dark:text-slate-800 opacity-45 dark:opacity-35 animate-[cloudDrift_58s_linear_infinite_reverse]"
+        className="absolute top-[75%] right-[-1%] text-[var(--color-border)] dark:text-neutral-900 opacity-45 dark:opacity-35 animate-[cloudDrift_58s_linear_infinite_reverse]"
       >
         <svg width="270" height="145" viewBox="0 0 270 145" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -197,7 +197,7 @@ const LivelyCloudBackground: React.FC = () => {
 
       {/* Layer 5: Bottom Horizon Clouds */}
       <div
-        className="absolute top-[88%] left-[25%] text-[var(--color-border)] dark:text-slate-800 opacity-35 dark:opacity-30 animate-[cloudDrift_72s_linear_infinite]"
+        className="absolute top-[88%] left-[25%] text-[var(--color-border)] dark:text-neutral-900 opacity-35 dark:opacity-30 animate-[cloudDrift_72s_linear_infinite]"
       >
         <svg width="220" height="115" viewBox="0 0 220 115" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

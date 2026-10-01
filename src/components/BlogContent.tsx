@@ -43,16 +43,16 @@ export default function BlogContent({ content }: { content: string }) {
                     ),
                     pre: ({children, ...props}) => (
                         <div className="my-6 rounded-xl border border-[var(--color-border)] overflow-hidden shadow-md">
-                            <div className="bg-[#0c0c0e] dark:bg-[#080808] px-4 py-2 flex items-center justify-between border-b border-gray-800/90 select-none">
+                            <div className="bg-[#181818] dark:bg-[#141414] px-4 py-2 flex items-center justify-between border-b border-neutral-800 select-none">
                                 <div className="flex items-center gap-1.5">
                                     <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
                                     <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
                                     <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
                                 </div>
-                                <span className="font-mono text-[11px] text-gray-400">terminal.sh</span>
+                                <span className="font-mono text-[11px] text-neutral-400">terminal.sh</span>
                                 <div className="w-10" />
                             </div>
-                            <pre className="!bg-[#000000] !text-[#f0f6fc] !m-0 !p-4 !rounded-none overflow-x-auto text-sm [&_code]:!bg-transparent [&_code]:!p-0 [&_code]:!text-inherit [&_code]:!border-none" {...props}>
+                            <pre className="!bg-[#0a0a0a] !text-[#f0f0f0] !m-0 !p-4 !rounded-none overflow-x-auto text-sm [&_code]:!bg-transparent [&_code]:!p-0 [&_code]:!text-inherit [&_code]:!border-none" {...props}>
                                 {children}
                             </pre>
                         </div>

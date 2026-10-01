@@ -82,11 +82,11 @@ const { weeks: activityData, monthLabels } = generateData();
 const totalContributions = activityData.flat().reduce((sum, d) => sum + d.commits, 0);
 
 const COLORS: Record<number, string> = {
-    0: 'bg-[#d9e0e6] dark:bg-[#2a323b]',
-    1: 'bg-[#c2dedb] dark:bg-[#26403d]',
-    2: 'bg-[#8fc4bf] dark:bg-[#2f5f59]',
-    3: 'bg-[#3f928b] dark:bg-[#3f857d]',
-    4: 'bg-[#0e6e66] dark:bg-[#69c4b8]',
+    0: 'bg-[#d9e0e6] dark:bg-[#1c1c1c]',
+    1: 'bg-[#c2dedb] dark:bg-[#203b35]',
+    2: 'bg-[#8fc4bf] dark:bg-[#285750]',
+    3: 'bg-[#3f928b] dark:bg-[#387c74]',
+    4: 'bg-[#0e6e66] dark:bg-[#52b8ab]',
 };
 
 function formatDate(date: Date): string {
@@ -186,7 +186,7 @@ export default function ActivityGraph() {
 
                 {tooltip && (
                     <div
-                        className="absolute z-50 pointer-events-none px-2.5 py-1.5 rounded-md bg-[#161b21] dark:bg-[#232a31] text-white text-[11px] font-mono whitespace-nowrap shadow-lg"
+                        className="absolute z-50 pointer-events-none px-2.5 py-1.5 rounded-md bg-[#181818] dark:bg-[#181818] text-white text-[11px] font-mono whitespace-nowrap shadow-lg border border-[var(--color-border)]"
                         style={{
                             left: tooltip.x,
                             top: tooltip.y,
@@ -194,7 +194,7 @@ export default function ActivityGraph() {
                         }}
                     >
                         {tooltip.text}
-                        <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#161b21] dark:border-t-[#232a31]" />
+                        <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#181818] dark:border-t-[#181818]" />
                     </div>
                 )}
             </div>
