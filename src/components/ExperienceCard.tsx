@@ -17,7 +17,7 @@ const ExperienceCard: React.FC = () => {
 
   const experiences: Experience[] = [
     {
-      title: "Forward Deployed Engineer",
+      title: "AI Forward Deployed Engineer",
       company: "Slalom",
       period: "Aug 2026 – Present · Full-time",
       isActive: true,
