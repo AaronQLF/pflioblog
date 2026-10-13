@@ -17,14 +17,24 @@ const ExperienceCard: React.FC = () => {
 
   const experiences: Experience[] = [
     {
+      title: "Chief Technology Officer",
+      company: "Brikli",
+      period: "Oct 2026 – Present",
+      isActive: true,
+      achievements: [
+        "Having fun",
+      ],
+    },
+    {
       title: "AI Forward Deployed Engineer",
       company: "Slalom",
       period: "Aug 2026 – Present · Full-time",
       isActive: true,
       achievements: [
-        "Architecting and deploying production AI/ML solutions and cloud data pipelines for enterprise clients",
-        "Partnering with executive and technical stakeholders to design scalable machine learning workflows, modern data architectures, and LLM integrations",
-        "Leading hands-on implementation of high-throughput data processing and AI infrastructure tailored to complex domain requirements",
+        "Architecting and deploying production generative AI and agentic workflows for tier-1 financial institutions, asset managers, and capital markets clients",
+        "Building domain-specialized RAG systems for investment research, earnings call analysis, and SEC regulatory filings with verifiable citation tracking and compliance guardrails",
+        "Engineering high-throughput data pipelines and low-latency ML inference infrastructure on AWS, Snowflake, and Databricks for real-time risk assessment and portfolio intelligence",
+        "Embedding directly with front-office investment teams, quantitative researchers, and compliance leadership to translate high-stakes financial operations into production AI solutions",
       ],
     },
     {
