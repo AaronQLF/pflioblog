@@ -17,15 +17,6 @@ const ExperienceCard: React.FC = () => {
 
   const experiences: Experience[] = [
     {
-      title: "Chief Technology Officer",
-      company: "Brikli",
-      period: "Oct 2026 – Present",
-      isActive: true,
-      achievements: [
-        "Having fun",
-      ],
-    },
-    {
       title: "AI Forward Deployed Engineer",
       company: "Slalom",
       period: "Aug 2026 – Present · Full-time",
